@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="nctinfomapper">
+
+	<resultMap type="NctinfoDto" id="NctinfoDtoMap">
+		<result property="nctinfoid" column="NCTINFOID"/>
+		<result property="dietid" column="DIETID"/>
+		<result property="kcal" column="KCAL"/>
+		<result property="carbohydrate" column="CARBOHYDRATE"/>
+		<result property="protein" column="PROTEIN"/>
+		<result property="fat" column="FAT"/>
+		<result property="nctetc" column="NCTETC"/>
+	</resultMap>
+	
+	<select id="selectList" resultMap="NctinfoDto">
+		SELECT NCTINFOID, DIETID, KCAL, CARBOHYDRATE,
+		PROTEIN, FAT, NCTETC
+	    FROM PSTM_NCTINFO
+	</select>
+	
+	<insert id="insert" parameterType="NctinfoDto">
+		INSERT INTO PSTM_NCTINFO
+		VALUES(NCTINFOIDSEQ.NEXTVAL, #{kcal}, #{carbohydrate}, #{protein}, #{fat}, #{nctetc})
+	</insert>
+	
+	<update id="update" parameterType="NctinfoDto">
+	UPDATE PSTM_NCTUNFO SET KCAL = #{kcal}, CARBOHYDRATE = #{carbohydrate}, PROTEIN = #{protein} WHERE NCTINFOID = #{nctinfoid}
+	</update>
+	
+	<delete id="delete" parameterType="NctinfoDto">
+	DELETE FROM PSTM_NCTINFO WHERE NCTINFOID = #{nctinfoid}
+	</delete>
+</mapper>
