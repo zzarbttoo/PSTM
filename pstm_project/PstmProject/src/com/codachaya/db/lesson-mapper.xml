@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="lessonmapper">
+<resultMap type="LessonDto" id="LessonResultMap">
+	<result property="userid" 		column="USERID"/>
+	<result property="classcontent" 		column="CLASSCONTENT"/>
+	<result property="priceinfo" 		column="PRICEINFO"/>
+	<result property="studentid" 		column="STUDENTID"/>
+
+</resultMap>
+	<select id="selectList" resultMap="LessonResultMap">
+		SELECT USERID , CLASSCONTENT , PRICEINFO , STUDENTID
+		FROM PSTM_LESSON	
+	</select>
+	
+	<select id="selectOne" resultType="LessonDto" parameterType="int">
+		SELECT USERTID , CLASSCONTENT , PRICEINFO , STUDENTID
+		FROM PSTM_LESSON WHERE USERID = #{userid}
+	
+	</select>
+	
+	<insert id="insert" parameterType="LessonDto">
+		INSERT INTO PSTM_LESSON VALUES(MYSEQ.NEXTVAL, #{classcontent},#{priceinfo},#{studentid})
+	</insert>
+	
+	<delete id="delete" parameterType="int">
+		DELETE FROM PSTM_LESSON WHERE USERID = #{userid}
+	</delete>
+	
+	<update id="update" parameterType="int">
+		UPDATE PSTM_LESSON SET CLASSCONTENT = #{classcontent} , PRICEINFO = #{priceinfo} , STUDENTID = #{studentid} WHERE USERID = #{userid}
+	</update>
+	
+  
+</mapper>
