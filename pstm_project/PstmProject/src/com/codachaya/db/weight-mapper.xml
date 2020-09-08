@@ -1,35 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="weightmapper">
-  
-   <resultMap type="ExerciseDto" id="exerciseResultMap">
-  
-  	<result property="weightid" column="WEIGHTID"/>
-  	<result property="userid" column="USERID"/>
-  	<result property="measuredate" column="MEASUREDATE"/>
-  	<result property="weight" column="WEIGHT"/>
-  
-  
-  </resultMap>
-  
-  <select id="selectList" resultMap="exerciseResultMap">
-  
-  	SELECT WEIGHTID, USERID, MEASUREDATE, WEIGHT 
-  	FROM PSTM_WEIGHTINFO
-   
-  </select>
-  
-  <select id="selectOne" resultMap="exerciseResultMap">
-  	
-  	SELECT WEIGHTID, USERID, MEASUREDATE, WEIGHT 
-  	FROM PSTM_WEIGHTINFO
-  	WHERE WEIGHTID = #{weightid}
-  
-  </select>
-  
-  	
-  
-  </mapper>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="weightmapper">
+
+	<resultMap type="WeightDto" id="WeightDtoMap">
+		<result property="weightid" column="WEIGHTID"/>
+		<result property="userid" column="USERID"/>
+		<result property="measuredate" column="MEASUREDATE"/>
+		<result property="weight" column="WEIGHT"/>
+	
+	</resultMap>
+	
+	<select id="selectList" resultMap="WeightDtoMap">
+		SELECT WEIGHTID, USERID, MEASUREDATE, WEIGHT
+		FROM PSTM_WEIGHTINFO
+	
+	</select>
+	
+	<select id="selectOne" resultMap="WeightDtoMap">
+		SELECT WEIGHTID, USERID, MEASUREDATE, WEIGHT
+		FROM PSTM_WEIGHTINFO
+		WHERE WEIGHTID = #{weightid}
+	</select>
+		
+
+</mapper>
