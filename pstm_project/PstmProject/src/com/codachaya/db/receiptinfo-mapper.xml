@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace ="receiptinfomapper">
+	
+	<resultMap type  ="ReceiptinfoDto" id = "receiptinfoResultMap">
+		<result property  ="receiptid" column = "RECEIPTID"></result>
+		<result property ="userid" column = "USERID"></result>
+		<result property ="trainerid" column = "TRAINERID"></result>
+		<result property ="buydate" column = "BUYDATE"></result>
+		<result property ="startdate" column = "STARTDATE"></result>
+		<result property ="duration" column = "DURATION"></result>
+		<result property ="purchasetype" column = "PURCHASETYPE"></result>
+		<result property ="price" column = "PRICE"></result>
+	
+	</resultMap>
+	
+	<select id = "selectList" resultMap = "receiptinfomapper">
+		SELECT RECEIPTID, USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
+		PURCHASETYPE, PRICE
+		FROM PSTM_RECEIPTINFO
+		
+	</select>
+	
+	<select id = 
+	
+	<insert id = "insert">
+		INSERT INTO PSTM_RECEIPT VALUES(PSTM_RECEIPTSEQ.NEXTVAL, #{userid}, #{trainerid}, #{buydate}, #{startdate}, #{purchase}, #{price})
+	</insert>
+	
+	<delete id = "delete" parameterType = "int">
+		DELETE FROM PSTM_RECEIPTINFO WHERE RECEIPTID = #{receiptid}
+	</delete>
+	
+	<
+
+
+</mapper>
