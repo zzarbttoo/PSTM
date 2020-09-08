@@ -21,7 +21,7 @@
 		
 	</select>
 	
-	<select id = 
+
 	
 	<insert id = "insert">
 		INSERT INTO PSTM_RECEIPT VALUES(PSTM_RECEIPTSEQ.NEXTVAL, #{userid}, #{trainerid}, #{buydate}, #{startdate}, #{purchase}, #{price})
@@ -31,7 +31,6 @@
 		DELETE FROM PSTM_RECEIPTINFO WHERE RECEIPTID = #{receiptid}
 	</delete>
 	
-	<
 
 
 </mapper>
