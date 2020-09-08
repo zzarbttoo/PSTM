@@ -2,18 +2,18 @@ package com.codachaya.dto;
 
 import java.util.Date;
 
-public class exerciseDto {
+public class ExerciseDto {
 
 	private int weightid;
 	private int userid;
 	private Date measuredate;
 	private int weight;
 
-	public exerciseDto() {
+	public ExerciseDto() {
 
 	}
 
-	public exerciseDto(int weightid, int userid, Date measuredate, int weight) {
+	public ExerciseDto(int weightid, int userid, Date measuredate, int weight) {
 
 		this.weightid = weightid;
 		this.userid = userid;

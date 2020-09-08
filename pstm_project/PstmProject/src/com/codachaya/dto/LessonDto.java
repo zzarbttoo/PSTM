@@ -1,16 +1,16 @@
 package com.codachaya.dto;
 
-public class lessonDto {
+public class LessonDto {
 	private int userid;
 	private String classcontent;
 	private String priceinfo;
 	private String stdentid;
 	
-	public lessonDto() {
+	public LessonDto() {
 		
 	}
 	
-	public lessonDto(int userid, String classcontent, String priceinfo, String stdentid) {
+	public LessonDto(int userid, String classcontent, String priceinfo, String stdentid) {
 		this.userid = userid;
 		this.classcontent = classcontent;
 		this.priceinfo = priceinfo;

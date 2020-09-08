@@ -1,14 +1,14 @@
 package com.codachaya.dto;
 
-public class certificationDto {
+public class CertificationDto {
 	private int userid;
 	private String certifiurlmod;
 	private	String certifiurl;
 	
-	public certificationDto() {
+	public CertificationDto() {
 		
 	}
-	public certificationDto(int userid, String certifiurlmod, String certifiurl) {
+	public CertificationDto(int userid, String certifiurlmod, String certifiurl) {
 		this.userid = userid;
 		this.certifiurlmod = certifiurlmod;
 		this.certifiurl = certifiurl;

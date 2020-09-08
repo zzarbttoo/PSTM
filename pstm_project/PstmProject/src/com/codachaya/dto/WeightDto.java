@@ -1,17 +1,17 @@
 package com.codachaya.dto;
 
-public class weightDto {
+public class WeightDto {
 
 	private int id;
 	private int dailyinfoid;
 	private String content;
 	private int kcal;
 
-	public weightDto() {
+	public WeightDto() {
 
 	}
 
-	public weightDto(int id, int dailyinfoid, String content, int kcal) {
+	public WeightDto(int id, int dailyinfoid, String content, int kcal) {
 
 		this.id = id;
 		this.dailyinfoid = dailyinfoid;
