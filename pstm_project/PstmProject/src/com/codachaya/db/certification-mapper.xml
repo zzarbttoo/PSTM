@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="certificationmapper">
+<resultMap type="CertificationDto" id="CertificationResultMap">
+
+	<result property="userid" 		column="USERID"/>
+	<result property="certifiurlmod" 		column="CERTIFIURLMOD"/>
+	<result property="certifiurl" 		column="CERTIFIURL"/>
+
+</resultMap>
+
+<select id="selectList" resultMap="CertificationResultMap">
+	SELECT USERID , CERTIFIURLMOD , CERTIFIURL FROM PSTM_CERTIFICATION
+</select>
+
+<select id="selectOne" resultType="CertificationDto" parameterType="int">
+	SELECT USERID , CERTIFIURLMOD , CERTIFIURL FROM PSTM_CERTIFICATION WHERE USERID = #{userid}
+</select>
+
+<insert id="insert" parameterType="CertificationDto">
+	INSERT INTO PSTM_CERTIFICATION VALUES(MYSEQ.NEXTVAL , #{certifiurlmod} , #{certifiurl})
+</insert>
+
+<delete id="delete" parameterType="int">
+	DELETE FROM PSTM_CERTIFICATION WHERE USERID = #{userid}
+</delete>
+
+<update id="update" parameterType="int">
+	UPDATE PSTM_CERTIFICATION SET CERTIFIURLMOD = #{certifiurlmod} , CERTIFIURL = #{certifiurl} WHERE USERID = #{userid}
+</update>
+
+
+</mapper>
