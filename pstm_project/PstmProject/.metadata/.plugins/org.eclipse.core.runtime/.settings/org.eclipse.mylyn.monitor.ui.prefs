@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 eclipse.preferences.version=1
 org.eclipse.mylyn.monitor.activity.tracking.enabled.checked=true
+=======
+eclipse.preferences.version=1
+org.eclipse.mylyn.monitor.activity.tracking.enabled.checked=true
+>>>>>>> 7d4756bb66f2becbc079d4aecd10557ef3618be4

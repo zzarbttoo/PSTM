@@ -1,2 +1,7 @@
+<<<<<<< HEAD
 eclipse.preferences.version=1
 org.eclipse.jsch.core.hasChangedDefaultWin32SshHome=true
+=======
+eclipse.preferences.version=1
+org.eclipse.jsch.core.hasChangedDefaultWin32SshHome=true
+>>>>>>> 7d4756bb66f2becbc079d4aecd10557ef3618be4
