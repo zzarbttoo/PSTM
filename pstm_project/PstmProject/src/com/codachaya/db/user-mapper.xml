@@ -6,9 +6,10 @@
 
 	<resultMap type="UserDto" id="userDto">
 		<result property="userid" column="USERID"/>
-		<result property="username" column="USERNAME"/>	
+		<result property="id" column="ID"/>	
 		<result property="password" column="PASSWORD"/>	
 		<result property="password_key" column="PASSWORD_KEY"/>	
+		<result property="name" column="NAME" />
 		<result property="phone" column="PHONE"/>	
 		<result property="addr" column="ADDR"/>	
 		<result property="detailaddr" column="DETAILADDR"/>	
@@ -19,29 +20,28 @@
 		<result property="originimg" column="ORIGINIMG"/>	
 		<result property="career" column="CAREER"/>	
 		<result property="mycomment" column="MYCOMMENT"/>	
-		<result property="admit" column="ADMIT"/>		
+		<result property="admit" column="ADMIT"/>	
+		<result property="signout" column="SIGNOUT"/>	
 	</resultMap>
 	
 	<select id="selectList" resultType="UserDto">
-		SELECT USERID, USERNAME, PASSWORD, PASSWORD_KEY, PHONE, ADDR, DETAILADDR,
-		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT, ADMIT
+		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT
 		FROM PSTM_USERINFO ORDER BY USERID DESC
 	</select>	
 	
 	<select id="selectOne" parameterType="int" resultType="UserDto">
-		SELECT USERID, USERNAME, PASSWORD, PASSWORD_KEY, PHONE, ADDR, DETAILADDR,
-		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT, ADMIT
+		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT
 		FROM PSTM_USERINFO
 		WHERE USERID = #{userId}
 	</select>
 	
 	<insert id="insert" parameterType="UserDto">
-		INSERT INTO MYBOARD VALUES(
-		MYSEQ.NEXTVAL, #{myName}, #{myTitle}, #{myContent}, SYSDATE)
 		INSERT INTO PSTM_USERINFO VALUES(
-		PSTM_USERSEQ.NEXTVAL, #{username}, #{password}, #{password_key}, #{phone}, 
+		PSTM_USERSEQ.NEXTVAL, #{id}, #{password}, #{password_key}, #{name}, #{phone}, 
 		#{addr}, #{deatiladdr}, #{usertype}, #{gender}, #{height}, #{uploadimg}, #{originimg}, #{career}, 
-		#{mycomment}, #{admit})
+		#{mycomment}, #{admit}, #{signout})
 	</insert>
 
 	<!-- 이후에 필요한 것 추가해서 사용할 것 -->
