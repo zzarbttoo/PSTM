@@ -10,27 +10,47 @@
 		<result property ="startdate" column = "STARTDATE"></result>
 		<result property ="duration" column = "DURATION"></result>
 		<result property ="purchasetype" column = "PURCHASETYPE"></result>
+		<result property ="checkright" column = "CHECKRIGHT"></result>
+		<result property ="refund" column = "REFUND"></result>
 		<result property ="price" column = "PRICE"></result>
 	
 	</resultMap>
 	
 	<select id = "selectList" resultMap = "receiptinfomapper">
 		SELECT RECEIPTID, USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
-		PURCHASETYPE, PRICE
+		PURCHASETYPE, CHECKRIGHT, REFUND, PRICE
 		FROM PSTM_RECEIPTINFO
 		
 	</select>
 	
+<<<<<<< HEAD
 
+=======
+	<select id = "selectOne" parameterType = "int">
+	
+		SELECT RECEIPTID , USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
+		PURCHASETYPE , CHECKRIGHT, REFUND, PRICE
+		FROM PSTM_RECEIPTINFO WHERE RECEIPTID = #{receiptid}
+		
+	</select>
+>>>>>>> af7381bd411224bd36602769a6d4c121ff5c4bf7
 	
 	<insert id = "insert">
-		INSERT INTO PSTM_RECEIPT VALUES(PSTM_RECEIPTSEQ.NEXTVAL, #{userid}, #{trainerid}, #{buydate}, #{startdate}, #{purchase}, #{price})
+		INSERT INTO PSTM_RECEIPT VALUES(PSTM_RECEIPTSEQ.NEXTVAL, #{userid}, #{trainerid}, #{buydate}, #{startdate},#{duration}, #{purchasetype}, 'Y', 'N', #{price})
 	</insert>
 	
 	<delete id = "delete" parameterType = "int">
 		DELETE FROM PSTM_RECEIPTINFO WHERE RECEIPTID = #{receiptid}
 	</delete>
 	
+<<<<<<< HEAD
 
+=======
+	<update id = "updaterefund" parameterType = "int">
+		UPDATE PSTM_RECEIPTINFO SET REFUND = 'N' WHERE RECEIPTID = #{receiptid}
+	
+	</update>
+	
+>>>>>>> af7381bd411224bd36602769a6d4c121ff5c4bf7
 
 </mapper>
