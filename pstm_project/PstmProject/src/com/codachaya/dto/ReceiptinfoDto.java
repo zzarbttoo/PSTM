@@ -11,6 +11,8 @@ public class ReceiptinfoDto {
 	private Date startdate;
 	private int duration;
 	private String purchasetype;
+	private String checkright;
+	private String refund;
 	private int price;
 	
 	public ReceiptinfoDto() {
@@ -18,8 +20,11 @@ public class ReceiptinfoDto {
 		
 	}
 	
+
 	public ReceiptinfoDto(int receiptid, int userid, int trainerid, Date buydate, Date startdate, int duration,
-			String purchasetype, int price) {
+			String purchasetype, String checkright, String refund, int price) {
+		
+		
 		this.receiptid = receiptid;
 		this.userid = userid;
 		this.trainerid = trainerid;
@@ -27,8 +32,12 @@ public class ReceiptinfoDto {
 		this.startdate = startdate;
 		this.duration = duration;
 		this.purchasetype = purchasetype;
+		this.checkright = checkright;
+		this.refund = refund;
 		this.price = price;
+		
 	}
+
 
 	public int getReceiptid() {
 		return receiptid;
@@ -85,6 +94,28 @@ public class ReceiptinfoDto {
 	public void setPurchasetype(String purchasetype) {
 		this.purchasetype = purchasetype;
 	}
+
+	
+	
+	public String getCheckright() {
+		return checkright;
+	}
+
+
+	public void setCheckright(String checkright) {
+		this.checkright = checkright;
+	}
+
+
+	public String getRefund() {
+		return refund;
+	}
+
+
+	public void setRefund(String refund) {
+		this.refund = refund;
+	}
+
 
 	public int getPrice() {
 		return price;
