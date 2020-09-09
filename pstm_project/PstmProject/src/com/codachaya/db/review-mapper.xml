@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="reviewmapper">
+<resultMap type="ReviewDto" id="ReviewDto">
+
+<result property="reviewid" column="REVIEWIDDTO"/>
+<result property="userid" column="USERIDDTO"/>
+<result property="reviewtitle" column="REVIEWTITLEDTO"/>
+<result property="reviewcontent" column="REVEIWCONTENTDTO"/>
+<result property="uploadimg" column="UPDATEIMGDTO"/>
+<result property="originimg" column="ORIGINIMGDTO"/>
+<result property="regdate" column="REGDATEDTO"/>
+<result property="trainerid" column="TRAINERIDDTO"/>
+</resultMap>
+<select id="selectList" resultMap="ReviewDto">
+	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, ORIGINIMG, REGDATE, TRAINERID
+	FROM PSTM_REVIEWINFO
+</select>
+<insert id="insert" parameterType="ReviewDto">
+	INSERT INTO PSTM_REVIEWINFO
+	VALUES(MYSEQ.NEXTVAL,#{reviwtitle},#{review content},
+	#{uploadimg},#{originimg},#{regdate},SYSDATE)
+</insert>
+<select id="selectOne" parameterType="int" resultType="ReviewDto">
+SELECT REVIEWID, USERID,  REVIEWTITLE, REVIEWCONTENT,UPLOADIMG, ORIGINIMG,REGDATE
+FROM PSTM_REVIEWINFO
+WHERE REVIEWID=#{reviewid}
+
+</select>
+<update id="update" parameterType="ReviewDto"></update>
+<delete id="delete" parameterType="int">
+	DELETE FROM PSTM_REVIEWINFO WHERE
+</delete>
+
+</mapper>
