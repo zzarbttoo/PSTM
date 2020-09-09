@@ -4,9 +4,10 @@ public class UserDto {
 
 	
 	private int userid;
-	private String username;
+	private String id;
 	private String password;
 	private String password_key;
+	private String name;
 	private String phone;
 	private String addr;
 	private String detailaddr;
@@ -18,20 +19,22 @@ public class UserDto {
 	private String career;
 	private String mycomment;
 	private String admit;
+	private String signout;
 	
 	public UserDto() {
 		
 		
 	}
 	
-	public UserDto(int userid, String username, String password, String password_key, String phone, String addr,
+	public UserDto(int userid, String id, String password, String password_key, String name, String phone, String addr,
 			String detailaddr, String usertype, String gender, int height, String uploadimg, String originimg,
-			String career, String mycomment, String admit) {
+			String career, String mycomment, String admit, String signout) {
 		
 		this.userid = userid;
-		this.username = username;
+		this.id = id;
 		this.password = password;
 		this.password_key = password_key;
+		this.name = name;
 		this.phone = phone;
 		this.addr = addr;
 		this.detailaddr = detailaddr;
@@ -43,7 +46,7 @@ public class UserDto {
 		this.career = career;
 		this.mycomment = mycomment;
 		this.admit = admit;
-		
+		this.signout = signout;
 	}
 
 	public int getUserid() {
@@ -54,12 +57,12 @@ public class UserDto {
 		this.userid = userid;
 	}
 
-	public String getUsername() {
-		return username;
+	public String getId() {
+		return id;
 	}
 
-	public void setUsername(String username) {
-		this.username = username;
+	public void setId(String id) {
+		this.id = id;
 	}
 
 	public String getPassword() {
@@ -76,6 +79,14 @@ public class UserDto {
 
 	public void setPassword_key(String password_key) {
 		this.password_key = password_key;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 
 	public String getPhone() {
@@ -164,6 +175,14 @@ public class UserDto {
 
 	public void setAdmit(String admit) {
 		this.admit = admit;
+	}
+
+	public String getSignout() {
+		return signout;
+	}
+
+	public void setSignout(String signout) {
+		this.signout = signout;
 	}
 	
 	
