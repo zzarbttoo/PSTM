@@ -2,12 +2,13 @@
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd" >
 <configuration>
 
- <properties resource ="com/my/db/db.properties"></properties>
+ <properties resource ="com/codachaya/db/db.properties"></properties>
 
 <typeAliases>
 
 <typeAlias type="com.codachaya.dto.CertificationDto" alias="CertificationDto" />
 <typeAlias type="com.codachaya.dto.DailyinfoDto" alias="DailyinfoDto" />
+<typeAlias type="com.codachaya.dto.DietinfoDto" alias="DietinfoDto" />
 <typeAlias type="com.codachaya.dto.ExerciseDto" alias="ExerciseDto" />
 <typeAlias type="com.codachaya.dto.LessonDto" alias="LessonDto" />
 <typeAlias type="com.codachaya.dto.NctinfoDto" alias="NctinfoDto" />
