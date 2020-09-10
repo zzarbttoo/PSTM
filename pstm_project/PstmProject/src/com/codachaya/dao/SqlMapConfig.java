@@ -16,7 +16,7 @@ public class SqlMapConfig {
 	
 	public SqlSessionFactory getSqlSessionFactory() {
 
-		String resource = "com/codachaya/db/pstm-config.xml";
+		String resource = "com/my/db/pstm-config.xml";
 		
 		try {
 			InputStream inputStream = Resources.getResourceAsStream(resource);
