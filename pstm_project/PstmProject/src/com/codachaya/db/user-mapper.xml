@@ -25,23 +25,29 @@
 	</resultMap>
 	
 	<select id="selectList" resultType="UserDto">
-		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
-		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT
-		FROM PSTM_USERINFO ORDER BY USERID DESC
-	</select>	
+		SELECT USERID, ID, PASSWORD,
+		PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT,
+		UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT
+		FROM
+		PSTM_USERINFO ORDER BY USERID DESC
+	</select>
 	
 	<select id="selectOne" parameterType="int" resultType="UserDto">
-		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
-		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT
-		FROM PSTM_USERINFO
+		SELECT
+		USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT,
+		ADMIT, SIGNOUTFROM PSTM_USERINFO
 		WHERE USERID = #{userId}
 	</select>
 	
 	<insert id="insert" parameterType="UserDto">
-		INSERT INTO PSTM_USERINFO VALUES(
-		PSTM_USERSEQ.NEXTVAL, #{id}, #{password}, #{password_key}, #{name}, #{phone}, 
-		#{addr}, #{deatiladdr}, #{usertype}, #{gender}, #{height}, #{uploadimg}, #{originimg}, #{career}, 
-		#{mycomment}, #{admit}, #{signout})
+		INSERT INTO PSTM_USERINFO
+		VALUES(
+		PSTM_USERSEQ.NEXTVAL, #{id}, #{password}, #{password_key},
+		#{name}, #{phone},
+		#{addr}, #{deatiladdr}, #{usertype}, #{gender}, #{height}, #{uploadimg},
+		#{originimg}, #{career},#{mycomment}, #{admit}, #{signout})
 	</insert>
 
 	<!-- 이후에 필요한 것 추가해서 사용할 것 -->
@@ -52,5 +58,25 @@
 	<delete id="delete" parameterType="int">
 	   DELETE FROM PSTM_USERINFO WHERE
 	</delete>
+	<insert id=""></insert>
 
+
+	<!-- user와 trainer을 각각 list로 출력 -->
+	<select id="selectTrainerList">
+		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME,
+		PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT, UPLOADIMG,
+		ORIGINIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT
+		FROM PSTM_USERINFO ORDER 
+		WHERE USERTYPE = 'T'
+		BY USERID DESC
+	</select>
+	
+	<select id="selectNormalList">
+		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT,
+		ADMIT, SIGNOUT
+		FROM PSTM_USERINFO WHERE USERTYPE = 'N' ORDER BY USERID DESC
+	</select>
+	
 </mapper>
