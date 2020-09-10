@@ -23,8 +23,6 @@
 		SELCET EXINFOID, DAILYINFOID, CONTENT, KCAL
 		FROM PSTM_EXINFO
 		WHERE EXINFOID = #{exinfoid}
-		
 	</select>
 		
-
 </mapper>
