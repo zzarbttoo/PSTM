@@ -11,14 +11,16 @@
 	
 	</resultMap>
 	
-	<select id="selectList" resultMap="WeightDtoMap">
+	<select id="selectList" resultMap="ExerciseDtoMap">
 		
 		SELCET EXINFOID, DAILYINFOID, CONTENT, KCAL
 		FROM PSTM_EXINFO
+		
+		
 	
 	</select>
 	
-	<select id="selectOne" resultMap="WeightDtoMap">
+	<select id="selectOne" resultMap="ExerciseDtoMap">
 		
 		SELCET EXINFOID, DAILYINFOID, CONTENT, KCAL
 		FROM PSTM_EXINFO

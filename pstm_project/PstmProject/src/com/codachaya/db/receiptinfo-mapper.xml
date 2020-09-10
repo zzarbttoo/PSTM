@@ -16,7 +16,7 @@
 	
 	</resultMap>
 	
-	<select id = "selectList" resultMap = "receiptinfomapper">
+	<select id = "selectList" resultMap = "receiptinfoResultMap">
 		SELECT RECEIPTID, USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
 		PURCHASETYPE, CHECKRIGHT, REFUND, PRICE
 		FROM PSTM_RECEIPTINFO

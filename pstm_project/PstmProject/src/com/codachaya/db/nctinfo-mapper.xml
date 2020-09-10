@@ -12,7 +12,7 @@
 		<result property="nctetc" column="NCTETC"/>
 	</resultMap>
 	
-	<select id="selectList" resultMap="NctinfoDto">
+	<select id="selectList" resultMap="NctinfoDtoMap">
 		SELECT NCTINFOID, DIETID, KCAL, CARBOHYDRATE,
 		PROTEIN, FAT, NCTETC
 	    FROM PSTM_NCTINFO
