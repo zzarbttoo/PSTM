@@ -9,4 +9,18 @@
     <welcome-file>default.htm</welcome-file>
     <welcome-file>default.jsp</welcome-file>
   </welcome-file-list>
+  
+  <servlet>
+		<servlet-name>loginController</servlet-name>
+		<servlet-class>com.codachaya.controller.LoginServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>loginController</servlet-name>
+		<url-pattern>/login.do</url-pattern>
+	</servlet-mapping>
+  
+  
+  
+  
 </web-app>

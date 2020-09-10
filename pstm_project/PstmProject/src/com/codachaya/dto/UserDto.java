@@ -2,7 +2,6 @@ package com.codachaya.dto;
 
 public class UserDto {
 
-	
 	private int userid;
 	private String id;
 	private String password;
@@ -20,16 +19,15 @@ public class UserDto {
 	private String mycomment;
 	private String admit;
 	private String signout;
-	
+
 	public UserDto() {
-		
-		
+
 	}
-	
+
 	public UserDto(int userid, String id, String password, String password_key, String name, String phone, String addr,
 			String detailaddr, String usertype, String gender, int height, String uploadimg, String originimg,
 			String career, String mycomment, String admit, String signout) {
-		
+
 		this.userid = userid;
 		this.id = id;
 		this.password = password;
@@ -184,10 +182,5 @@ public class UserDto {
 	public void setSignout(String signout) {
 		this.signout = signout;
 	}
-	
-	
-	
-	
-	
-	
+
 }
