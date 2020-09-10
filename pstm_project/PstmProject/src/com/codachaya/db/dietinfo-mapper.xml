@@ -27,7 +27,7 @@
 		UPDATE PSTM_DIETINFO SET UPLOADIMG = #{uploadimg}, RESULT = #{result} WHERE DIETID = #{dietid}
 	</update>
 	
-	<delete id="delete" parameterType="DietinfoDto">
+	<delete id="delete" parameterMap="DietinfoDto">
 		DELETE FROM PSWM_DIETINFO WHERE DIETID = #{dietid}
 	</delete>	
 	
