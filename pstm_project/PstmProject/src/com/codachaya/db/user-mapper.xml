@@ -4,7 +4,7 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="usermapper">
 
-	<resultMap type="UserDto" id="userDtoMap">
+	<resultMap type="UserDto" id="userDto">
 		<result property="userid" column="USERID" />
 		<result property="id" column="ID" />
 		<result property="password" column="PASSWORD" />
@@ -65,17 +65,17 @@
 
 
 	<!-- user와 trainer을 각각 list로 출력 -->
-	<select id="selectTrainerList" resultType = "UserDto">
+	<select id="selectTrainerList">
 		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME,
 		PHONE, ADDR, DETAILADDR,
 		USERTYPE, GENDER, HEIGHT, UPLOADIMG,
 		ORIGINIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT
-		FROM PSTM_USERINFO 
+		FROM PSTM_USERINFO ORDER 
 		WHERE USERTYPE = 'T'
-		ORDER BY USERID DESC
+		BY USERID DESC
 	</select>
 	
-	<select id="selectNormalList" resultType = "UserDto">
+	<select id="selectNormalList">
 		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
 		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT,
 		ADMIT, SIGNOUT
