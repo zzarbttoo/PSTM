@@ -4,11 +4,11 @@
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="usermapper">
 
-	<resultMap type="UserDto" id="userDto">
-		<result property="userid" column="USERID"/>
-		<result property="id" column="ID"/>	
-		<result property="password" column="PASSWORD"/>	
-		<result property="password_key" column="PASSWORD_KEY"/>	
+	<resultMap type="UserDto" id="userDtoMap">
+		<result property="userid" column="USERID" />
+		<result property="id" column="ID" />
+		<result property="password" column="PASSWORD" />
+		<result property="password_key" column="PASSWORD_KEY" />
 		<result property="name" column="NAME" />
 		<result property="phone" column="PHONE"/>	
 		<result property="addr" column="ADDR"/>	
@@ -62,17 +62,17 @@
 
 
 	<!-- user와 trainer을 각각 list로 출력 -->
-	<select id="selectTrainerList">
+	<select id="selectTrainerList" resultType = "UserDto">
 		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME,
 		PHONE, ADDR, DETAILADDR,
 		USERTYPE, GENDER, HEIGHT, UPLOADIMG,
 		ORIGINIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT
-		FROM PSTM_USERINFO ORDER 
+		FROM PSTM_USERINFO 
 		WHERE USERTYPE = 'T'
-		BY USERID DESC
+		ORDER BY USERID DESC
 	</select>
 	
-	<select id="selectNormalList">
+	<select id="selectNormalList" resultType = "UserDto">
 		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
 		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT,
 		ADMIT, SIGNOUT
