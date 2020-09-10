@@ -52,15 +52,11 @@ public class PayingDao extends SqlMapConfig{
 		}finally {
 			
 			session.close();
-			
+			System.out.println(trainerList);
 		}
 		
+		return trainerList;
 		
-		
-		
-		
-		
-		return null;
 		
 	}
 

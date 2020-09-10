@@ -12,8 +12,9 @@ public class PayingBiz {
 	
 	public List<UserDto> selectTrainerList(){
 		
-		return payingdao.selectTrainerList();
+		System.out.println("DEBUG");
 		
+		return payingdao.selectTrainerList();
 		
 	}
 	

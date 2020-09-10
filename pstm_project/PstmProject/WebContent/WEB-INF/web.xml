@@ -4,11 +4,12 @@
   
   <servlet>
   	<servlet-name>paying</servlet-name>
-  	<servlet-class>com.codachaya.controller.PayingController</servlet-class>
+  	<servlet-class>com.codachaya.controller.PayingServlet</servlet-class>
   </servlet>
+  
   <servlet-mapping>
   	<servlet-name>paying</servlet-name>
-  	<url-pattern>paying.do</url-pattern>
+  	<url-pattern>/paying.do</url-pattern>
   </servlet-mapping>
   
 </web-app>

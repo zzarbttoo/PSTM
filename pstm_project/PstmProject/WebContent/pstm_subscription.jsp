@@ -1,5 +1,11 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page
+	import=  "com.codachaya.dto.UserDto"
+	import = "java.util.List"
+	import = "java.util.ArrayList"
+	import = "com.codachaya.biz.*"
+ %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -42,11 +48,20 @@
 	<%@ include file="./form/pstm_header.jsp"%>
 
 	<%
-		//더미 데이터
-	String[][] list = { { "img1", "name", "age", "where" }, { "img2", "배유진", "헬창", "어디삼" }, { "img3", "그러니", "어디가", "집에가" },
-			{ "img4", "왜그러니", "siasa", "hoh,o" }, { "img5", "왜그러니", "siasa", "hoh,o" },
-			{ "img6", "왜그러니", "siasa", "hoh,o" }, { "img7", "왜그러니", "siasa", "hoh,o" },
-			{ "img8", "왜그러니", "siasa", "hoh,o" } };
+	
+	
+	//무엇이 문제인가 list 출력(테스트 후 삭제)
+	PayingBiz biz = new PayingBiz();
+	
+	
+	List<UserDto> trainerList = biz.selectTrainerList();
+	
+	//뭐지 이 코드가 잘못된 것 같다
+	//List<UserDto> trainerList = (ArrayList<UserDto>)request.getAttribute("trainerList"); 
+	
+	System.out.println("trainerList" + trainerList);
+
+	
 	String strPg = request.getParameter("pg"); //현제 페이지 
 
 	int rowSize = 3; //한 페이지에 몇개의 글 출력	
@@ -70,13 +85,13 @@
 	from = (pg * rowSize) - (rowSize - 1);
 	to = (pg * rowSize);
 
-	if (to > list.length) {
+	if (to > trainerList.size()) {
 
-		to = list.length;
+		to = trainerList.size();
 
 	}
 
-	total = list.length; //dao 사용할 경우 int totla = dao.getTotal();
+	total = trainerList.size(); //dao 사용할 경우 int totla = dao.getTotal();
 	allPage = (int) Math.ceil(total / (double) rowSize);
 
 	/*
@@ -97,6 +112,10 @@
 
 			<%
 				for (int i = from - 1; i < to; i++) {
+					
+					System.out.println(i);
+					System.out.println(trainerList.get(i));
+					System.out.println(trainerList.get(i).getName());
 			%>
 			<div class="innerintroduce">
 				<div class="body">
