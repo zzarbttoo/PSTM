@@ -36,20 +36,26 @@ public class PayingServlet extends HttpServlet {
 		PayingBiz biz = new PayingBiz();
 		
 		if(command.equals("subscription")) {
-			System.out.println("Debug2");
 			
 			List<UserDto> trainerList = biz.selectTrainerList();
 			System.out.println(trainerList);
 			String pg = request.getParameter("pg");
 			
-			
-			System.out.println(pg);
-			
 			request.setAttribute("trainerList", trainerList);
 			request.setAttribute("pg", pg);
 			
 			dispatch("pstm_subscription.jsp", request, response);
+			
+		}else if(command.equals("payment")){
+			
+			int trainerUserId = Integer.parseInt(request.getParameter("trainerUserId"));
+			
+			UserDto trainerDto = biz.selectTrainerOne(trainerUserId);
+			
+			System.out.println("trainerDto " + trainerDto);
+			
 		}
+		
 	}
 	
 	

@@ -59,5 +59,21 @@ public class PayingDao extends SqlMapConfig{
 		
 		
 	}
+	
+	public UserDto selectTrainerOne(int trainer) {
+		
+		SqlSession session = null;
+		UserDto trainerDto = null;
+		
+		session = getSqlSessionFactory().openSession(true);
+		trainerDto = session.selectOne(namespaceUser + "selectOne", trainer);
+		
+		session.close();
+		
+		
+		
+		return trainerDto;
+				
+	}
 
 }

@@ -18,4 +18,11 @@ public class PayingBiz {
 		
 	}
 	
+	public UserDto selectTrainerOne(int trainerUserId) {
+		
+		
+		return payingdao.selectTrainerOne(trainerUserId);
+		
+	}
+	
 }

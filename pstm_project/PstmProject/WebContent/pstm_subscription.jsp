@@ -1,11 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page
-	import=  "com.codachaya.dto.UserDto"
-	import = "java.util.List"
-	import = "java.util.ArrayList"
-	import = "com.codachaya.biz.*"
- %>
+<%@ page import="com.codachaya.dto.UserDto" import="java.util.List"
+	import="java.util.ArrayList" import="com.codachaya.biz.*"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -36,32 +32,34 @@
 	border-radius: 50%;
 }
 
-.subscription_navigation{
-
-	padding-top : 100px;
-	text-align : center;
+.subscription_navigation {
+	padding-top: 100px;
+	text-align: center;
 }
 </style>
+
+
+
+
+
+
+
 <body>
 
 
 	<%@ include file="./form/pstm_header.jsp"%>
 
 	<%
-	
-	
-	//무엇이 문제인가 list 출력(테스트 후 삭제)
+		//무엇이 문제인가 list 출력(테스트 후 삭제)
 	PayingBiz biz = new PayingBiz();
-	
-	
+
 	List<UserDto> trainerList = biz.selectTrainerList();
-	
+
 	//뭐지 이 코드가 잘못된 것 같다
-	//List<UserDto> trainerList = (ArrayList<UserDto>)request.getAttribute("trainerList"); 
-	
+	//List<UserDto> trainerList = (List<UserDto>)request.getAttribute("trainerList"); 
+
 	System.out.println("trainerList" + trainerList);
 
-	
 	String strPg = request.getParameter("pg"); //현제 페이지 
 
 	int rowSize = 3; //한 페이지에 몇개의 글 출력	
@@ -105,19 +103,18 @@
 
 
 	<div class="wrapper">
-
 		<div class="trainerintroduce">
 
 			<h1>강사 소개</h1>
 
 			<%
 				for (int i = from - 1; i < to; i++) {
-					
-					System.out.println(i);
-					System.out.println(trainerList.get(i));
-					System.out.println(trainerList.get(i).getName());
+
+				System.out.println(i);
+				System.out.println(trainerList.get(i));
+				System.out.println(trainerList.get(i).getName());
 			%>
-			<div class="innerintroduce">
+			<div class="innerintroduce"onclick="location.href='paying.do?command=payment&trainerUserId=<%=trainerList.get(i).getId()%>'">
 				<div class="body">
 					<div class="trainerbox">
 						<div class="left-area">
@@ -126,36 +123,37 @@
 								style="width: 150px; height: 150px;" />
 						</div>
 						<div class="right-area">
-							<div class="trainername">"강사 이름" 강사</div>
+							<div class="trainername"
+								><%=trainerList.get(i).getName()%></div>
+							<div></div>
 						</div>
 					</div>
 				</div>
 			</div>
-
 			<%
 				}
 			%>
-		</div>
-		<div class="subscription_navigation">
-			<%
-				for (int i = 1; i <= allPage; i++) {
+			<div class="subscription_navigation">
+				<%
+					for (int i = 1; i <= allPage; i++) {
 
-				if (i == pg) {
-			%>
+					if (i == pg) {
+				%>
 
-				<%=i %>
+				<%=i%>
 
 
-			<%
-				} else {
-			%>
-	
-				<a href ="paying.do?command=subscription&pg=<%=i %>"><%=i %></a>
+				<%
+					} else {
+				%>
 
-			<%
+				<a href="paying.do?command=subscription&pg=<%=i%>"><%=i%></a>
+
+				<%
+					}
 				}
-			}
-			%>
+				%>
+			</div>
 		</div>
 	</div>
 
