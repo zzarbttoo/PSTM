@@ -70,8 +70,6 @@ public class PayingDao extends SqlMapConfig{
 		
 		session.close();
 		
-		
-		
 		return trainerDto;
 				
 	}

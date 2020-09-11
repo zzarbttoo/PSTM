@@ -41,6 +41,7 @@ public class PayingServlet extends HttpServlet {
 			System.out.println(trainerList);
 			String pg = request.getParameter("pg");
 			
+			//등록되지 않은 트레이너의 경우에는 list에 출력되지 않도록(비즈 or sql 바꾸기)
 			request.setAttribute("trainerList", trainerList);
 			request.setAttribute("pg", pg);
 			
@@ -49,10 +50,18 @@ public class PayingServlet extends HttpServlet {
 		}else if(command.equals("payment")){
 			
 			int trainerUserId = Integer.parseInt(request.getParameter("trainerUserId"));
-			
 			UserDto trainerDto = biz.selectTrainerOne(trainerUserId);
 			
-			System.out.println("trainerDto " + trainerDto);
+			//Dto 안에 null 처리 해주기
+			if(trainerDto.getCareer() == null) {
+				trainerDto.setCareer("<-----등록되지 않았습니다---->");
+			}
+			if(trainerDto.getMycomment() == null) {
+				trainerDto.setMycomment("<-----등록되지 않았습니다----->");
+			}
+			
+			request.setAttribute("trainerDto", trainerDto);
+			dispatch("pstm_payment.jsp", request, response);
 			
 		}
 		

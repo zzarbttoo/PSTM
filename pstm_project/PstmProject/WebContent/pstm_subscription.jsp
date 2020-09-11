@@ -38,12 +38,6 @@
 }
 </style>
 
-
-
-
-
-
-
 <body>
 
 
@@ -114,7 +108,7 @@
 				System.out.println(trainerList.get(i));
 				System.out.println(trainerList.get(i).getName());
 			%>
-			<div class="innerintroduce"onclick="location.href='paying.do?command=payment&trainerUserId=<%=trainerList.get(i).getId()%>'">
+			<div class="innerintroduce"onclick="location.href='paying.do?command=payment&trainerUserId=<%=trainerList.get(i).getUserid()%>'">
 				<div class="body">
 					<div class="trainerbox">
 						<div class="left-area">
