@@ -6,7 +6,7 @@ public class ReviewDto {
 
 	private int reviewid;
 	private int userid;
-	private String revewtitle;
+	private String reviewtitle;
 	private String reviewcontent;
 	private String uploadimg;
 	private String originimg;
@@ -31,11 +31,11 @@ public class ReviewDto {
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}
-	public String getRevewtitle() {
-		return revewtitle;
+	public String getReviewtitle() {
+		return reviewtitle;
 	}
-	public void setRevewtitle(String revewtitle) {
-		this.revewtitle = revewtitle;
+	public void setReviewtitle(String revewtitle) {
+		this.reviewtitle = revewtitle;
 	}
 	public String getReviewcontent() {
 		return reviewcontent;

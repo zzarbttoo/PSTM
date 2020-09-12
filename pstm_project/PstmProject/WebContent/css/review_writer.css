@@ -1,0 +1,130 @@
+@charset "UTF-8";
+/*
+body{
+	display: block;
+	margin: 8px;
+}
+
+*/
+body{
+font-family: Gulim, Verdana, Sans-Serif, Arial;
+font-size: 12px;
+padding: 5px 5px 5px 5px;
+margin: 8px;
+border-style: none;
+background-color: #ffffff;
+display: block;
+}
+li{
+	display: list-item;
+	text-align: -webkit-match-parent;
+}
+ul{
+	border-bottom: mone;
+	padding-bottom:0;
+}
+a{
+	text-decoration: none;
+	color: inherit;
+}
+a:-webkit-any-link{
+	color: -webkit-link;
+	cursor: pointer;
+	text-decoration: underline;
+}
+tr{
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+td{
+	display: tble-cell;
+	vertical-align: inherit;
+}
+p{
+	display: block;
+	margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+.review_contens{
+	width: 1100px;
+	margin: auto;
+	background-color: #fff;
+}
+.wrapper{
+	max-width: 1100px;
+}
+.title{
+	display: inline-block;
+	font-size: 20px;
+	font-weight: 700;
+	color: #000;
+}
+.sub_title{
+	font-size: 14px;
+	line-height: 23px;
+	font-weight: 700;
+	text-align: right;
+	float: right;
+}
+.sub_title .right_arrow{
+	height: 11px;
+	margin: 0 6px;
+	vertical-align: baseline;
+}
+.sub_title .color{
+	color: #ff6f61;
+}
+.left-container{
+	display: inline-block;
+	width: 290px;
+	padding: 30px 30px 35px;
+	border: 1px solid #dadada;
+	box-sizing: border-box;
+}
+.left-container .class_category_container{
+	font-size: 14px;
+	color:#000;
+}
+.left-container .title{
+	font-size: 16px;
+	font-weight: 700;
+	padding-bottom: 12px;
+	border-bottom: 2.5px solid #141414;
+}
+.left-container .class_category_list li.on{
+	color: #ff6f61;
+}
+.left-container .class_category_list li{
+	padding:14px 0;
+	border-bottom: 1px solid #ececec;
+	border-collapse: collapse;
+	list-style: none;
+	cursor: pointer;
+	color: #3b3b3b;
+}
+.left-container .class_category_list li:last-child {
+    border-bottom: none;
+    padding-bottom: 0;
+}
+.css-49ifss {
+    position: fixed;
+    z-index: 100;
+    right: 8px;
+    bottom: 54px;
+}
+.right-container{
+	display: inline-block;
+	float: right;
+	width: 740px;
+}
+
+
+
+
+
+
+
+

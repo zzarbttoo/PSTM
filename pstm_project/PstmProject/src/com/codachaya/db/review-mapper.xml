@@ -18,7 +18,7 @@
 </select>
 <insert id="insert" parameterType="ReviewDto">
 	INSERT INTO PSTM_REVIEWINFO
-	VALUES(MYSEQ.NEXTVAL,#{reviwtitle},#{review content},
+	VALUES(MYSEQ.NEXTVAL,#{reviwtitle},#{reviewcontent},
 	#{uploadimg},#{originimg},#{regdate},SYSDATE)
 </insert>
 <select id="selectOne" parameterType="int" resultType="ReviewDto">
@@ -27,9 +27,15 @@ FROM PSTM_REVIEWINFO
 WHERE REVIEWID=#{reviewid}
 
 </select>
-<update id="update" parameterType="ReviewDto"></update>
+<update id="update" parameterType="ReviewDto">
+UPDATE REVIEW 
+SET #{reviewtitle}, #{reviewtitle},#{reviewcontent},#{uploadimg},#{originimg},#{regdate}
+WHERE REVIEWID=#{reviewid}
+
+
+</update>
 <delete id="delete" parameterType="int">
-	DELETE FROM PSTM_REVIEWINFO WHERE
+	DELETE FROM PSTM_REVIEWINFO WHERE REVIEWID=#{reviewid}
 </delete>
 
 </mapper>
