@@ -136,7 +136,7 @@
 
 	function popupOpen() {
 
-		var popUrl = "map.html"; //팝업창에 출력될 페이지 URL
+		var popUrl = "pstm_trainmap.jsp"; //팝업창에 출력될 페이지 URL
 		
 		/*주소를 보내줘야한다*/
 		
@@ -181,7 +181,7 @@
 			<div class=right-area>
 				<div class="inner-right-area">
 					<div class="pricetag">
-						<p class="titleofpt">이동헌 강사님과 함께하는 pt서비스</p>
+						<p class="titleofpt"><%=trainerDto.getName()%> 강사님과 함께하는 pt서비스</p>
 						<div class="pricebox">
 							<span class="priceintroduce">월 53000원</span> <span
 								class="introducemonth">(6개월기준)</span> <span

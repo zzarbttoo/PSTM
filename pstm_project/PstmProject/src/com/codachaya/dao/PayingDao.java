@@ -3,6 +3,7 @@ package com.codachaya.dao;
 import java.io.IOException;
 import java.io.Reader;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.apache.ibatis.io.Resources;
@@ -73,5 +74,100 @@ public class PayingDao extends SqlMapConfig{
 		return trainerDto;
 				
 	}
+	
+	public List<UserDto> selectTrainerPaging(int offset, int count){
+		 
+		SqlSession session = null;
+		
+		List<UserDto> list = new ArrayList<UserDto>();
+		session = getSqlSessionFactory().openSession(true);
+		
+		System.out.println("세션 확인");
+		
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		
+		parameters.put("offset", offset);
+		parameters.put("count", count);
+		
+		try {
+			list = session.selectList( namespaceUser + "selectTrainerPaging", parameters);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return list; 
+		
+	}
+	
+	public List<UserDto> selectNormalUserPaging(int offset, int count){
+		 
+		SqlSession session = null;
+		
+		List<UserDto> list = new ArrayList<UserDto>();
+		session = getSqlSessionFactory().openSession(true);
+		
+		HashMap<String, Object> parameters = new HashMap<String, Object>();
+		
+		parameters.put("offset", offset);
+		parameters.put("count", count);
+		
+		try {
+			list = session.selectList( namespaceUser + "selectNormalUserPaging", parameters);
+			
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return list; 
+		
+	}
+	
+	public int getTrainerCount() {
+		
+		SqlSession session = null;
+		session = getSqlSessionFactory().openSession(true);
+		
+		int noOfRecords = 0;
+	
+		try {
+			noOfRecords = session.selectOne( namespaceUser + "selectTrainerCount");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			session.close();
+		}
+		
+		return noOfRecords;
+		
+		
+	}
+	
+	public int getNormalUserCount() {
+		
+		SqlSession session = null;
+		session = getSqlSessionFactory().openSession(true);
+		
+		int noOfRecords = 0;
+	
+		try {
+			noOfRecords = session.selectOne( namespaceUser + "selectNormalUserCount");
+			System.out.println(noOfRecords);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			
+			session.close();
+		}
+		
+		return noOfRecords;
+		
+		
+	}
+	
 
 }
