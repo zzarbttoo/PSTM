@@ -16,7 +16,6 @@ try {
 
 	file = multi.getFilesystemName(str);
 	realfile = multi.getOriginalFileName(str);
-	System.out.println(file);
 
 } catch (Exception e) {
 

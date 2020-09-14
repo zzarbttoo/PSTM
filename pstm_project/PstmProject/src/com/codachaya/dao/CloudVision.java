@@ -107,9 +107,6 @@ public class CloudVision {
 						result.add(v.toString());
 					}
 				});
-				// List<String> result = new ArrayList<String>();
-				// if(k ==
-				// "google.cloud.vision.vi.EntityAnnotation.description"){result.add(v);}
 				
 			}
 			System.out.println(result);

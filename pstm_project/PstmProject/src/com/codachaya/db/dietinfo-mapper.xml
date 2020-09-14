@@ -19,8 +19,7 @@
 	
 	<insert id="insert" parameterType="DietinfoDto">
 		INSERT INTO PSTM_DIETINFO
-		VALUES(DIETIDSEQ.NEXTVAL, #{dailyinfoid}, #{uploadimg}, #{originimg},
-		#{result}, #{eatencount})
+		VALUES(#{uploadimg})
 	</insert>
 	
 	<update id="update" parameterType="DietinfoDto">

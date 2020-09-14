@@ -16,6 +16,7 @@
 		height: 100px;
 		width: 850px;
 		text-align: center;
+		margin: auto;
 	}
 	#topMenu ul li{
 		list-style : none;
@@ -120,12 +121,14 @@
 		<col width="100">
 		<col width="100">
 		<col width="100">
+		<col width="100">
 			<tr>
 				<th>결제일</th>
 				<th>구매상품</th>
 				<th>결재금액</th>
 				<th>종강일</th>
 				<th>상태</th>
+				<th>강의</th>
 			</tr>
 			<tr>
 				<td>2020-09-10</td>
@@ -133,6 +136,7 @@
 				<td>290,000</td>
 				<td>2020-09-11</td>
 				<td>O</td>
+				<td><input type="button" value="강의"></td>
 			</tr>
 		</table>
 
