@@ -44,6 +44,7 @@ public class PayingServlet extends HttpServlet {
 
 			// 처음에 로그인을 했을 경우 normalUserNum에 로그인한 값이 들어가도록
 			// 로그인 처리하면 userNum(상수)에 normalUserNum가 들어가도록
+			int normalUser = 0;
 
 			int currentPageNo = 1; // default는 1페이지로 오도록한다
 
@@ -72,14 +73,28 @@ public class PayingServlet extends HttpServlet {
 			
 			request.setAttribute("trainerList", trainerList);
 			request.setAttribute("pagination", pagination);
+			
+			//jsp에서 post방식으로 다시 서블릿에 보내줘야하는데 그거 처리 필요
+			request.setAttribute("normalUser", normalUser);
 
 			dispatch("pstm_subscription.jsp", request, response);
 
 		} else if (command.equals("payment")) {
 
+			
+			
+			// 로그인 처리하면 userNum(상수)에 normalUserNum가 들어가도록
+			//이거 post방식으로 받아야한다
+					
 			int trainerUserId = Integer.parseInt(request.getParameter("trainerUserId"));
+			//int normalUserId = Integer.parseInt(request.getParameter("normalUserId"));
+			
+			//여기에는 임시로 추가를 하며, 로그인 처리 이후 이 코드는 삭제(userid = 39)
+			int normalUserId = 39;
+			
 			UserDto trainerDto = biz.selectTrainerOne(trainerUserId);
-
+			UserDto normalUserDto = biz.selectNormalUserOne(normalUserId);
+			
 			// Dto 안에 null 처리 해주기
 			if (trainerDto.getCareer() == null) {
 				trainerDto.setCareer("<-----등록되지 않았습니다---->");
@@ -89,7 +104,7 @@ public class PayingServlet extends HttpServlet {
 			}
 
 			request.setAttribute("trainerDto", trainerDto);
-			request.setAttribute("normalUserNum", normalUserNum);
+			request.setAttribute("normalUserDto", normalUserDto);
 			dispatch("pstm_payment.jsp", request, response);
 
 		}

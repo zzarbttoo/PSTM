@@ -1,6 +1,8 @@
 package com.codachaya.biz;
 
 import java.util.List;
+
+
 import com.codachaya.dao.PayingDao;
 import com.codachaya.dto.UserDto;
 
@@ -20,6 +22,12 @@ public class PayingBiz {
 
 		return payingdao.selectTrainerOne(trainerUserId);
 
+	}
+	
+	public UserDto selectNormalUserOne(int normalUser) {
+		
+		return payingdao.selectNormalUserOne(normalUser);
+		
 	}
 
 	public List<UserDto> selectTrainerPaging(int offset, int count) {

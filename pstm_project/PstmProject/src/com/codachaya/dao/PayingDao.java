@@ -75,6 +75,21 @@ public class PayingDao extends SqlMapConfig{
 				
 	}
 	
+	public UserDto selectNormalUserOne(int normalUser) {
+		
+		SqlSession session = null;
+		UserDto normalUserDto = null;
+		
+		session = getSqlSessionFactory().openSession(true);
+		normalUserDto = session.selectOne(namespaceUser + "selectOne" , normalUser);
+		
+		session.close();
+		
+		return normalUserDto;
+		
+		
+	}
+	
 	public List<UserDto> selectTrainerPaging(int offset, int count){
 		 
 		SqlSession session = null;

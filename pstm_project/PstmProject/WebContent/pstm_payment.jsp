@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.codachaya.dto.UserDto"%>
+<%@ page import="com.codachaya.dto.UserDto"
+	import="net.sf.json.JSONObject" import="net.sf.json.JSONSerializer"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -101,35 +102,62 @@
 		
 	});
 	
-
-	function payment(){
+	function correct(jsonNormalUserDto, jsonTrainerDto){
+	
+		console.log(jsonNormalUserDto);
+		console.log(jsonTrainerDto);
+		console.log(jsonNormalUserDto[name]);
 		
-		IMP.request_pay({
-			
-			pg : 'kakao',
-			pay_method : 'card',
-			merchant_uid : 'merchant_' + new Date().getTime(),
-			name : "주문명 : 결제 테스트",
-			amount : "14000",
-			buyer_email : "qodbwls70@naver.com",
-			buyer_name : "배유진",
-			buyer_tel : "010-3333-3333",
-			buyer_addr : "서울시 역삼역"
-			
-		}, function(rsp) {
-			if (rsp.success) {
-				var msg = "결제가 완료되었습니다";
-				msg += "고유 아이디" + rsp.imp_uid;
-				msg += "상점 거래 id" + rsp.merchant_uid;
-				msg += "결제 금액" + rsp.paid_amount;
-				msg += "카드 승인 번호" + rsp.apply_num;
+		var selectedamount = $(".monthoptionselect option:selected").text();
+		var selectedpg = $(".payoptionselect option:selected").text(); 
+		var userpay;
+		
+		
+		if(selectedamount != "가격/개월 수 선택" || selectedpg != "결제 옵션 선택"){
+					
+			if(selectedamount == "3개월"){
+				userpay = 30000;
 				
-			} else {
-				var msg = "결제에 실패하였습니다";
-				msg += "에러내용" + rsp.error_msg;
+			}else{
+				userpay = 53000;
 			}
-			alert(msg);
-		});
+			
+			alert("잘했다 녀석");
+
+			IMP.request_pay({
+				
+				pg : 'kakao',
+				pay_method : 'card',
+				merchant_uid : 'merchant_' + new Date().getTime(),
+				name : "주문명 :" + jsonTrainerDto[name]+ "과 함께하는 강좌",
+				amount : userpay,
+				buyer_name : jsonNormalUserDto[name],
+				buyer_tel : jsonNormalUserDto[phone],
+				buyer_addr : jsonNormalUserDto[addr]
+				
+			}, function(rsp) {
+				if (rsp.success) {
+					var msg = "결제가 완료되었습니다";
+					msg += "고유 아이디" + rsp.imp_uid;
+					msg += "상점 거래 id" + rsp.merchant_uid;
+					msg += "결제 금액" + rsp.paid_amount;
+					msg += "카드 승인 번호" + rsp.apply_num;
+					
+				} else {
+					var msg = "결제에 실패하였습니다";
+					msg += "에러내용" + rsp.error_msg;
+				}
+				alert(msg);
+			});
+		}else{
+			
+			alert("요구 조건들을 다시 선택해주세요");
+		}
+				
+	}
+	
+	function payment(jsonTrainerDto, trainerId, userpay, userpg, trainerName){
+		
 		
 	}
 
@@ -152,7 +180,14 @@
 	<%@ include file="./form/pstm_header.jsp"%>
 	<%
 		UserDto trainerDto = (UserDto) request.getAttribute("trainerDto");
+	UserDto normalUserDto = (UserDto) request.getAttribute("normalUserDto");
+
+	//JsonObject로 하면 javascript로 넘길 때 오류가 발생하므로 일단 하나하나 옮기는 것으로 진행후 성공 시 차후 수정
+	JSONObject jsonNormalUserDto = JSONObject.fromObject(JSONSerializer.toJSON(normalUserDto));
+	JSONObject jsonTrainerDto = JSONObject.fromObject(JSONSerializer.toJSON(trainerDto));
 	System.out.println(trainerDto);
+	System.out.println(normalUserDto);
+	System.out.println(jsonNormalUserDto);
 	%>
 	<div class="wrapper">
 		<div class="container">
@@ -173,7 +208,8 @@
 						<p class="preanswer"><%=trainerDto.getMycomment()%></p>
 					</div>
 					<div class="trainermap">
-						<button class="trainermapbutton" onclick = "popupOpen();">트레이너 위치 확인하기</button>
+						<button class="trainermapbutton" onclick="popupOpen();">트레이너
+							위치 확인하기</button>
 					</div>
 				</div>
 			</div>
@@ -181,7 +217,9 @@
 			<div class=right-area>
 				<div class="inner-right-area">
 					<div class="pricetag">
-						<p class="titleofpt"><%=trainerDto.getName()%> 강사님과 함께하는 pt서비스</p>
+						<p class="titleofpt"><%=trainerDto.getName()%>
+							강사님과 함께하는 pt서비스
+						</p>
 						<div class="pricebox">
 							<span class="priceintroduce">월 53000원</span> <span
 								class="introducemonth">(6개월기준)</span> <span
@@ -195,9 +233,10 @@
 
 						</div>
 						<div class="right_menu menucore" style="width: 100%">
-							<select>
+							<select class="monthoptionselect">
 								<option value="selectmonthoption" selected="selected">가격/개월
 									수 선택</option>
+
 								<option value="3month">3개월</option>
 								<option value="6month">6개월</option>
 							</select>
@@ -208,15 +247,18 @@
 							<strong>결제 옵션 선택</strong>
 						</div>
 						<div class="right_menu menucore">
-							<select>
+							<select class="payoptionselect">
 								<option value="selectmethodoption" selected="selected">결제
 									옵션 선택</option>
+
 								<option value="kakaopay">카카오페이</option>
 							</select>
 						</div>
 					</div>
 					<div class="optionpack">
-						<button class="payingbutton" onclick ="payment();" value = "payingdo">결제하기</button>
+						<button class="payingbutton"
+							onclick='correct(<%=jsonNormalUserDto%>, <%=jsonTrainerDto%>)'>결제하기</button>
+							
 					</div>
 				</div>
 			</div>
