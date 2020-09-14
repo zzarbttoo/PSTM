@@ -21,9 +21,7 @@ public class PagingUtil {
 		
 		this.currentPageNo = currentPageNo;
 		this.sizeOfPage = 10;
-		this.recordsPerPage = (recordsPerPage != 0) ? recordsPerPage : 5;
-		
-		System.out.println("초기화시"+currentPageNo);
+		this.recordsPerPage = (recordsPerPage != 0) ? recordsPerPage : 3;
 		
 	}
 	
@@ -97,13 +95,11 @@ public class PagingUtil {
 		
 		//게시글 전체 수가 없는 경우
 		if(numberOfRecords == 0) {
-			System.out.println(this.currentPageNo + "DEBUG1");
 			return;
 		}
 		
 		if(currentPageNo == 0) {
 			//기본 값 설정
-			System.out.println("설마 여기를?");
 			setCurrentPageNo(1);
 		}
 		
@@ -111,54 +107,43 @@ public class PagingUtil {
 			
 			setRecordsPerPage(10);
 			
-			System.out.println(this.currentPageNo + "DEBUG3");
 		}
 		
 		//마지막 페이지 
 		// 2 = (6 + (3-2)) / 3
 		int finalPage = (numberOfRecords + (recordsPerPage - 1))/recordsPerPage;
-		
-			System.out.println(this.currentPageNo + "DEBUG4");
+	
 		//현재 페이지 넘버(뒤로 계속 넘겼을 떄 최대 마지막 페이지에 있도록 한다)
 		if(currentPageNo > finalPage) {
 			
 			setCurrentPageNo(finalPage);
 			
-			System.out.println(this.currentPageNo + "DEBUG5");
 		}
-		
+	
 		// 페이지 유효성 체크
-		if(currentPageNo <0 || currentPageNo > finalPageNo) {
-			System.out.println(currentPageNo);
-			System.out.println(finalPageNo);
-			System.out.println(this.currentPageNo + "DEBUG601");
+		if(this.currentPageNo <0 || this.currentPageNo > finalPage) {
 			currentPageNo = 1;
 			
-			System.out.println(this.currentPageNo + "DEBUG6");
 		}
 		
 		//첫번째/마지막 페이지 여부
 		isNowFirst = currentPageNo == 1 ? true: false;
 		isNowFinal = currentPageNo == finalPage ? true:false;
 		
-			System.out.println(this.currentPageNo + "DEBUG7");
 		//전체 페이지 시작과 끝
 		startPage = ((currentPageNo - 1)/sizeOfPage) * sizeOfPage + 1;
 		endPage = startPage + sizeOfPage - 1;
 		
 		
-			System.out.println(this.currentPageNo + "DEBUG8");
 		
 		if(endPage > finalPage) {
 			endPage = finalPage;
 			
 			
-			System.out.println(this.currentPageNo + "DEBUG9");
 		}
 		
 		setFirstPageNo(1);
 		
-			System.out.println(this.currentPageNo + "DEBUG10");
 		
 		//첫번째 페이지이면 
 		//이전 페이지를 1로 세팅, 
@@ -169,11 +154,9 @@ public class PagingUtil {
 			setPrevPageNo(((currentPageNo -1) < 1 ? 1: (currentPageNo - 1)));
 		}
 		
-			System.out.println(this.currentPageNo + "DEBUG11");
 		setStartPageNo(startPage);
 		setEndPageNo(endPage);
 		
-			System.out.println(this.currentPageNo + "DEBUG12");
 		//현재가 마지막 페이지라면
 		//다음 페이지를 마지막페이지로 설정
 		//이니면 현재 페이지 다음페이지로 설정
@@ -184,8 +167,6 @@ public class PagingUtil {
 		}
 		setFinalPageNo(finalPage);
 		
-		
-			System.out.println(this.currentPageNo + "DEBUG13");
 	}
 
 }
