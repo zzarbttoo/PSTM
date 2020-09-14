@@ -9,7 +9,7 @@
 
 	<servlet-mapping>
 		<servlet-name>loginController</servlet-name>
-		<url-pattern>/login.do</url-pattern>
+		<url-pattern>/Login.do</url-pattern>
 	</servlet-mapping>
   
   
@@ -21,6 +21,16 @@
   <servlet-mapping>
   	<servlet-name>paying</servlet-name>
   	<url-pattern>/paying.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>signUp</servlet-name>
+  	<servlet-class>com.codachaya.controller.SingUpServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>signUp</servlet-name>
+  	<url-pattern>/signup.do</url-pattern>
   </servlet-mapping>
 
   

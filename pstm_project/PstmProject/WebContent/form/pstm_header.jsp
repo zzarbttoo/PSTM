@@ -1,3 +1,13 @@
+
+<%@page import="com.codachaya.dto.UserDto"%>
+
+<%
+	response.setHeader("Pragma", "no-cache");
+	response.setHeader("Cache-control", "no-store");
+	response.setHeader("Expires", "0");
+%>
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -94,9 +104,44 @@ header li {
 		<div class="header_inner">
 			<div class="header_wrapper">
 				<ul class="header_top_menu member-section">
-					<li id="headerMemberLogin" class="btn login">로그인</li>
-					<li id="headerMembersignup">회원가입</li>
-					<li id="headerMemberPage">마이페이지</li>
+				<%
+					UserDto dto = (UserDto) session.getAttribute("login");
+				
+				%>
+						
+				<%			
+					if(dto != null){
+										
+				%>
+				
+					<li id="headerMemberLogin" class="btn login"><a href="Login.do?command=logout">로그아웃</a></li>
+					<li id="headerMembersignup"><a href="pstm_signUp.jsp">회원가입</a></li>
+					<li id="headerMemberPage">	
+									
+				<%
+					if (dto.getUsertype().equals("N")) {							
+				%>
+				
+					<a href="pstm_studentmypage.jsp">마이페이지</a>
+					
+				<%
+					} else if (dto.getUsertype().equals("T")) {						
+				%>
+								<a href="pstm_trainerMyPage.jsp">마이페이지</a>					
+				<%
+					} 
+				%>
+					</li>			
+				
+				<%
+					}else{
+				%>
+					<li id="headerMemberLogin" class="btn login"><a href="pstm_login.jsp">로그인</a></li>
+					<li id="headerMembersignup"><a href="pstm_signUp.jsp">회원가입</a></li>
+				<%
+					}				
+				%>
+								
 				</ul>
 			</div>
 		</div>
