@@ -5,6 +5,7 @@ import java.util.Date;
 public class ReceiptinfoDto {
 
 	private int receiptid;
+	private String imp_uid;
 	private int userid;
 	private int trainerid;
 	private Date buydate;
@@ -21,11 +22,12 @@ public class ReceiptinfoDto {
 	}
 	
 
-	public ReceiptinfoDto(int receiptid, int userid, int trainerid, Date buydate, Date startdate, int duration,
+	public ReceiptinfoDto(int receiptid, String imp_uid, int userid, int trainerid, Date buydate, Date startdate, int duration,
 			String purchasetype, String checkright, String refund, int price) {
 		
 		
 		this.receiptid = receiptid;
+		this.imp_uid = imp_uid;
 		this.userid = userid;
 		this.trainerid = trainerid;
 		this.buydate = buydate;
@@ -46,6 +48,16 @@ public class ReceiptinfoDto {
 	public void setReceiptid(int receiptid) {
 		this.receiptid = receiptid;
 	}
+
+	public String getImp_uid() {
+		return imp_uid;
+		
+	}
+
+	public void setImp_uid(String imp_uid) {
+		this.imp_uid = imp_uid;
+	}
+
 
 	public int getUserid() {
 		return userid;

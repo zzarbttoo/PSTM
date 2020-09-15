@@ -103,24 +103,32 @@
 	});
 	
 	function correct(jsonNormalUserDto, jsonTrainerDto){
-	
+		
 		console.log(jsonNormalUserDto);
 		console.log(jsonTrainerDto);
-		console.log(jsonNormalUserDto[name]);
 		
+		var obj = new Object();
+		var jsonData;
 		var selectedamount = $(".monthoptionselect option:selected").text();
 		var selectedpg = $(".payoptionselect option:selected").text(); 
 		var userpay;
+		var duration;
 		
+		alert(selectedamount);
+	
 		
-		if(selectedamount != "가격/개월 수 선택" || selectedpg != "결제 옵션 선택"){
+		if(selectedamount != "가격/개월 수 선택" && selectedpg != "결제 옵션 선택"){
 					
 			if(selectedamount == "3개월"){
+				
 				userpay = 30000;
+				duration = 3;
 				
 			}else{
 				userpay = 53000;
+				duration = 6;
 			}
+			
 			
 			alert("잘했다 녀석");
 
@@ -129,26 +137,52 @@
 				pg : 'kakao',
 				pay_method : 'card',
 				merchant_uid : 'merchant_' + new Date().getTime(),
-				name : "주문명 :" + jsonTrainerDto[name]+ "과 함께하는 강좌",
+				name : "주문명 :" + jsonTrainerDto["name"]+ "과 함께하는 강좌",
 				amount : userpay,
-				buyer_name : jsonNormalUserDto[name],
-				buyer_tel : jsonNormalUserDto[phone],
-				buyer_addr : jsonNormalUserDto[addr]
+				buyer_name : jsonNormalUserDto["name"],
+				buyer_tel : jsonNormalUserDto["phone"],
+				buyer_addr : jsonNormalUserDto["addr"]
 				
+			
 			}, function(rsp) {
 				if (rsp.success) {
 					var msg = "결제가 완료되었습니다";
 					msg += "고유 아이디" + rsp.imp_uid;
 					msg += "상점 거래 id" + rsp.merchant_uid;
 					msg += "결제 금액" + rsp.paid_amount;
-					msg += "카드 승인 번호" + rsp.apply_num;
+					
+					obj.normalUserId  = jsonNormalUserDto["userid"];
+					obj.trainerUserId = jsonTrainerDto["userid"];
+					obj.imp_uid = rsp.imp_uid;
+					obj.duration = duration;
+					obj.purchaseType =selectedpg;
+					obj.price = userpay
+					
+					jsonData = JSON.stringify(obj);
+					
+					alert(jsonData);
+					
+					$.ajax({
+						url : "paying.do",
+						method : "POST",
+						data :{
+							"command" : "paymentres",
+							"jsonData" : jsonData
+						}
+						
+					});
 					
 				} else {
+					
 					var msg = "결제에 실패하였습니다";
 					msg += "에러내용" + rsp.error_msg;
 				}
+				
+				
 				alert(msg);
+				
 			});
+			
 		}else{
 			
 			alert("요구 조건들을 다시 선택해주세요");
@@ -156,11 +190,6 @@
 				
 	}
 	
-	function payment(jsonTrainerDto, trainerId, userpay, userpg, trainerName){
-		
-		
-	}
-
 
 	function popupOpen() {
 
@@ -185,9 +214,7 @@
 	//JsonObject로 하면 javascript로 넘길 때 오류가 발생하므로 일단 하나하나 옮기는 것으로 진행후 성공 시 차후 수정
 	JSONObject jsonNormalUserDto = JSONObject.fromObject(JSONSerializer.toJSON(normalUserDto));
 	JSONObject jsonTrainerDto = JSONObject.fromObject(JSONSerializer.toJSON(trainerDto));
-	System.out.println(trainerDto);
-	System.out.println(normalUserDto);
-	System.out.println(jsonNormalUserDto);
+	System.out.println(jsonTrainerDto);
 	%>
 	<div class="wrapper">
 		<div class="container">
@@ -236,7 +263,6 @@
 							<select class="monthoptionselect">
 								<option value="selectmonthoption" selected="selected">가격/개월
 									수 선택</option>
-
 								<option value="3month">3개월</option>
 								<option value="6month">6개월</option>
 							</select>
@@ -250,7 +276,6 @@
 							<select class="payoptionselect">
 								<option value="selectmethodoption" selected="selected">결제
 									옵션 선택</option>
-
 								<option value="kakaopay">카카오페이</option>
 							</select>
 						</div>
@@ -258,7 +283,7 @@
 					<div class="optionpack">
 						<button class="payingbutton"
 							onclick='correct(<%=jsonNormalUserDto%>, <%=jsonTrainerDto%>)'>결제하기</button>
-							
+
 					</div>
 				</div>
 			</div>

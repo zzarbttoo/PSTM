@@ -14,6 +14,8 @@ import com.codachaya.biz.PayingBiz;
 import com.codachaya.dto.UserDto;
 import com.codachaya.util.PagingUtil;
 
+import net.sf.json.JSONObject;
+
 @WebServlet("/PayingController")
 public class PayingServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -81,8 +83,6 @@ public class PayingServlet extends HttpServlet {
 
 		} else if (command.equals("payment")) {
 
-			
-			
 			// 로그인 처리하면 userNum(상수)에 normalUserNum가 들어가도록
 			//이거 post방식으로 받아야한다
 					
@@ -107,7 +107,15 @@ public class PayingServlet extends HttpServlet {
 			request.setAttribute("normalUserDto", normalUserDto);
 			dispatch("pstm_payment.jsp", request, response);
 
+		}else if(command.equals("paymentres")) {
+			
+			System.out.println("paymentres 도착");
+			
+			System.out.println(request.getParameter("jsonData"));
+			
+	
 		}
+	
 
 	}
 

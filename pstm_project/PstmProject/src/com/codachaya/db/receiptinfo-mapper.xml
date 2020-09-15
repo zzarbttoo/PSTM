@@ -4,6 +4,7 @@
 	
 	<resultMap type  ="ReceiptinfoDto" id = "receiptinfoResultMap">
 		<result property  ="receiptid" column = "RECEIPTID"></result>
+		<result property  ="imp_uid" column = "IMP_UID"></result>
 		<result property ="userid" column = "USERID"></result>
 		<result property ="trainerid" column = "TRAINERID"></result>
 		<result property ="buydate" column = "BUYDATE"></result>
@@ -17,7 +18,7 @@
 	</resultMap>
 	
 	<select id = "selectList" resultMap = "receiptinfoResultMap">
-		SELECT RECEIPTID, USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
+		SELECT RECEIPTID, IMP_UID, USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
 		PURCHASETYPE, CHECKRIGHT, REFUND, PRICE
 		FROM PSTM_RECEIPTINFO
 		
@@ -25,14 +26,14 @@
 	
 	<select id = "selectOne" parameterType = "int">
 	
-		SELECT RECEIPTID , USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
+		SELECT RECEIPTID , IMP_UID, USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
 		PURCHASETYPE , CHECKRIGHT, REFUND, PRICE
 		FROM PSTM_RECEIPTINFO WHERE RECEIPTID = #{receiptid}
 		
 	</select>
 	
 	<insert id = "insert">
-		INSERT INTO PSTM_RECEIPT VALUES(PSTM_RECEIPTSEQ.NEXTVAL, #{userid}, #{trainerid}, #{buydate}, #{startdate},#{duration}, #{purchasetype}, 'Y', 'N', #{price})
+		INSERT INTO PSTM_RECEIPT VALUES(PSTM_RECEIPTSEQ.NEXTVAL, #{imp_uid} ,#{userid}, #{trainerid}, #{buydate}, #{startdate},#{duration}, #{purchasetype}, 'Y', 'N', #{price})
 	</insert>
 	
 	<delete id = "delete" parameterType = "int">
