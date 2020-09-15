@@ -150,7 +150,7 @@ a{
 </head>
 <body>
 <%
-	String uploadimg = request.getParameter("uploadimg");
+	// DailyInfoDto 가져오기
 %>
 	<%@include file="./form/pstm_header.jsp"%>
 
@@ -173,7 +173,9 @@ a{
 	<section class="main_text">
 	<table border="1" style="width:800px; height:100px; border-collapse:collapse">
 		<tr>
-			<td><img src="daily.do?uploadimg=<%=uploadimg%>"></td>
+			<!-- DailyInfoDto의 파일 이름 정보 가져와서 넣어주기. -->
+			<!-- uploadimg 파라미터에 db의 이미지 이름 넣어주면 끝 -->
+			<td><img src="daily.do?command=getimg&uploadimg=pizza.jpg"></td>
 		</tr>
 	</table>
 	</section>
