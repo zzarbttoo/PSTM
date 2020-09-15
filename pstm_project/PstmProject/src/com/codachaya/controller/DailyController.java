@@ -41,33 +41,45 @@ public class DailyController extends HttpServlet {
 		DietinfoDao dao = new DietinfoDao();
 		
 		System.out.println(new File(".").getAbsolutePath());
+
 		if(command.equals("insertres")) {
-			String uploadimg = request.getParameter("uploadimg");
 			String path = request.getSession().getServletContext().getRealPath("imgfolder");
 			int size = 1024 * 1024 * 5;
-			String realfile = "";
 
 			try {
+				String file = "";
+				String realfile = "";
+				
 				MultipartRequest multi = new MultipartRequest(request, path, size, "UTF-8", new DefaultFileRenamePolicy());
 				Enumeration files = multi.getFileNames();
 				String str = (String) files.nextElement();
 
-				uploadimg = multi.getFilesystemName(str);
+				file = multi.getFilesystemName(str);
 				realfile = multi.getOriginalFileName(str);
+				// 이후 db 저장하기
 
 			} catch (Exception e) {
+
+			}
+		} else if(command.equals("selectres")) {
+			// DB에서 DailyInfo 정보 가져와서 pstm_dailypage.jsp	로 보내주기
+
+		} else if(command.equals("getimg")) {
+			ServletOutputStream imgout = response.getOutputStream();
+			String imgPath = request.getSession().getServletContext().getRealPath("imgfolder");
+			String imgName = request.getParameter("uploadimg"); // db에 저장된 값 가져와서 넣어주기
+			System.out.println(imgPath + "/" + imgName);
+			File f = new File(imgPath + File.separator + imgName);
+			if(!f.exists()) {
 				
 			}
-			DietinfoDto dto = new DietinfoDto();
-			dto.setUploadimg(uploadimg);
-			int res = dao.insert(dto);
-			if(res > 0) {
-				jsResponse("성공", "pstm_dailypage.jsp", response);
+			FileInputStream input = new FileInputStream(imgPath + "/" + imgName);
+			int length;
+			byte[] buffer = new byte[10];
+			while ((length = input.read(buffer))!= -1) {
+				imgout.write(buffer, 0, length);
 			}
-			
-			
-			
-			
+			System.out.println(new File(".").getAbsolutePath());
 		}
 		
 	}
