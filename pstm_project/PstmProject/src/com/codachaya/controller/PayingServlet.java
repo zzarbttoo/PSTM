@@ -13,8 +13,9 @@ import javax.servlet.http.HttpServletResponse;
 import com.codachaya.biz.PayingBiz;
 import com.codachaya.dto.UserDto;
 import com.codachaya.util.PagingUtil;
-
-import net.sf.json.JSONObject;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @WebServlet("/PayingController")
 public class PayingServlet extends HttpServlet {
@@ -52,31 +53,30 @@ public class PayingServlet extends HttpServlet {
 
 			if (request.getParameter("pages") != null) {
 				currentPageNo = Integer.parseInt(request.getParameter("pages"));
-				System.out.println("현재 페이지"+currentPageNo);
+				System.out.println("현재 페이지" + currentPageNo);
 			}
 
 			// 한번에 3개씩 출력되도록 한다
 			PagingUtil pagination = new PagingUtil(currentPageNo, 3);
 			pagination.setRecordsPerPage(count);
-			
+
 			System.out.println("현재 페이지" + pagination.getCurrentPageNo());
-			
-			
+
 			offset = (pagination.getCurrentPageNo() - 1) * pagination.getRecordsPerPage();
 			gettrainercount = biz.getTrainerCount();
-			
+
 			pagination.setNumberOfRecords(gettrainercount);
 			pagination.makePaging();
-	
+
 			List<UserDto> trainerList = biz.selectTrainerPaging(offset, count);
-			
+
 			System.out.println(trainerList);
 			System.out.println(pagination.getCurrentPageNo());
-			
+
 			request.setAttribute("trainerList", trainerList);
 			request.setAttribute("pagination", pagination);
-			
-			//jsp에서 post방식으로 다시 서블릿에 보내줘야하는데 그거 처리 필요
+
+			// jsp에서 post방식으로 다시 서블릿에 보내줘야하는데 그거 처리 필요
 			request.setAttribute("normalUser", normalUser);
 
 			dispatch("pstm_subscription.jsp", request, response);
@@ -84,17 +84,17 @@ public class PayingServlet extends HttpServlet {
 		} else if (command.equals("payment")) {
 
 			// 로그인 처리하면 userNum(상수)에 normalUserNum가 들어가도록
-			//이거 post방식으로 받아야한다
-					
+			// 이거 post방식으로 받아야한다
+
 			int trainerUserId = Integer.parseInt(request.getParameter("trainerUserId"));
-			//int normalUserId = Integer.parseInt(request.getParameter("normalUserId"));
-			
-			//여기에는 임시로 추가를 하며, 로그인 처리 이후 이 코드는 삭제(userid = 39)
+			// int normalUserId = Integer.parseInt(request.getParameter("normalUserId"));
+
+			// 여기에는 임시로 추가를 하며, 로그인 처리 이후 이 코드는 삭제(userid = 39)
 			int normalUserId = 39;
-			
+
 			UserDto trainerDto = biz.selectTrainerOne(trainerUserId);
 			UserDto normalUserDto = biz.selectNormalUserOne(normalUserId);
-			
+
 			// Dto 안에 null 처리 해주기
 			if (trainerDto.getCareer() == null) {
 				trainerDto.setCareer("<-----등록되지 않았습니다---->");
@@ -107,16 +107,26 @@ public class PayingServlet extends HttpServlet {
 			request.setAttribute("normalUserDto", normalUserDto);
 			dispatch("pstm_payment.jsp", request, response);
 
-		}else if(command.equals("paymentres")) {
-			
-			System.out.println("paymentres 도착");
-			
-			System.out.println(request.getParameter("jsonData"));
-			
-	
-		}
-	
+		} else if (command.equals("paymentres")) {
 
+			/*
+			String jsonData = request.getParameter("jsonData");
+
+			JsonElement element = JsonParser.parseString(jsonData);
+			JsonObject receiptJsonObject = element.getAsJsonObject();
+			
+			int normalUserId = receiptJsonObject.get("normalUserId").getAsInt();
+			int trainerUserId = receiptJsonObject.get("trainerUserId").getAsInt();
+			String imp_uid = receiptJsonObject.get("imp_uid").getAsString();
+			int duration = receiptJsonObject.get("duration").getAsInt();
+			String purchaseType = receiptJsonObject.get("purchaseType").getAsString();
+			int price = receiptJsonObject.get("price").getAsInt();
+			
+		 
+			System.out.println("parsingdata" + normalUserId + trainerUserId + imp_uid + duration + purchaseType + price);
+			*/
+			
+		}
 	}
 
 	private void dispatch(String path, HttpServletRequest request, HttpServletResponse response)

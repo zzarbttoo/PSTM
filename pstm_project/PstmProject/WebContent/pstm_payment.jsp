@@ -13,77 +13,62 @@
 	min-width: 1100px;
 	padding: 30px;
 }
-
 .container {
 	text-align: center;
 }
-
 .left-area {
 	width: 640px;
 	text-align: center;
 	display: inline-block;
 	border: 1px solid grey;
 }
-
 .right-area {
 	width: 440px;
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 20px;
 }
-
 .titleofpt {
 	font-size: 20px;
 	font-weight: bold;
 	color: black;
 	margin: 0px 0px 30px;
 }
-
 .inner-right-area {
 	background-color: white;
 	border: 1px solid grey;
 	padding: 30px 30px 40px;
 }
-
 .inner-left-area {
 	padding: 30px 30px 22px;
 }
-
 .right_menu {
 	margin: 5px 0 10px;
 }
-
 .right_menu>strong {
 	font-size: 15px;
 }
-
 .optionpack {
 	margin-top: 20px;
 	border-top: 1px solid grey;
 }
-
 .payingbutton {
 	margin-top: 30px;
 }
-
 .payingbutton {
 	width: 100%;
 }
-
 .trainerimgsrc {
 	border-radius: 50%;
 }
-
 .preintro {
 	font-size: 13px;
 	padding: 5px 0 15px;
 	line-height: 18px;
 }
-
 .trainername {
 	padding: 15px;
 }
-
 .trainermap {
 	padding: 15px 0;
 }
@@ -94,7 +79,6 @@
 <script type="text/javascript"
 	src="https://cdn.iamport.kr/js/iamport.payment-1.1.5.js"></script>
 <script type="text/javascript">
-
 	
 	$(document).ready(function(){
 			
@@ -131,7 +115,6 @@
 			
 			
 			alert("잘했다 녀석");
-
 			IMP.request_pay({
 				
 				pg : 'kakao',
@@ -190,16 +173,13 @@
 				
 	}
 	
-
 	function popupOpen() {
-
 		var popUrl = "pstm_trainmap.jsp"; //팝업창에 출력될 페이지 URL
 		
 		/*주소를 보내줘야한다*/
 		
 		var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
 		window.open(popUrl, "", popOption);
-
 	}
 	
 	
@@ -210,7 +190,6 @@
 	<%
 		UserDto trainerDto = (UserDto) request.getAttribute("trainerDto");
 	UserDto normalUserDto = (UserDto) request.getAttribute("normalUserDto");
-
 	//JsonObject로 하면 javascript로 넘길 때 오류가 발생하므로 일단 하나하나 옮기는 것으로 진행후 성공 시 차후 수정
 	JSONObject jsonNormalUserDto = JSONObject.fromObject(JSONSerializer.toJSON(normalUserDto));
 	JSONObject jsonTrainerDto = JSONObject.fromObject(JSONSerializer.toJSON(trainerDto));
