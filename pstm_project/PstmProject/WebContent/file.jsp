@@ -4,7 +4,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%
-	String path = request.getSession().getServletContext().getRealPath("img");
+String path = request.getSession().getServletContext().getRealPath("imgfolder");
 int size = 1024 * 1024 * 5;
 String file = "";
 String realfile = "";
@@ -18,7 +18,7 @@ try {
 	realfile = multi.getOriginalFileName(str);
 
 } catch (Exception e) {
-
+	
 }
 %>
 <!DOCTYPE html>
@@ -29,7 +29,7 @@ try {
 </head>
 <body>
 
-	<img src="img/<%=file%>">
+	<img src="imgfolder/<%=file%>">
 
 
 

@@ -150,7 +150,6 @@ a{
 </head>
 <body>
 <%
-	String uploadimg = request.getParameter("uploadimg");
 %>
 	<%@include file="./form/pstm_header.jsp"%>
 
@@ -173,14 +172,11 @@ a{
 	<section class="main_text">
 	<table border="1" style="width:800px; height:100px; border-collapse:collapse">
 		<tr>
-			<td><img src="daily.do?uploadimg=<%=uploadimg%>"></td>
+			<td><img src=""></td>
 		</tr>
 	</table>
 	</section>
 	
-	
-	
-
 
 	<%@include file="./form/pstm_footer.jsp"%>
 

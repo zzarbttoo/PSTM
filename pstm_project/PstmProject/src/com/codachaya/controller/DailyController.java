@@ -38,22 +38,33 @@ public class DailyController extends HttpServlet {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		String command = request.getParameter("command");
-		ServletOutputStream imgout = response.getOutputStream();
-		String imgPath = "C:\\Users\\feelj\\OneDrive\\바탕 화면\\semi\\PSTM\\pstm_project\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\PstmProject\\imgfolder";
-		String imgName = request.getParameter("uploadimg");
-		System.out.println(imgPath + "/" + imgName);
-		File f = new File(imgPath + File.separator + imgName);
-		if(!f.exists()) {
-			
-		}
-		FileInputStream input = new FileInputStream(imgPath + "/" + imgName);
-		int length;
-		byte[] buffer = new byte[10];
-		while ((length = input.read(buffer))!= -1) {
-			imgout.write(buffer, 0, length);
-		}
+		DietinfoDao dao = new DietinfoDao();
+		
 		System.out.println(new File(".").getAbsolutePath());
 		if(command.equals("insertres")) {
+			String uploadimg = request.getParameter("uploadimg");
+			String path = request.getSession().getServletContext().getRealPath("imgfolder");
+			int size = 1024 * 1024 * 5;
+			String realfile = "";
+
+			try {
+				MultipartRequest multi = new MultipartRequest(request, path, size, "UTF-8", new DefaultFileRenamePolicy());
+				Enumeration files = multi.getFileNames();
+				String str = (String) files.nextElement();
+
+				uploadimg = multi.getFilesystemName(str);
+				realfile = multi.getOriginalFileName(str);
+
+			} catch (Exception e) {
+				
+			}
+			DietinfoDto dto = new DietinfoDto();
+			dto.setUploadimg(uploadimg);
+			int res = dao.insert(dto);
+			if(res > 0) {
+				jsResponse("성공", "pstm_dailypage.jsp", response);
+			}
+			
 			
 			
 			
