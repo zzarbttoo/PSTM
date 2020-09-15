@@ -149,7 +149,9 @@ a{
 
 </head>
 <body>
-
+<%
+	String uploadimg = request.getParameter("uploadimg");
+%>
 	<%@include file="./form/pstm_header.jsp"%>
 
 	<h1>마이페이지</h1>
@@ -164,13 +166,15 @@ a{
 	</nav>
 	<aside class="profile">
 		<div class="write">
-			<a href="pstm_dailyinsert"><img src="img/pen_green.png" onmouseover='this.src="img/pen_black.png"' onmouseout='this.src="img/pen_green.png"'></a>
+			<a href="pstm_dailyinsert.jsp"><img src="img/pen_green.png" onmouseover='this.src="imgfolder/pen_black.png"' onmouseout='this.src="imgfolder/pen_green.png"'></a>
 		</div>
 	</aside>
 	
 	<section class="main_text">
 	<table border="1" style="width:800px; height:100px; border-collapse:collapse">
-		
+		<tr>
+			<td><img src="daily.do?uploadimg=<%=uploadimg%>"></td>
+		</tr>
 	</table>
 	</section>
 	

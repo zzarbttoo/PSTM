@@ -18,10 +18,7 @@
 			<th>이미지</th>
 			<td><input type="file" name="uploadimg"></td>
 		</tr>
-		<tr>
-			<th>먹은 시간</th>
-			<td></td>
-		</tr>
+		
 		<tr>
 			<td>
 				<input type="submit" value="작성">
