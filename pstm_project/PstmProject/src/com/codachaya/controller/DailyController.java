@@ -31,25 +31,9 @@ public class DailyController extends HttpServlet {
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		
-		PrintWriter out = response.getWriter();
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		DietinfoDao dao = new DietinfoDao();
-		MultipartRequest multi = null;
-		int size = 10*1024*1024;
-		String Path = request.getSession().getServletContext().getRealPath("img");
-		try {
-			multi = new MultipartRequest(request, Path, size, "UTF-8", new DefaultFileRenamePolicy());
-			
-		}catch(Exception e) {
-			e.printStackTrace();
-		}
-		String uploadimg = multi.getFilesystemName("uploadimg");
-		DietinfoDto dto = new DietinfoDto(0, 0, uploadimg, null, null, 0);
-		int res = dao.insert(dto);
-		if(res > 0) {
-			jsResponse("성공", "pstm_dailypage.jsp", response);
-		}
+
 		
 		
 	}
