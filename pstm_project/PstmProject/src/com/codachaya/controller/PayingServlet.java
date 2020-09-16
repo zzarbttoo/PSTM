@@ -16,6 +16,9 @@ import com.codachaya.dto.LessonDto;
 import com.codachaya.dto.ReceiptinfoDto;
 import com.codachaya.dto.UserDto;
 import com.codachaya.util.PagingUtil;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 @WebServlet("/PayingController")
 public class PayingServlet extends HttpServlet {
@@ -109,7 +112,6 @@ public class PayingServlet extends HttpServlet {
 
 		} else if (command.equals("paymentres")) {
 
-			/*
 			String jsonData = request.getParameter("jsonData");
 
 			JsonElement element = JsonParser.parseString(jsonData);
@@ -121,11 +123,12 @@ public class PayingServlet extends HttpServlet {
 			int duration = receiptJsonObject.get("duration").getAsInt();
 			String purchaseType = receiptJsonObject.get("purchaseType").getAsString();
 			int price = receiptJsonObject.get("price").getAsInt();
+			Date tempDate = new Date();
 			
 		 
 			System.out.println("parsingdata" + normalUserId + trainerUserId + imp_uid + duration + purchaseType + price);
-			*/
 			
+			/*
 			//testfile 제작 {"normalUserId":39,"trainerUserId":41,"imp_uid":"imp_184050782086","duration":3,"purchaseType":"카카오페이","price":30000}
 			int normalUserId = 39;
 			int trainerUserId = 41;
@@ -133,18 +136,18 @@ public class PayingServlet extends HttpServlet {
 			int duration = 3;
 			String purchaseType = "카카오페이";
 			int price= 30000;
-			Date tempDate = new Date();
-			
+			*/
 			
 			ReceiptinfoDto newReceiptinfoDto = new ReceiptinfoDto(imp_uid, normalUserId, trainerUserId, tempDate , duration, purchaseType, price);
-			//insert는 강사 회원 가입 시 돼있다고 생각하고 만들 것임
-			LessonDto newUpdateLessonDto = new LessonDto(trainerUserId, "{\""+normalUserId + ":" + biz.selectIdReceipt(imp_uid) +"\"}", 0);
 			
-			//userid : receiptid 이렇게 넣을 것이다
 			int insertres = biz.insertNewReceiptinfo(newReceiptinfoDto);
+			//lesson insert는 강사 회원 가입 시 돼있다고 생각하고 만들 것임
+			LessonDto newUpdateLessonDto = new LessonDto(trainerUserId, "{\""+normalUserId + "\":\"" + biz.selectIdReceipt(imp_uid) +"\"}", 0);
+			
+			//"userid" : "receiptid" 이렇게 넣을 것이다
 			int updateres = biz.updateLessonStudents(newUpdateLessonDto);
 			
-			System.out.println("insertres" + insertres + "updateres" + updateres);
+			System.out.println(insertres + updateres);
 			
 		}
 	}
