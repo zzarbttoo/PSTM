@@ -1,35 +1,45 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="lessonmapper">
-<resultMap type="LessonDto" id="LessonResultMap">
-	<result property="userid" 		column="USERID"/>
-	<result property="classcontent" 		column="CLASSCONTENT"/>
-	<result property="priceinfo" 		column="PRICEINFO"/>
-	<result property="studentid" 		column="STUDENTID"/>
-
-</resultMap>
+	<resultMap type="LessonDto" id="LessonResultMap">
+		<result property="userid" column="USERID" />
+		<result property="classcontent" column="CLASSCONTENT" />
+		<result property="priceinfo" column="PRICEINFO" />
+		<result property="studentid" column="STUDENTID" />
+		<result property = "studentcount" column = "STUDENTCOUNT"/>
+	</resultMap>
+	
 	<select id="selectList" resultMap="LessonResultMap">
-		SELECT USERID , CLASSCONTENT , PRICEINFO , STUDENTID
-		FROM PSTM_LESSON	
+		SELECT USERID , CLASSCONTENT ,
+		PRICEINFO , STUDENTID, STUDENTCOUNT
+		FROM PSTM_LESSON
 	</select>
-	
-	<select id="selectOne" resultType="LessonDto" parameterType="int">
-		SELECT USERTID , CLASSCONTENT , PRICEINFO , STUDENTID
+
+	<select id="selectOne" resultType="LessonDto"
+		parameterType="int">
+		SELECT USERID , CLASSCONTENT , PRICEINFO , STUDENTID, STUDENTCOUNT
 		FROM PSTM_LESSON WHERE USERID = #{userid}
-	
+
 	</select>
-	
+
 	<insert id="insert" parameterType="LessonDto">
-		INSERT INTO PSTM_LESSON VALUES(MYSEQ.NEXTVAL, #{classcontent},#{priceinfo},#{studentid})
+		INSERT INTO PSTM_LESSON
+		VALUES( #{userid}, #{classcontent},#{priceinfo},'{}', 0)
 	</insert>
-	
+
 	<delete id="delete" parameterType="int">
-		DELETE FROM PSTM_LESSON WHERE USERID = #{userid}
+		DELETE FROM PSTM_LESSON WHERE
+		USERID = #{userid}
 	</delete>
-	
+
 	<update id="update" parameterType="int">
-		UPDATE PSTM_LESSON SET CLASSCONTENT = #{classcontent} , PRICEINFO = #{priceinfo} , STUDENTID = #{studentid} WHERE USERID = #{userid}
+		UPDATE PSTM_LESSON SET
+		CLASSCONTENT = #{classcontent} , PRICEINFO = #{priceinfo} , STUDENTID
+		= #{studentid} WHERE USERID = #{userid}
 	</update>
-	
-  
+
+	<update id="updatestudent" parameterType="LessonDto">
+		UPDATE PSTM_LESSON SET
+		STUDENTID = #{studentid} , STUDENTCOUNT = #{studentcount} WHERE USERID = #{userid}
+	</update>
 </mapper>
