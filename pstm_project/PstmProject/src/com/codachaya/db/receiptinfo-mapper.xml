@@ -33,7 +33,7 @@
 	</select>
 	
 	<insert id = "insert">
-		INSERT INTO PSTM_RECEIPT VALUES(PSTM_RECEIPTSEQ.NEXTVAL, #{imp_uid} ,#{userid}, #{trainerid}, #{buydate}, #{startdate},#{duration}, #{purchasetype}, 'Y', 'N', #{price})
+		INSERT INTO PSTM_RECEIPTINFO VALUES(PSTM_RECEIPTIDSEQ.NEXTVAL, #{imp_uid} ,#{userid}, #{trainerid},SYSDATE , #{startdate},#{duration}, #{purchasetype}, 'R', 'N', #{price})
 	</insert>
 	
 	<delete id = "delete" parameterType = "int">
@@ -44,6 +44,12 @@
 		UPDATE PSTM_RECEIPTINFO SET REFUND = 'N' WHERE RECEIPTID = #{receiptid}
 	
 	</update>
+	
+	<select id = "selectId" parameterType = "String" resultMap = "receiptinfoResultMap" >
+	
+		SELECT RECEIPTID FROM PSTM_RECEIPTINFO WHERE IMP_UID = #{imp_uid} AND ROWNUM = 1
+		
+	</select>
 	
 
 </mapper>

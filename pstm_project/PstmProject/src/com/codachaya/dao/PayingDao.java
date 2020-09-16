@@ -11,6 +11,8 @@ import org.apache.ibatis.session.SqlSession;
 import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
+import com.codachaya.dto.LessonDto;
+import com.codachaya.dto.ReceiptinfoDto;
 import com.codachaya.dto.UserDto;
 
 public class PayingDao extends SqlMapConfig{
@@ -18,6 +20,7 @@ public class PayingDao extends SqlMapConfig{
 	
 	private String namespaceUser = "usermapper.";
 	private String namespaceReceiptinfo = "receiptinfomapper.";
+	private String namespaceLesson = "lessonmapper.";
 	
 	
 	private SqlSessionFactory sqlSessionFactory;
@@ -159,7 +162,6 @@ public class PayingDao extends SqlMapConfig{
 		
 		return noOfRecords;
 		
-		
 	}
 	
 	public int getNormalUserCount() {
@@ -174,15 +176,85 @@ public class PayingDao extends SqlMapConfig{
 			System.out.println(noOfRecords);
 		} catch (Exception e) {
 			e.printStackTrace();
-		}finally {
 			
+		}finally {
 			session.close();
 		}
 		
 		return noOfRecords;
 		
+	}
+	
+	public int insertNewReceiptinfo(ReceiptinfoDto newReceiptinfoDto) {
+		
+		SqlSession session = null;
+		session = getSqlSessionFactory().openSession(true);
+		
+		int newReceiptrowcount = 0;
+		
+		try {
+			newReceiptrowcount = session.insert( namespaceReceiptinfo + "insert",newReceiptinfoDto);
+			System.out.println(newReceiptrowcount);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		
+		return newReceiptrowcount;
 		
 	}
+	
+	public int selectIdReceipt(String imp_uid) {
+		
+		SqlSession session = null;
+		ReceiptinfoDto receiptDto = null;
+		
+		session = getSqlSessionFactory().openSession(true);
+		receiptDto = session.selectOne(namespaceReceiptinfo + "selectId", imp_uid);
+		
+		session.close();
+		
+		return receiptDto.getReceiptid();
+	}
+	
+	
+	
+	public int updateLessonStudents(LessonDto updatelessonDto) {
+		
+		SqlSession session = null;
+		
+		session = getSqlSessionFactory().openSession(true);
+		
+		int updateColnum = 0;
+		
+		updateColnum = session.update(namespaceLesson + "updatestudent", updatelessonDto);
+		
+		return updateColnum;
+		
+	}
+	
+	//trainer번호를 넣으면 강의가 나올 수 있도록(trainer : 강의 = 1:1)
+	public LessonDto selectOneLessonDto(int trainerNum) {
+		
+		
+		SqlSession session = null;
+		LessonDto lessonDto = null;
+		
+		session = getSqlSessionFactory().openSession(true);
+		lessonDto = session.selectOne(namespaceLesson + "selectOne", trainerNum);
+		
+		session.close();
+		
+		return lessonDto;
+		
+	}
+	
+	
+	
+	
+	
+	
 	
 
 }

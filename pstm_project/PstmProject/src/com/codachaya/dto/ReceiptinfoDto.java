@@ -40,7 +40,18 @@ public class ReceiptinfoDto {
 		
 	}
 
-
+	public ReceiptinfoDto(String imp_uid, int userid, int trainerid, Date startdate,int duration, String purchasetype, int price) {
+		
+		this.imp_uid = imp_uid;
+		this.userid = userid;
+		this.trainerid = trainerid;
+		this.startdate = startdate;
+		this.duration = duration;
+		this.purchasetype = purchasetype;
+		this.price = price;
+		
+	}
+	
 	public int getReceiptid() {
 		return receiptid;
 	}

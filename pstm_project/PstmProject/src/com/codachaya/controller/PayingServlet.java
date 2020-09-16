@@ -1,6 +1,7 @@
 package com.codachaya.controller;
 
 import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -11,11 +12,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.codachaya.biz.PayingBiz;
+import com.codachaya.dto.LessonDto;
+import com.codachaya.dto.ReceiptinfoDto;
 import com.codachaya.dto.UserDto;
 import com.codachaya.util.PagingUtil;
-import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 
 @WebServlet("/PayingController")
 public class PayingServlet extends HttpServlet {
@@ -125,6 +125,26 @@ public class PayingServlet extends HttpServlet {
 		 
 			System.out.println("parsingdata" + normalUserId + trainerUserId + imp_uid + duration + purchaseType + price);
 			*/
+			
+			//testfile 제작 {"normalUserId":39,"trainerUserId":41,"imp_uid":"imp_184050782086","duration":3,"purchaseType":"카카오페이","price":30000}
+			int normalUserId = 39;
+			int trainerUserId = 41;
+			String imp_uid = "imp_184050782086";
+			int duration = 3;
+			String purchaseType = "카카오페이";
+			int price= 30000;
+			Date tempDate = new Date();
+			
+			
+			ReceiptinfoDto newReceiptinfoDto = new ReceiptinfoDto(imp_uid, normalUserId, trainerUserId, tempDate , duration, purchaseType, price);
+			//insert는 강사 회원 가입 시 돼있다고 생각하고 만들 것임
+			LessonDto newUpdateLessonDto = new LessonDto(trainerUserId, "{\""+normalUserId + ":" + biz.selectIdReceipt(imp_uid) +"\"}", 0);
+			
+			//userid : receiptid 이렇게 넣을 것이다
+			int insertres = biz.insertNewReceiptinfo(newReceiptinfoDto);
+			int updateres = biz.updateLessonStudents(newUpdateLessonDto);
+			
+			System.out.println("insertres" + insertres + "updateres" + updateres);
 			
 		}
 	}
