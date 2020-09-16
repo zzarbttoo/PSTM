@@ -24,7 +24,6 @@ function popupOpen(){
 </script>
 
 
-
 <a href="javascript:popupOpen();" > 지도 뿅! </a>
 
 

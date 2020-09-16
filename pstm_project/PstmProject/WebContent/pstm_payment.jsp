@@ -130,9 +130,6 @@
 			}, function(rsp) {
 				if (rsp.success) {
 					var msg = "결제가 완료되었습니다";
-					msg += "고유 아이디" + rsp.imp_uid;
-					msg += "상점 거래 id" + rsp.merchant_uid;
-					msg += "결제 금액" + rsp.paid_amount;
 					
 					obj.normalUserId  = jsonNormalUserDto["userid"];
 					obj.trainerUserId = jsonTrainerDto["userid"];
@@ -153,6 +150,12 @@
 							"jsonData" : jsonData
 						}
 						
+					}).done(function(data){
+						
+						alert(msg);
+						//리다이렉트 조건 넣기
+						
+						
 					});
 					
 				} else {
@@ -162,7 +165,6 @@
 				}
 				
 				
-				alert(msg);
 				
 			});
 			

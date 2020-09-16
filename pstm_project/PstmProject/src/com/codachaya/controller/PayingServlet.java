@@ -126,6 +126,7 @@ public class PayingServlet extends HttpServlet {
 			Date tempDate = new Date();
 			
 		 
+			
 			System.out.println("parsingdata" + normalUserId + trainerUserId + imp_uid + duration + purchaseType + price);
 			
 			/*
@@ -147,7 +148,9 @@ public class PayingServlet extends HttpServlet {
 			//"userid" : "receiptid" 이렇게 넣을 것이다
 			int updateres = biz.updateLessonStudents(newUpdateLessonDto);
 			
-			System.out.println(insertres + updateres);
+			
+			
+			
 			
 		}
 	}
