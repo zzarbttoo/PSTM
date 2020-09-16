@@ -24,7 +24,7 @@
 
 	<insert id="insert" parameterType="LessonDto">
 		INSERT INTO PSTM_LESSON
-		VALUES( #{userid}, #{classcontent},#{priceinfo},#{studentid}, 0)
+		VALUES( #{userid}, #{classcontent},#{priceinfo},'{}', 0)
 	</insert>
 
 	<delete id="delete" parameterType="int">

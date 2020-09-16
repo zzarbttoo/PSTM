@@ -175,13 +175,17 @@
 				
 	}
 	
-	function popupOpen() {
-		var popUrl = "pstm_trainmap.jsp"; //팝업창에 출력될 페이지 URL
+	function mapPopupOpen(jsonTrainerDto) {
 		
-		/*주소를 보내줘야한다*/
+		var addr = jsonTrainerDto["addr"];
+		var detailaddr = jsonTrainerDto["detailaddr"];
+		var trainername = jsonTrainerDto["name"];
 		
+		var popUrl = "pstm_trainermap.jsp?addr=" + addr + "&detailaddr=" + detailaddr + "&name=" + trainername; //팝업창에 출력될 페이지 URL
 		var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
 		window.open(popUrl, "", popOption);
+		
+		
 	}
 	
 	
@@ -190,7 +194,7 @@
 <body>
 	<%@ include file="./form/pstm_header.jsp"%>
 	<%
-		UserDto trainerDto = (UserDto) request.getAttribute("trainerDto");
+	UserDto trainerDto = (UserDto) request.getAttribute("trainerDto");
 	UserDto normalUserDto = (UserDto) request.getAttribute("normalUserDto");
 	//JsonObject로 하면 javascript로 넘길 때 오류가 발생하므로 일단 하나하나 옮기는 것으로 진행후 성공 시 차후 수정
 	JSONObject jsonNormalUserDto = JSONObject.fromObject(JSONSerializer.toJSON(normalUserDto));
@@ -216,8 +220,8 @@
 						<p class="preanswer"><%=trainerDto.getMycomment()%></p>
 					</div>
 					<div class="trainermap">
-						<button class="trainermapbutton" onclick="popupOpen();">트레이너
-							위치 확인하기</button>
+						<button class="trainermapbutton" onclick='mapPopupOpen(<%=jsonTrainerDto%>)'>트레이너위치 확인하기</button>
+							
 					</div>
 				</div>
 			</div>
@@ -242,8 +246,7 @@
 						</div>
 						<div class="right_menu menucore" style="width: 100%">
 							<select class="monthoptionselect">
-								<option value="selectmonthoption" selected="selected">가격/개월
-									수 선택</option>
+								<option value="selectmonthoption" selected="selected">가격/개월 수 선택</option>
 								<option value="3month">3개월</option>
 								<option value="6month">6개월</option>
 							</select>
@@ -255,8 +258,8 @@
 						</div>
 						<div class="right_menu menucore">
 							<select class="payoptionselect">
-								<option value="selectmethodoption" selected="selected">결제
-									옵션 선택</option>
+								<option value="selectmethodoption" selected="selected">결제 옵션 선택</option>
+									
 								<option value="kakaopay">카카오페이</option>
 							</select>
 						</div>

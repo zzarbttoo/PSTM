@@ -1,18 +1,29 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
-<body>
-	
-	<div id ="map" style ="width:500px;height:700px;"></div>
-<script type="text/javascript" src="//dapi.kakao.com/v2/maps/sdk.js?appkey=18de9bf1d4dd5e0fc3db2f13a73abc7d"></script>
-<script type="text/javascript">
+<%
+	String addr = request.getParameter("addr");
+String detailaddr = request.getParameter("detailaddr");
+String trainerName = request.getParameter("name");
+String wholeaddr = "'" + addr+ " " + detailaddr + "'";
+System.out.println(wholeaddr);
 
-	var container = document.getElementById('map');	//지도를 담을 영역의 DOM 레퍼런스
+%>
+
+<body>
+
+	<div id="map" style="width: 500px; height: 700px;"></div>
+	<script type="text/javascript"
+		src="//dapi.kakao.com/v2/maps/sdk.js?appkey=18de9bf1d4dd5e0fc3db2f13a73abc7d&libraries=services,clusterer,drawing"></script>
+	<script type="text/javascript">
+
+
+	var Container = document.getElementById('map');	//지도를 담을 영역의 DOM 레퍼런스
 	
 	var options = {	//지도를 생성할 때 필요한 기본 옵션
 			
@@ -20,68 +31,37 @@
 			level: 3	// 지도의 레벨(확대, 축소 정도)
 	};
 	
-	var map = new kakao.maps.Map(container,options);	// 지도 생성 및 객체 리턴
-	
-	var map = new kakao.maps.Map(container, options); // 지도를 생성합니다
-	
-	
+	// 지도를 생성합니다    
+	var map = new kakao.maps.Map(Container, options); 
 
-	// 지도에 교통정보를 표시하도록 지도타입을 추가합니다
-	map.addOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);    
-
-	// 아래 코드는 위에서 추가한 교통정보 지도타입을 제거합니다
-	// map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TRAFFIC);  
+	// 주소-좌표 변환 객체를 생성합니다
+	var geocoder = new kakao.maps.services.Geocoder();	
 	
-	
-	var map = new kakao.maps.Map(container, options); // 지도를 생성합니다
-	
+	// 주소로 좌표를 검색합니다
+	geocoder.addressSearch(<%=addr%>, function(result, status) {
 
-	// 마커가 표시될 위치입니다 
-	var markerPosition  = new kakao.maps.LatLng(37.345479, 126.736520); 
+		  // 정상적으로 검색이 완료됐으면 
+	     if (status === kakao.maps.services.Status.OK) {
 
-	// 마커를 생성합니다
-	var marker = new kakao.maps.Marker({
-	    position: markerPosition
+	        var coords = new kakao.maps.LatLng(result[0].y, result[0].x);
+
+	        // 결과값으로 받은 위치를 마커로 표시합니다
+	        var marker = new kakao.maps.Marker({
+	            map: map,
+	            position: coords
+	        });
+
+	        // 인포윈도우로 장소에 대한 설명을 표시합니다
+	        var infowindow = new kakao.maps.InfoWindow({
+	            content: '<div style="width:150px;text-align:center;padding:6px 0;">강사의 위치 : <%=wholeaddr%></div>'
+	        });
+	        infowindow.open(map, marker);
+
+	        // 지도의 중심을 결과값으로 받은 위치로 이동시킵니다
+	        map.setCenter(coords);
+	    } 
 	});
 
-	// 마커가 지도 위에 표시되도록 설정합니다
-	marker.setMap(map);
-
-	// 아래 코드는 지도 위의 마커를 제거하는 코드입니다
-	// marker.setMap(null); 
-	// 마커에 커서가 오버됐을 때 마커 위에 표시할 인포윈도우를 생성합니다
-	var iwContent = '<div style="padding:5px;">Hello World!</div>'; // 인포윈도우에 표출될 내용으로 HTML 문자열이나 document element가 가능합니다
-	
-	// 인포윈도우를 생성합니다
-	var infowindow = new kakao.maps.InfoWindow({
-	    content : iwContent
-		});
-
-	// 마커에 마우스오버 이벤트를 등록합니다
-	kakao.maps.event.addListener(marker, 'mouseover', function() {
-  	// 마커에 마우스오버 이벤트가 발생하면 인포윈도우를 마커위에 표시합니다
-	    infowindow.open(map, marker);
-		});
-
-	// 마커에 마우스아웃 이벤트를 등록합니다
-	kakao.maps.event.addListener(marker, 'mouseout', function() {
-	    // 마커에 마우스아웃 이벤트가 발생하면 인포윈도우를 제거합니다
-	    infowindow.close();
-		});
-	
-	
-
-	// 지도에 지형정보를 표시하도록 지도타입을 추가합니다
-	//map.addOverlayMapTypeId(kakao.maps.MapTypeId.TERRAIN);    
-
-	// 아래 코드는 위에서 추가한 지형정보 지도타입을 제거합니다
-	// map.removeOverlayMapTypeId(kakao.maps.MapTypeId.TERRAIN);
-	
-	
-
-
 </script>
-
-
 </body>
 </html>
