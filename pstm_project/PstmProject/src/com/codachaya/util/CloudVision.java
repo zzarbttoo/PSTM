@@ -1,4 +1,4 @@
-package com.codachaya.dao;
+package com.codachaya.util;
 
 import java.io.FileInputStream;
 
@@ -65,7 +65,7 @@ public class CloudVision {
 		
 		ImageAnnotatorClient vision = ImageAnnotatorClient.create();
 
-		String fileName = "C:\\Users\\feelj\\OneDrive\\바탕 화면\\semi\\PSTM\\pstm_project\\PstmProject\\WebContent\\img\\pizza.jpg";
+		String fileName = "C:\\Users\\feelj\\OneDrive\\바탕 화면\\semi\\PSTM\\pstm_project\\PstmProject\\WebContent\\imgfolder\\tomato1.jpg";
 		// String fileName = "C:\\Users\\feelj\\OneDrive\\바탕
 		// 화면\\semi\\PSTM\\pstm_project\\PstmProject\\WebContent\\img\\515966_540.jpg";
 
