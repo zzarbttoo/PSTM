@@ -50,7 +50,6 @@ import com.google.protobuf.ByteString;
 import com.google.protobuf.util.JsonFormat;
 
 import oracle.net.aso.k;
-
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -63,7 +62,7 @@ public class CloudVision {
 
 	public static void main(String[] args) throws Exception {
 
-		// 이미지에서 감지된 엔티티를 반환
+		
 		ImageAnnotatorClient vision = ImageAnnotatorClient.create();
 
 		String fileName = "C:\\Users\\feelj\\OneDrive\\바탕 화면\\semi\\PSTM\\pstm_project\\PstmProject\\WebContent\\img\\pizza.jpg";
