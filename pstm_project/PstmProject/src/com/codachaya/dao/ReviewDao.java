@@ -55,7 +55,7 @@ public class ReviewDao extends SqlMapConfig {
 		res=session.update(namespace+"update",dto);
 		session.close();
 	
-	return 0;
+	return res;
 	}
 	public int delete(int reviewid) {
 		SqlSession session=null;
@@ -66,15 +66,6 @@ public class ReviewDao extends SqlMapConfig {
 		
 		return res;
 	}
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
 	
 	

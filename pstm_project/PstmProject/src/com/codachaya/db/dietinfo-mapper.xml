@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="dietinfomapper">
+	<resultMap type="DietinfoDto" id="DietinfoDtoMap">
+	
+		<result property="dietid" column="DIETID"/>
+		<result property="dailyinfoid" column="DAILYINFOID"/>
+		<result property="uploadimg" column="UPLOADING"/>
+		<result property="originimg" column="ORIGINING"/>
+		<result property="result" column="RESULT"/>
+		<result property="eatencount" column="EATENCOUNT"/>
+	</resultMap>
+	
+	<select id="selectList" resultMap="DietinfoDtoMap">
+		SELECT DIETID, DAILYINFOID, UPLOADIMG, ORIGINIMG, 
+		RESULT, EATENCOUNT
+		FROM PSTM_DIETINFO
+	</select>
+	
+	<insert id="insert" parameterType="DietinfoDto">
+		INSERT INTO PSTM_DIETINFO
+		VALUES(DIETIDSEQ.NEXTVAL, #{dailyinfoid}, #{uploadimg}, #{originimg},
+		#{result}, #{eatencount})
+	</insert>
+	
+	<update id="update" parameterType="DietinfoDto">
+		UPDATE PSTM_DIETINFO SET UPLOADIMG = #{uploadimg}, RESULT = #{result} WHERE DIETID = #{dietid}
+	</update>
+	
+	<delete id="delete" parameterType="DietinfoDto">
+		DELETE FROM PSWM_DIETINFO WHERE DIETID = #{dietid}
+	</delete>	
+	
+	
+
+</mapper>
