@@ -61,7 +61,6 @@ public class DailyController extends HttpServlet {
 
 					String uploadimg = multi.getParameter("uploadimg");
 					String originimg = multi.getParameter("originimg");
-					
 
 					Enumeration files = multi.getFileNames();
 					String str = (String) files.nextElement();
@@ -70,19 +69,16 @@ public class DailyController extends HttpServlet {
 					originimg = multi.getOriginalFileName(str);
 					System.out.println(uploadimg);
 					System.out.println(originimg);
-					
+
 					String timeeat = multi.getParameter("timeeat");
-					
-					
-					
-					
+
 					// 이후 db 저장하기
 					DietinfoDto dto = new DietinfoDto();
 					dto.setUploadimg(uploadimg);
 					dto.setOriginimg(originimg);
 					dto.setTimeeat(timeeat);
 					int res = dao.insert(dto);
-					
+
 					if (res > 0) {
 						jsResponse("성공", "pstm_dailypage.jsp", response);
 					} else {
@@ -99,7 +95,7 @@ public class DailyController extends HttpServlet {
 				List<DailyinfoDto> list = dailydao.selectList();
 				request.setAttribute("list", list);
 				dispatch("pstm_dailypage.jsp", request, response);
-				
+
 				List<DietinfoDto> lists = dao.selectList();
 				request.setAttribute("lists", lists);
 				dispatch("pstm_dailypage.jsp", request, response);
@@ -123,8 +119,7 @@ public class DailyController extends HttpServlet {
 
 			} else if (command.equals("insertform")) {
 				response.sendRedirect("pstm_dailyinsert.jsp");
-				
-				
+
 			}
 		}
 	}
