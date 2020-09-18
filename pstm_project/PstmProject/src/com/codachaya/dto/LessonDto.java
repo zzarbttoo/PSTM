@@ -4,17 +4,25 @@ public class LessonDto {
 	private int userid;
 	private String classcontent;
 	private String priceinfo;
-	private String stdentid;
+	private String studentid;
+	private int studentcount;
 	
 	public LessonDto() {
 		
 	}
 	
-	public LessonDto(int userid, String classcontent, String priceinfo, String stdentid) {
+	public LessonDto(int userid, String classcontent, String priceinfo, String stdentid, int studentcount) {
 		this.userid = userid;
 		this.classcontent = classcontent;
 		this.priceinfo = priceinfo;
-		this.stdentid = stdentid;
+		this.studentid = stdentid;
+		this.studentcount = studentcount;
+	}
+	
+	public LessonDto(int userid, String studentid, int studentcount) {
+		this.userid = userid;
+		this.studentid = studentid;
+		this.studentcount = studentcount;
 	}
 
 	public int getUserid() {
@@ -41,14 +49,22 @@ public class LessonDto {
 		this.priceinfo = priceinfo;
 	}
 
-	public String getStdentid() {
-		return stdentid;
+	public String getStudentid() {
+		return studentid;
 	}
 
-	public void setStdentid(String stdentid) {
-		this.stdentid = stdentid;
+	public void setStudentid(String stdentid) {
+		this.studentid = stdentid;
+	}
+
+	public int getStudentcount() {
+		return studentcount;
+	}
+
+	public void setStudentcount(int studentcount) {
+		this.studentcount = studentcount;
 	}
 	
-	
+	  
 	
 }

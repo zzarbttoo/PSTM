@@ -4,34 +4,52 @@
 	
 	<resultMap type  ="ReceiptinfoDto" id = "receiptinfoResultMap">
 		<result property  ="receiptid" column = "RECEIPTID"></result>
+		<result property  ="imp_uid" column = "IMP_UID"></result>
 		<result property ="userid" column = "USERID"></result>
 		<result property ="trainerid" column = "TRAINERID"></result>
 		<result property ="buydate" column = "BUYDATE"></result>
 		<result property ="startdate" column = "STARTDATE"></result>
 		<result property ="duration" column = "DURATION"></result>
 		<result property ="purchasetype" column = "PURCHASETYPE"></result>
+		<result property ="checkright" column = "CHECKRIGHT"></result>
+		<result property ="refund" column = "REFUND"></result>
 		<result property ="price" column = "PRICE"></result>
 	
 	</resultMap>
 	
-	<select id = "selectList" resultMap = "receiptinfomapper">
-		SELECT RECEIPTID, USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
-		PURCHASETYPE, PRICE
+	<select id = "selectList" resultMap = "receiptinfoResultMap">
+		SELECT RECEIPTID, IMP_UID, USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
+		PURCHASETYPE, CHECKRIGHT, REFUND, PRICE
 		FROM PSTM_RECEIPTINFO
 		
 	</select>
 	
-	<select id = 
+	<select id = "selectOne" parameterType = "int">
+	
+		SELECT RECEIPTID , IMP_UID, USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
+		PURCHASETYPE , CHECKRIGHT, REFUND, PRICE
+		FROM PSTM_RECEIPTINFO WHERE RECEIPTID = #{receiptid}
+		
+	</select>
 	
 	<insert id = "insert">
-		INSERT INTO PSTM_RECEIPT VALUES(PSTM_RECEIPTSEQ.NEXTVAL, #{userid}, #{trainerid}, #{buydate}, #{startdate}, #{purchase}, #{price})
+		INSERT INTO PSTM_RECEIPTINFO VALUES(PSTM_RECEIPTIDSEQ.NEXTVAL, #{imp_uid} ,#{userid}, #{trainerid},SYSDATE , #{startdate},#{duration}, #{purchasetype}, 'R', 'N', #{price})
 	</insert>
 	
 	<delete id = "delete" parameterType = "int">
 		DELETE FROM PSTM_RECEIPTINFO WHERE RECEIPTID = #{receiptid}
 	</delete>
 	
-	<
-
+	<update id = "updaterefund" parameterType = "int">
+		UPDATE PSTM_RECEIPTINFO SET REFUND = 'N' WHERE RECEIPTID = #{receiptid}
+	
+	</update>
+	
+	<select id = "selectId" parameterType = "String" resultMap = "receiptinfoResultMap" >
+	
+		SELECT RECEIPTID FROM PSTM_RECEIPTINFO WHERE IMP_UID = #{imp_uid} AND ROWNUM = 1
+		
+	</select>
+	
 
 </mapper>

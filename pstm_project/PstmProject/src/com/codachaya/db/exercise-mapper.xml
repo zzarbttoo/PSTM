@@ -1,15 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
-  <mapper namespace="exercisemapper">
-  
- 
-  
-  
-  
-  
-  
-  
-  </mapper>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+
+<mapper namespace="exercisemapper">
+
+	<resultMap type="ExerciseDto" id="ExerciseDtoMap">
+		<result property="exinfoid" column="EXINFOID"/>
+		<result property="dailyinfoid" column="DAILYINFOID"/>
+		<result property="content" column="CONTENT"/>
+		<result property="kcal" column="KCAL"/>
+	
+	</resultMap>
+	
+	<select id="selectList" resultMap="ExerciseDtoMap">
+		
+		SELCET EXINFOID, DAILYINFOID, CONTENT, KCAL
+		FROM PSTM_EXINFO
+		
+		
+	
+	</select>
+	
+	<select id="selectOne" resultMap="ExerciseDtoMap">
+		
+		SELCET EXINFOID, DAILYINFOID, CONTENT, KCAL
+		FROM PSTM_EXINFO
+		WHERE EXINFOID = #{exinfoid}
+	</select>
+		
+</mapper>
