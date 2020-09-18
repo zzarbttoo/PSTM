@@ -76,7 +76,7 @@ public class DailyController extends HttpServlet {
 	}
 	
 
-	protected void Vision(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected List<String> Vision(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
 		ImageAnnotatorClient vision = ImageAnnotatorClient.create();
@@ -112,7 +112,7 @@ public class DailyController extends HttpServlet {
 		for (AnnotateImageResponse res : responses) {
 			if (res.hasError()) {
 				System.out.printf("Error:%s\n", res.getError().getMessage());
-				return;
+				return null;	//나중에  null 꼭찾아와~~ 까먹지마~
 			}
 			for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
 				
@@ -131,9 +131,7 @@ public class DailyController extends HttpServlet {
 			//toJsonTree : Json 객체로 변환해주는것
 			//getAsJsonArray : 객체를 Array형식으로 만들어줌
 			
-			request.setAttribute("result",result);
-			
-			dispatch("pstm_kal.jsp",request,response);
+	
 			
 			//JSON.stringify();
 			// List를 JSON형식으로 만들어주는 애
@@ -144,6 +142,7 @@ public class DailyController extends HttpServlet {
     writer.print(jsonTxt);
 			 */
 		}
+		return result;
 	}
 	
 	
