@@ -54,7 +54,7 @@
 			<li><a class="menulink" href="#">인바디</a></li>
 			<li><a class="menulink" href="#">강좌</a></li>
 			<li><a class="menulink" href="#">정보변경</a></li>
-			<li><a class="menulink" href="pstm_dailypage.jsp">식단/운동기록</a></li>
+			<li><a class="menulink" href="daily.do?command=selectres">식단/운동기록</a></li>
 		</ul>
 	</nav>
 	

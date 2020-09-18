@@ -8,18 +8,20 @@ public class DietinfoDto {
 	private String originimg;
 	private String result;
 	private int eatencount;
+	private String timeeat;
 
 	public DietinfoDto() {
 
 	}
 
-	public DietinfoDto(int dietid, int dailyinfoid, String uploadimg, String originimg, String result, int eatencount) {
+	public DietinfoDto(int dietid, int dailyinfoid, String uploadimg, String originimg, String result, int eatencount, String timeeat) {
 		this.dietid = dietid;
 		this.dailyinfoid = dailyinfoid;
 		this.uploadimg = uploadimg;
 		this.originimg = originimg;
 		this.result = result;
 		this.eatencount = eatencount;
+		this.timeeat = timeeat;
 	}
 
 	public int getDietid() {
@@ -69,5 +71,15 @@ public class DietinfoDto {
 	public void setEatencount(int eatencount) {
 		this.eatencount = eatencount;
 	}
+
+	public String getTimeeat() {
+		return timeeat;
+	}
+
+	public void setTimeeat(String timeeat) {
+		this.timeeat = timeeat;
+	}
+	
+	
 
 }
