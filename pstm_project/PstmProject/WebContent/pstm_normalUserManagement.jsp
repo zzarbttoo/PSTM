@@ -1,3 +1,7 @@
+
+
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,6 +11,13 @@
 <title>Insert title here</title>
 </head>
 <body>
+
+<%
+	if(session.getAttribute("login") ==null){
+		String result = "<script> alert('로그인을 먼저 해주세요!'); location.href='pstm_login.jsp'; </script> ";
+		response.getWriter().append(result);
+	}
+%>
 
 <%@ include file="./form/pstm_header.jsp"%>
 

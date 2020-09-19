@@ -9,14 +9,18 @@ public class UserDao extends SqlMapConfig {
 	private String namespace = "usermapper.";
 
 	// 일반회원, 강사 로그인
-	public UserDto login(String id) {
+	public UserDto login(String id,String password) {
 
 		UserDto dto = new UserDto();
+		UserDto duo = new UserDto();
+		duo.setId(id);
+		duo.setPassword(password);
+		
 		SqlSession session = null;
 
 		try {
 			session = getSqlSessionFactory().openSession(true);
-			dto = session.selectOne(namespace + "login", id);
+			dto = session.selectOne(namespace + "login", duo);
 
 		} catch (Exception e) {
 			System.out.println("ERROR 3. 4.");
@@ -28,6 +32,7 @@ public class UserDao extends SqlMapConfig {
 
 		return dto;
 	}
+	
 
 	// 일반회원 회원가입
 	public int insertNormalUser(UserDto dto) {

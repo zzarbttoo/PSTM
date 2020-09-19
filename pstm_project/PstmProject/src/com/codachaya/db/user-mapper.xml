@@ -131,7 +131,7 @@
 		UPLOADIMG, ORIGINIMG, CAREER,
 		MYCOMMENT,ADMIT, SIGNOUT
 		FROM PSTM_USERINFO
-		WHERE ID = #{id} AND SIGNOUT = 'N'
+		WHERE ID = #{id} AND PASSWORD = #{password} AND SIGNOUT = 'N'
 	</select>
 	
 	<insert id="insertNormalUser" parameterType="UserDto">
@@ -161,6 +161,7 @@
 		MYCOMMENT,ADMIT, SIGNOUT
 		FROM PSTM_USERINFO WHERE ID = #{id}
 	</select>
+	
 	
 	
 	

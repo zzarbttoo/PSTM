@@ -6,6 +6,15 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
+<%
+	if(session.getAttribute("login") ==null){
+		String result = "<script> alert('로그인을 먼저 해주세요!'); location.href='pstm_login.jsp'; </script> ";
+		response.getWriter().append(result);
+	}
+%>
+
+
 <body>
 <%@ include file="./form/pstm_header.jsp"%>
 
