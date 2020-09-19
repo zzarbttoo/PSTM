@@ -1,0 +1,131 @@
+
+h1 {
+	height: 100px;
+}
+
+#topMenu {
+	height: 100px;
+	width: 850px;
+	text-align: center;
+	margin: auto;
+}
+
+#topMenu ul li {
+	list-style: none;
+	float: left;
+	line-height: 30px;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#topMenu .menulink {
+	text-decoration: none;
+	display: block;
+	width: 150px;
+	font-size: 12px;
+	font-weight: bold;
+	color: black;
+}
+
+.btn_fix {
+	position: fixed;
+	background-color: black;
+	color: white;
+	border: 0;
+	outline: 0;
+	right: 50px;
+	width: 50px;
+	height: 50px;
+	border-bottom-left-radius: 50%;
+	border-bottom-right-radius: 50%;
+	border-top-right-radius: 50%;
+	border-top-left-radius: 50%;
+}
+
+.btn_fix:hover {
+	background: tomato;
+	color: white;
+}
+
+body {
+	margin: 0px;
+	padding: 0px;
+}
+
+.big-box {
+	width: 80%;
+	background-color: white;
+	height: 100vh;
+	border-top: 1px solid black;
+}
+
+.date {
+	width: 500px;
+	height: 100px;
+	border: 1px solid gray;
+	margin: auto;
+}
+
+.img {
+	width: 500px;
+	height: 500px;
+	border: 1px solid gray;
+	margin: auto;
+}
+
+.table {
+	width: 500px;
+	height: 500px;
+	border: 1px solid gray;
+	margin: auto;
+}
+
+
+a{
+	text-decoration: none;
+}
+ .profile{
+ 	padding-top: 50px;
+ 	text-align: center;
+ 	position: fixed;
+ 	float: right;
+ 	right: 100px;
+ 	display: table-cell; 
+ }
+ .profile img{
+ 	width: 100px;
+ 	height: 100px;
+ }
+ .write{
+ 	position: absolute;
+ 	bottom: -170px;
+	right: 300px;
+ }
+ .write img{
+ 	width: 50px;
+ 	height: 50px;
+ }
+ .profile_td{
+ 	height: 20px;
+ }
+ .info{
+ 	padding-left: 20px;
+ 	text-align: left;
+ }
+ .main_text{
+ 	padding-top: 50px;
+ 	position: relative;
+ 	display: table-cell;
+ 	left: 250px;
+ }
+.main_text table{
+	width: 700px;
+	height: 400px;
+	border-collapse: collapse;
+	margin-bottom: 20px;
+	margin: auto;
+}
+
+
+ 
+

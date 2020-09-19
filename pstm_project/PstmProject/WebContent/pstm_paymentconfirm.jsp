@@ -8,10 +8,8 @@
 </head>
 <body>
 
-	<form action="file.jsp" method="post" enctype="multipart/form-data">
-		file : <input type="file" name="file"><br>
-		<input type="submit" value="업로드">
-	</form>
+	
+	<h1>결제 확인 창</h1>
 
 </body>
 </html>
