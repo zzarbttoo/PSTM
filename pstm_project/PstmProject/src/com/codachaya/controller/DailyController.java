@@ -1,11 +1,6 @@
 package com.codachaya.controller;
 
 import java.io.File;
-
-<<<<<<< HEAD
-
-=======
->>>>>>> 546eb5cc4fbd4013746d47e0aa82132443ae7e68
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;

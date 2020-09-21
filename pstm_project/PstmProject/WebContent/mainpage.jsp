@@ -7,11 +7,9 @@
 <title>Insert title here</title>
 </head>
 <body>
-<<<<<<< HEAD
-<%@ include file="./form/pstm_header.jsp"%>
-=======
 
->>>>>>> 546eb5cc4fbd4013746d47e0aa82132443ae7e68
+
+
 <script type="text/javascript">
 
 function popupOpen(){
