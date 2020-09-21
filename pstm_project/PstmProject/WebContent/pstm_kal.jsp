@@ -26,9 +26,9 @@ F<%@page import="java.util.ArrayList"%>
 			data : {
 				apiKey : "20200917103617HS0PNAS5YSH17TMJEO",
 				serviceType : "AA002",
-				fdGrupp :"I",
+				//fdGrupp :"I",
 				fdEngNm : "<%= list.get(i)  %>"
-			}
+			}, 
 
 		}).done(function(msg) {
 			console.log(msg);
