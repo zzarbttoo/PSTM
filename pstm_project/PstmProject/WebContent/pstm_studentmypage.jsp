@@ -2,7 +2,15 @@
     pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("UTF-8");%>
 <%response.setContentType("text/html; charset=UTF-8");%>
-    
+ 
+ 
+<%
+	if(session.getAttribute("login") == null && session.getAttribute("nLogin") == null){
+		String result = "<script> alert('로그인을 먼저 해주세요!'); location.href='pstm_login.jsp'; </script> ";
+		response.getWriter().append(result);
+	}
+%>
+   
 <!DOCTYPE html>
 <html>
 <head>

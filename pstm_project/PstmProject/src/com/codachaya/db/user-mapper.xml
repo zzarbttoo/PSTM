@@ -122,4 +122,47 @@
 		SELECT COUNT(*) FROM PSTM_USERINFO WHERE USERTYPE = 'N'
 	</select>
 	
+	<select id="login" resultType="UserDto" parameterType="string">
+		SELECT
+		USERID, ID, PASSWORD,
+		PASSWORD_KEY, NAME, PHONE, ADDR,
+		DETAILADDR,
+		USERTYPE, GENDER, HEIGHT,
+		UPLOADIMG, ORIGINIMG, CAREER,
+		MYCOMMENT,ADMIT, SIGNOUT
+		FROM PSTM_USERINFO
+		WHERE ID = #{id} AND PASSWORD = #{password} AND SIGNOUT = 'N'
+	</select>
+	
+	<insert id="insertNormalUser" parameterType="UserDto">
+		INSERT INTO PSTM_USERINFO
+		VALUES(PSTM_USERSEQ.NEXTVAL, #{id}, #{password},
+		#{password_key},#{name},
+		#{phone},#{addr}, #{detailaddr}, 'N',
+		#{gender}, #{height}, NULL, NULL, NULL, NULL,NULL, 'N')
+	</insert>
+	
+	<insert id="insertTrainer" parameterType="UserDto">
+		INSERT INTO
+		PSTM_USERINFO
+		VALUES(PSTM_USERSEQ.NEXTVAL, #{id}, #{password},
+		#{password_key}, #{name},
+		#{phone},#{addr}, #{detailaddr}, 'T',
+		#{gender}, 0, NULL, NULL,#{career}, #{mycomment},NULL, 'N')
+	
+	</insert>
+	
+	<select id="idCheck" resultType="UserDto" parameterType="string">
+		SELECT
+		USERID, ID, PASSWORD,
+		PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT,
+		UPLOADIMG, ORIGINIMG, CAREER,
+		MYCOMMENT,ADMIT, SIGNOUT
+		FROM PSTM_USERINFO WHERE ID = #{id}
+	</select>
+	
+	
+	
+	
 </mapper>
