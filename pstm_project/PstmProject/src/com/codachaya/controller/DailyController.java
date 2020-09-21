@@ -20,6 +20,7 @@ import java.util.UUID;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
+import javax.servlet.ServletResponse;
 import javax.servlet.annotation.MultipartConfig;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -55,6 +56,8 @@ import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
 
 import net.sf.json.JSON;
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
 
 
 
@@ -125,6 +128,7 @@ public class DailyController extends HttpServlet {
 				dispatch("pstm_dailypage.jsp", request, response);
 
 			} else if (command.equals("getimg")) {
+				// Response에 결과값을 String으로 보낼 때 사용
 				ServletOutputStream imgout = response.getOutputStream();
 				String imgPath = request.getSession().getServletContext().getRealPath("imgfolder");
 				String uploadimg = request.getParameter("uploadimg"); // db에 저장된 값 가져와서 넣어주기
@@ -136,6 +140,7 @@ public class DailyController extends HttpServlet {
 				int length;
 				byte[] buffer = new byte[10];
 				while ((length = input.read(buffer)) != -1) {
+					// String 보내주기
 					imgout.write(buffer, 0, length);
 				}
 				System.out.println(new File(".").getAbsolutePath());
@@ -145,7 +150,28 @@ public class DailyController extends HttpServlet {
 				response.sendRedirect("pstm_dailyinsert.jsp");
 
 			}else if(command.equals("asd")) {
-				Vision(request, response);
+				
+				
+			}else if(command.equals("vision")) {
+				request.setCharacterEncoding("UTF-8");
+				response.setContentType("text/html; charset=UTF-8");
+				
+				String filename = request.getParameter("filename");
+				List<String> visionresult = Vision(request.getSession().getServletContext().getRealPath("imgfolder"), request.getParameter("filename"));
+					JSONArray obj = new JSONArray();
+					obj.add(visionresult);
+				//response.setContentType("application/x-json; charset=UTF-8");
+					
+				  response.getWriter().print(obj);
+			//	response.getWriter().write(visionresult.toString());
+			//	ServletOutputStream objectdetect = response.getOutputStream();
+			//	FileInputStream input = new FileInputStream(visionresult.toString());
+			//	int length;
+			//	byte[] buffer = new byte[1024*1024];
+			//	while ((length = input.read(buffer)) != -1) {
+					// String 보내주기
+			//		objectdetect.write(buffer, 0, length);
+				//}
 			}
 		}
 	}
@@ -154,6 +180,7 @@ public class DailyController extends HttpServlet {
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		doPost(request, response);
+	
 	}
 	
 
@@ -212,12 +239,11 @@ public class DailyController extends HttpServlet {
 	
 	
 
-	protected List<String> Vision(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		request.setCharacterEncoding("UTF-8");
-		response.setContentType("text/html; charset=UTF-8");
+	protected List<String> Vision(String Path , String filename ) throws ServletException, IOException {
+		
 		ImageAnnotatorClient vision = ImageAnnotatorClient.create();
 
-		String fileName =  request.getSession().getServletContext().getRealPath("img") + "\\beef.jpg";
+		String fileName =  Path +"\\"+filename;
 		// String fileName = "C:\\Users\\feelj\\OneDrive\\바탕
 		// 화면\\semi\\PSTM\\pstm_project\\PstmProject\\WebContent\\img\\515966_540.jpg";
 
@@ -262,6 +288,7 @@ public class DailyController extends HttpServlet {
 			}
 			System.out.println(result);
 			JsonArray array = new Gson().toJsonTree(result).getAsJsonArray();
+			
 			//parse : 형식을 변화해주는것
 			//Gson : Gson 을 사용하겠다.
 			//toJsonTree : Json 객체로 변환해주는것
