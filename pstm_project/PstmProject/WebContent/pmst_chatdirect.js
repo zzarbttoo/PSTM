@@ -7,7 +7,7 @@ var express = require('express')
 server.listen(9999);
 
 // routing 앞 이후의 url로 들어오면, res.sendfile의 위치로 이동하겠다 
-app.get('/PstmProject/heyyowatssupp/hihi.com', function (req, res) {
+app.get('/PstmProject/heyyowatssupp/hihi', function (req, res) {
   res.sendfile(__dirname + '/pstm_chatuser.html');
 });
 
