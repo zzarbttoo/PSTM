@@ -219,6 +219,8 @@ public class DailyController extends HttpServlet {
 						Path newFilePath = Paths.get(storePath + "/" + newFileName);
 						File uploadedFile = newFilePath.toFile();
 						item.write(uploadedFile);			// 파일 저장
+						request.setAttribute("newFileName", newFileName);
+						dispatch("pstm_dailyinsert.jsp", request, response);
 					}
 				}
 			}

@@ -43,7 +43,8 @@
 </script>
 <script>
 		function kcalcount(){
-			var filename = "beef.jpg"
+			var fileValue = $(".excelFile").val().split("\\");
+			var filename = fileValue[fileValue.length-1];
 			$.ajax({
 				  method: "POST",
 				  url: "daily.do?command=vision&filename="+filename,
@@ -91,9 +92,6 @@
 				
 			})
 		}
-		
-		
-		
 </script>
 
 
@@ -109,22 +107,27 @@
 
 	<form method="post" enctype="multipart/form-data" id="createupload" action="daily.do">
 		<input type="hidden" name="command" value="insertres">
-		 파일 : <input type="file" name="uploadimg" id="imput_img"> 
-		 먹은 시간 : <input type="text" name="timeeat">
-		 <button onclick="upload(event)">이미지 업로드</button>
+		 파일 : <input type="file" name="uploadimg" id="imput_img" class="excelFile"> 
+		 먹은 시간 : <input type="text" name="timeeat"> 
+		<!--  <button onclick="upload(event)">이미지 업로드</button> -->
 		 
 		 
-		 
-		 
-		 <input type="submit" value="upload">
-		 		파일 : <input type="file" name="uploadimg">
-			 	먹은 시간 : <input type="text" name="timeeat">
-		<input type="submit" value="upload">
-	</form>
 	
-	<div>
+	
+	 <div><p id="kcalall"></div>
+	 <input type="submit" value="upload">
+	 
+	 </form>
+	 
+	 
+	 
+	 <div>
 		<button onclick="kcalcount();">계산하기</button>
 	</div>
+	
+	
+	
+	
 	
 	<div>
 		내가먹은 음식 선택 : 
@@ -132,7 +135,6 @@
 		</select>
 		<button onclick="foodnamesend();">선택</button>
 	</div>
-	 <div><p id="kcalall"></div>
 
 	<%@include file="./form/pstm_footer.jsp"%>
 </body>
