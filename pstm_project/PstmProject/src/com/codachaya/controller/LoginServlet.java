@@ -2,6 +2,8 @@ package com.codachaya.controller;
 
 import java.io.IOException;
 
+
+
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -10,6 +12,7 @@ import java.util.Map;
 import java.net.URL;
 import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
+
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 
@@ -23,6 +26,7 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
+
 
 import com.codachaya.dao.SnsDao;
 import com.codachaya.dao.UserDao;
@@ -62,7 +66,7 @@ public class LoginServlet extends HttpServlet {
 				response.sendRedirect("mainpage.jsp");
 
 			} else {
-				
+
 			}
 		} else if (command.equals("logout")) {
 
@@ -142,21 +146,20 @@ public class LoginServlet extends HttpServlet {
 					String name = (String) resObj.get("name");
 					String usertype = "";
 					String signout = "";
-									
-					if(sns.naverLogin(id) == null) {
+
+					if (sns.naverLogin(id) == null) {
 						NaverDto dto1 = new NaverDto(0, id, name, usertype, gender, 0, profile_image, null, signout);
-						
+
 						int result = sns.insert(dto1);
 
 						if (result > 0) {
 							System.out.println("db 저장 성공");
 						} else {
 							System.out.println("db 저장 실패");
-							}
-							
 						}
-					
-					
+
+					}
+
 					NaverDto dto = new NaverDto(0, id, name, usertype, gender, 0, profile_image, null, signout);
 
 					dto = sns.naverLogin(id);
@@ -178,9 +181,15 @@ public class LoginServlet extends HttpServlet {
 				}
 
 			} catch (Exception e) {
-				System.out.println("에러?");
+				System.out.println("ERROR");
 				System.out.println(e);
 			}
+		} else if (command.equals("FBlogin")) {
+
+			String access_token = request.getParameter("access_token");
+
+			
+
 		}
 
 	}
@@ -245,15 +254,6 @@ public class LoginServlet extends HttpServlet {
 		String res = "<script>alert('" + msg + "'); location.href='" + url + "';</script>";
 
 		out.print(res);
-
-	}
-
-	private void dispatch(String path, HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-
-		// 리퀘스트 dispatcher 객체를 여러번 쓰기 힘들어서 메소드를 만듬
-		RequestDispatcher dispatch = request.getRequestDispatcher(path);
-		dispatch.forward(request, response);
 
 	}
 
