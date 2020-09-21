@@ -114,7 +114,6 @@
 			}
 			
 			
-			alert("잘했다 녀석");
 			IMP.request_pay({
 				
 				pg : 'kakao',

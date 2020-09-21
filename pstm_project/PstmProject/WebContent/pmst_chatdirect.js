@@ -4,12 +4,33 @@ var express = require('express')
   , server = http.createServer(app)
   , io = require('socket.io').listen(server);
 
+
+
 server.listen(9999);
 
+var trainernum = null;
+var trainername = null;
+var userid = null;
 // routing 앞 이후의 url로 들어오면, res.sendfile의 위치로 이동하겠다 
-app.get('/PstmProject/heyyowatssupp/hihi', function (req, res) {
+app.get('/PstmProject/trainerchating', function (req, res) {
   res.sendfile(__dirname + '/pstm_chatuser.html');
+  trainernum = req.param('trainernum');
+  trainername = req.param('trainername');
+  userid = req.param('userid');
+  
+ initinform(trainernum, trainername, userid);
+console.log(trainernum);
+console.log(trainername);
+console.log(userid);
+
 });
+function initinform(_trainernum, _trainername, _userid){
+	
+	trainernum = _trainernum;
+	trainername = _trainername;
+	userid = _userid;
+}
+
 
 // usernames which are currently connected to the chat
 var usernames = {};
