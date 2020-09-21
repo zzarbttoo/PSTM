@@ -43,7 +43,8 @@
 </script>
 <script>
 		function kcalcount(){
-			var filename = "beef.jpg"
+			var fileValue = $(".excelFile").val().split("\\");
+			var filename = fileValue[fileValue.length-1];
 			$.ajax({
 				  method: "POST",
 				  url: "daily.do?command=vision&filename="+filename,
@@ -109,17 +110,15 @@
 
 	<form method="post" enctype="multipart/form-data" id="createupload" action="daily.do">
 		<input type="hidden" name="command" value="insertres">
-		 파일 : <input type="file" name="uploadimg" id="imput_img"> 
+		 파일 : <input type="file" name="uploadimg" id="imput_img" class="excelFile"> 
 		 먹은 시간 : <input type="text" name="timeeat">
-		 <button onclick="upload(event)">이미지 업로드</button>
+		<!--  <button onclick="upload(event)">이미지 업로드</button> -->
 		 
 		 
 		 
 		 
 		 <input type="submit" value="upload">
-		 		파일 : <input type="file" name="uploadimg">
-			 	먹은 시간 : <input type="text" name="timeeat">
-		<input type="submit" value="upload">
+		 		
 	</form>
 	
 	<div>
