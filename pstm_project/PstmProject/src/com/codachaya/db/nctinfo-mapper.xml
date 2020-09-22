@@ -16,6 +16,7 @@
 		SELECT NCTINFOID, DIETID, KCAL, CARBOHYDRATE,
 		PROTEIN, FAT, NCTETC
 	    FROM PSTM_NCTINFO
+	    WHERE DIETID = #{dietid}
 	</select>
 	
 	<insert id="insert" parameterType="NctinfoDto">

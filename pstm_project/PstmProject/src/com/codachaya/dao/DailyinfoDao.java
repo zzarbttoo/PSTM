@@ -36,4 +36,16 @@ public class DailyinfoDao extends SqlMapConfig{
 		return res;
 	}
 	
+	public int delete(int dailyinfoid) {
+		SqlSession session = null;
+		
+		int res = 0;
+		session = getSqlSessionFactory().openSession(true);
+		res = session.delete(namespace + "delete", dailyinfoid);
+		session.close();
+		
+		
+		return res;
+	}
+	
 }

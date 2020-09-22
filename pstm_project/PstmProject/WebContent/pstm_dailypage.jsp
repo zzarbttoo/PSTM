@@ -59,21 +59,21 @@
 	
 	<table border="1" style="width:500px; height: 500px;">
 		<%
-		for(int i = 0; i < lists.size(); i++) {
-			for(int j = 0; j < list.size(); j++) {
-				for(int z = 0; z < nctlist.size(); i++){
+		for(int j = 0; j < list.size(); j++) {
+			for(int i = 0; i < lists.size(); i++) {
+				for(int z = 0; z < nctlist.size(); z++){
 				if(list.get(j).getDailyinfoid() == lists.get(i).getDailyinfoid()) {
 					
 		%>
 				<tr>
-					<td><img src="daily.do?command=getimg&uploadimg=<%=lists.get(i).getOriginimg()%>" style="width:500px; height: 500px;"></td>
+					<td><img src="daily.do?command=getimg&uploadimg=<%=lists.get(i).getUploadimg()%>" style="width:500px; height: 500px;"></td>
 				</tr>
 				<tr>
 					<td>
-						<p>운동 : <%=list.get(j).getExercise() %></p>
-						<p>피드백 : </p>
+						<p>음식 : <%=lists.get(i).getResult() %></p>
 						<p>먹은 시간 : <%=lists.get(i).getTimeeat() %></p>
 						<p>칼로리 : <%=nctlist.get(z).getKcal() %></p>
+						<p>피드백 : </p>
 					</td>
 				</tr>
 		
@@ -85,10 +85,9 @@
 			</td>
 		</tr>
 				<%
-					
+					}
 				}
 			}
-		}
 		}
 	%>
 		

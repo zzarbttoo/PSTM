@@ -89,7 +89,8 @@ public class DailyController extends HttpServlet {
 					String uploadimg = multi.getParameter("uploadimg");
 					String originimg = multi.getParameter("originimg");
 					String timeeat = multi.getParameter("timeeat");
-					int kcal = Integer.parseInt(request.getParameter("kcal"));
+					int kcal = Integer.parseInt(multi.getParameter("kcal"));
+					String result = multi.getParameter("result");
 					Enumeration files = multi.getFileNames();
 					String str = (String) files.nextElement();
 
@@ -105,6 +106,7 @@ public class DailyController extends HttpServlet {
 					dto.setUploadimg(uploadimg);
 					dto.setOriginimg(originimg);
 					dto.setTimeeat(timeeat);
+					dto.setResult(result);
 					int res = dao.insert(dto);
 					
 					NctinfoDto dtos = new NctinfoDto();
@@ -112,9 +114,9 @@ public class DailyController extends HttpServlet {
 					
 					int nctres = nctdao.insert(dtos);
 					
-					int result = res + nctres;
+					int results = res + nctres;
 
-					if (result > 0) {
+					if (results > 1) {
 						jsResponse("성공", "pstm_dailypage.jsp", response);
 					} else {
 						jsResponse("실패", "pstm_studentmypage.jsp", response);

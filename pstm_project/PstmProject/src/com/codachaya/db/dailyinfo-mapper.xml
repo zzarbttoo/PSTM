@@ -29,7 +29,7 @@
  
   <insert id="insert" parameterType="DailyinfoDto">
   	INSERT INTO PSTM_DAILYINFO
-  	VALUES(DAILYINFOIDSEQ.NEXTVAL,3, SYSTATE, '스쿼트', 150, 'ㅎㅎ')
+  	VALUES(DAILYINFOIDSEQ.NEXTVAL,1, SYSTATE, '스쿼트', 150, 'ㅎㅎ')
   </insert>
   
   <update id="update" parameterType="DailyinfoDto">

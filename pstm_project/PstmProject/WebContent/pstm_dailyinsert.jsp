@@ -91,6 +91,7 @@
 				$("#kcalall").append("음식이름 :" +foodname+"<br> 칼로리 : "+kcal);
 				
 			})
+			
 		}
 </script>
 
@@ -112,10 +113,10 @@
 		<!--  <button onclick="upload(event)">이미지 업로드</button> -->
 		 
 		 
-		 먹은 시간 : <input type="text" name="timeeat">
 		<!--  <button onclick="upload(event)">이미지 업로드</button> -->
 		칼로리 : <input type="text" name="kcal">
-		 
+		음식이름 : <input type="text" name="result">
+		
 		 
 		 
 		 
@@ -125,18 +126,10 @@
 	
 	
 	 <div><p id="kcalall"></div>
-	 <input type="submit" value="upload">
-	 
-	 </form>
-	 
-	 
 	 
 	 <div>
 		<button onclick="kcalcount();">계산하기</button>
 	</div>
-	
-	
-	
 	
 	
 	<div>
