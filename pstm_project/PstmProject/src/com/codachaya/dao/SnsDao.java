@@ -30,6 +30,29 @@ public class SnsDao extends SqlMapConfig {
 
 		return res;
 	}
+	
+	public int FBinsert(NaverDto dto) {
+
+		SqlSession session = null;
+		int res = 0;
+
+		try {
+			session = getSqlSessionFactory().openSession(false);
+			res = session.insert(namespace + "FBinsert", dto);
+
+			if (res > 0) {
+				session.commit();
+			}
+
+		} catch (Exception e) {
+			System.out.println("ERROR 3. 4.");
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return res;
+	}
 
 	public NaverDto naverLogin(String id) {
 		SqlSession session = null;
@@ -46,6 +69,25 @@ public class SnsDao extends SqlMapConfig {
 		}
 
 		return dto;
+	}
+	
+	public NaverDto FBLogin(String id) {
+		
+		SqlSession session = null;
+		NaverDto dto = new NaverDto();
+
+		try {
+			session = getSqlSessionFactory().openSession(true);
+			dto = session.selectOne(namespace + "FBLogin", id);
+
+		} catch (Exception e) {
+			e.printStackTrace();
+		} finally {
+			session.close();
+		}
+
+		return dto;
+		
 	}
 
 }

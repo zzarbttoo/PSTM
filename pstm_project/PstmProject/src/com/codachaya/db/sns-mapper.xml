@@ -24,6 +24,14 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		NULL, 'N')
 	</insert>
 	
+	<insert id="FBinsert" parameterType="NaverDto">
+		INSERT INTO PSTM_NAVERINFO
+		VALUES(
+		PSTM_NAVERSEQ.NEXTVAL, #{id}, 
+		#{name},'N','M', 0, #{profile_image},
+		NULL, 'N')
+	</insert>
+	
 	<select id="naverLogin" parameterType="string" resultType="NaverDto">
 		
 		SELECT USERID, ID, NAME, USERTYPE, GENDER, HEIGHT, PROFILE_IMAGE, ADMIT, SIGNOUT
@@ -31,6 +39,15 @@ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 		WHERE ID = #{id} AND USERTYPE= 'N' AND SIGNOUT = 'N' 
 
 	</select>
+	
+	<select id="FBLogin" parameterType="string" resultType="NaverDto">
+		
+		SELECT USERID, ID, NAME, USERTYPE, GENDER, HEIGHT, PROFILE_IMAGE, ADMIT, SIGNOUT
+		FROM PSTM_NAVERINFO
+		WHERE ID = #{id} AND USERTYPE= 'N' AND SIGNOUT = 'N' 
+
+	</select>
+	
 	
 
 

@@ -2,8 +2,6 @@ package com.codachaya.controller;
 
 import java.io.IOException;
 
-
-
 import java.io.InputStream;
 import java.io.PrintWriter;
 import java.net.URLEncoder;
@@ -26,7 +24,6 @@ import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
-
 
 import com.codachaya.dao.SnsDao;
 import com.codachaya.dao.UserDao;
@@ -187,8 +184,80 @@ public class LoginServlet extends HttpServlet {
 		} else if (command.equals("FBlogin")) {
 
 			String access_token = request.getParameter("access_token");
+			try {
 
-			
+				String url = "https://graph.facebook.com/v8.0/me?fields=id,name,picture,email&access_token="
+						+ access_token;
+				URL obj = new URL(url);
+				HttpURLConnection con = (HttpURLConnection) obj.openConnection();
+				// optional default is GET
+				con.setRequestMethod("GET");
+				// add request header
+				con.setRequestProperty("User-Agent", "Mozilla/5.0");
+				int responseCode = con.getResponseCode();
+				System.out.println("\nSending 'GET' request to URL : " + url);
+				System.out.println("Response Code : " + responseCode);
+				BufferedReader in = new BufferedReader(new InputStreamReader(con.getInputStream()));
+				String inputLine;
+				StringBuffer respon = new StringBuffer();
+				while ((inputLine = in.readLine()) != null) {
+					respon.append(inputLine);
+				}
+				in.close();
+				System.out.println(respon);
+
+				if (responseCode == 200) {
+
+					JSONParser parsing = new JSONParser();
+					Object ob = parsing.parse(respon.toString());
+					JSONObject jsonObj = (JSONObject) ob;
+					
+					Object obje=jsonObj.get("picture");
+					JSONObject jsonObj2 = (JSONObject) obje;
+					Object objec = jsonObj2.get("data");
+					JSONObject jsonObj3 = (JSONObject) objec;
+
+					String id = (String) jsonObj.get("id");
+					String name = (String) jsonObj.get("name");
+					String profile_image = (String) jsonObj3.get("url");
+					String gender = "";
+					String usertype = "";
+					String signout = "";
+					System.out.println("id:" + id);
+					System.out.println("name:" + name);
+					System.out.println("profile_image :" + profile_image);
+
+					if (sns.FBLogin(id) == null) {
+						NaverDto dto = new NaverDto(0, id, name, usertype, gender, 0, profile_image, null, signout);
+						int res = sns.FBinsert(dto);
+
+						if (res > 0) {
+							System.out.println("db 저장 성공");
+						} else {
+							System.out.println("db 저장 실패");
+						}
+
+					}
+
+					NaverDto dto = new NaverDto(0, id, name, usertype, gender, 0, profile_image, null, signout);
+
+					dto = sns.FBLogin(id);
+
+					if (dto.getId() != null) {
+
+						HttpSession session = request.getSession();
+						session.setAttribute("nLogin", dto);
+
+						session.setMaxInactiveInterval(-1);
+
+						response.sendRedirect("mainpage.jsp");
+					}
+
+				}
+			} catch (Exception e) {
+				System.out.println("error");
+				e.printStackTrace();
+			}
 
 		}
 

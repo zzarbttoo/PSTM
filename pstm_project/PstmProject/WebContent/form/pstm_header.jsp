@@ -119,7 +119,9 @@ header li {
 				
 				<%
 					if(dto != null){
+						
 				%>		
+						<li><%=dto.getName() %></li>
 						<li id="headerMemberLogin" class="btn login"><a href="Login.do?command=logout">로그아웃</a></li>
 						<li id="headerMembersignup"><a href="pstm_signUp.jsp">회원가입</a></li>
 				<%
@@ -135,6 +137,8 @@ header li {
 				
 					}else if(duo != null){
 				%>	
+						<li><img src="<%=duo.getProfile_image()%>" style="height:30px;"/></li>
+						<li><%=duo.getName() %></li>
 						<li id="headerMemberLogin" class="btn login"><a href="Login.do?command=logout">로그아웃</a></li>
 						<li id="headerMembersignup"><a href="pstm_signUp.jsp">회원가입</a></li>	
 				<%
