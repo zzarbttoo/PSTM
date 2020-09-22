@@ -2,7 +2,7 @@ package com.codachaya.dto;
 
 public class NctinfoDto {
 
-	private int nctunfoid;
+	private int nctinfoid;
 	private int dietid;
 	private int kcal;
 	private int carbohydrate;
@@ -14,8 +14,8 @@ public class NctinfoDto {
 
 	}
 
-	public NctinfoDto(int nctunfoid, int dietid, int kcal, int carbohydrate, int protein, int fat, String nctetc) {
-		this.nctunfoid = nctunfoid;
+	public NctinfoDto(int nctinfoid, int dietid, int kcal, int carbohydrate, int protein, int fat, String nctetc) {
+		this.nctinfoid = nctinfoid;
 		this.dietid = dietid;
 		this.kcal = kcal;
 		this.carbohydrate = carbohydrate;
@@ -25,11 +25,11 @@ public class NctinfoDto {
 	}
 
 	public int getNctunfoid() {
-		return nctunfoid;
+		return nctinfoid;
 	}
 
 	public void setNctunfoid(int nctunfoid) {
-		this.nctunfoid = nctunfoid;
+		this.nctinfoid = nctunfoid;
 	}
 
 	public int getDietid() {

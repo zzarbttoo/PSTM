@@ -20,7 +20,7 @@
 	
 	<insert id="insert" parameterType="NctinfoDto">
 		INSERT INTO PSTM_NCTINFO
-		VALUES(NCTINFOIDSEQ.NEXTVAL, #{kcal}, #{carbohydrate}, #{protein}, #{fat}, #{nctetc})
+		VALUES(NCTINFOIDSEQ.NEXTVAL, 22, #{kcal}, 2, 3, 4, '??')
 	</insert>
 	
 	<update id="update" parameterType="NctinfoDto">

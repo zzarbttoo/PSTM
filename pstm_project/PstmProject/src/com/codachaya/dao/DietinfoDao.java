@@ -7,6 +7,7 @@ import org.apache.ibatis.session.SqlSession;
 
 import com.codachaya.dto.DailyinfoDto;
 import com.codachaya.dto.DietinfoDto;
+import com.codachaya.dto.NctinfoDto;
 
 public class DietinfoDao extends SqlMapConfig{
 
@@ -33,6 +34,17 @@ public class DietinfoDao extends SqlMapConfig{
 		res = session.insert(namespace + "insert", dto);
 		session.close();
 		
+		
+		return res;
+	}
+	
+	public int delete(int dietid) {
+		SqlSession session = null;
+		
+		int res = 0;
+		session = getSqlSessionFactory().openSession(true);
+		res = session.delete(namespace + "delete", dietid);
+		session.close();
 		
 		return res;
 	}
