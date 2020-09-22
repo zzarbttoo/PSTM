@@ -11,7 +11,7 @@ server.listen(9999);
 var trainernum = null;
 var trainername = null;
 var userid = null;
-// routing 앞 이후의 url로 들어오면, res.sendfile의 위치로 이동하겠다 
+// routing 앞 이후의 url로 들어오면, res.sendfile의 위치로 이동하겠다
 app.get('/PstmProject/trainerchating', function (req, res) {
   res.sendfile(__dirname + '/pstm_chatuser.html');
   trainernum = req.param('trainernum');
@@ -19,35 +19,37 @@ app.get('/PstmProject/trainerchating', function (req, res) {
   userid = req.param('userid');
   
  initinform(trainernum, trainername, userid);
-console.log(trainernum);
-console.log(trainername);
-console.log(userid);
-
 });
+var specificroom =null;
 function initinform(_trainernum, _trainername, _userid){
 	
 	trainernum = _trainernum;
 	trainername = _trainername;
 	userid = _userid;
+	
+	
+specificroom=trainernum + trainername;
+rooms.push(specificroom);
+
+console.log(specificroom);
 }
-
-
 // usernames which are currently connected to the chat
 var usernames = {};
 
 // rooms which are currently available in chat
 // 여기에 트레이너 번호를 넣으면 될 듯
-var rooms = ['room1','room2','room3'];
-var specificroom = 'room1';
+var rooms =[];
 
-io.sockets.on('connection', function (socket) {
+io.on('connection', (socket) => {
 	
+	console.log()
 	// when the client emits 'adduser', this listens and executes
-	socket.on('adduser', function(username){
+	socket.on('adduser', (username) =>{
+		
 		// store the username in the socket session for this client
 		socket.username = username;
 		// store the room name in the socket session for this client
-		//여기에도 톰캣에서 받은 값을 넣으면 될 듯
+		// 여기에도 톰캣에서 받은 값을 넣으면 될 듯
 		socket.room = specificroom;
 		// add the client's username to the global list
 		usernames[username] = username;
@@ -65,19 +67,17 @@ io.sockets.on('connection', function (socket) {
 		// we tell the client to execute 'updatechat' with 2 parameters
 		io.sockets.in(socket.room).emit('updatechat', socket.username, data);
 	});
-	
-	socket.on('switchRoom', function(newroom){
-		socket.leave(socket.room);
-		socket.join(newroom);
-		socket.emit('updatechat', 'SERVER', 'you have connected to '+ newroom);
-		// sent message to OLD room
-		socket.broadcast.to(socket.room).emit('updatechat', 'SERVER', socket.username+' has left this room');
-		// update socket session room title
-		socket.room = newroom;
-		socket.broadcast.to(newroom).emit('updatechat', 'SERVER', socket.username+' has joined this room');
-		socket.emit('updaterooms', rooms, newroom);
-	});
-	
+	/*
+	 * socket.on('switchRoom', function(newroom){ socket.leave(socket.room);
+	 * socket.join(newroom); socket.emit('updatechat', 'SERVER', 'you have
+	 * connected to '+ newroom); // sent message to OLD room
+	 * socket.broadcast.to(socket.room).emit('updatechat', 'SERVER',
+	 * socket.username+' has left this room'); // update socket session room
+	 * title socket.room = newroom;
+	 * socket.broadcast.to(newroom).emit('updatechat', 'SERVER',
+	 * socket.username+' has joined this room'); socket.emit('updaterooms',
+	 * rooms, newroom); });
+	 */
 
 	// when the user disconnects.. perform this
 	socket.on('disconnect', function(){
@@ -89,4 +89,8 @@ io.sockets.on('connection', function (socket) {
 		socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
 		socket.leave(socket.room);
 	});
-});
+});  
+
+
+
+
