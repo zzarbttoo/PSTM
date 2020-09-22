@@ -87,8 +87,8 @@
 
 			}).done(function(msg) {
 				console.log(msg);
-				var calorie = msg.service.list[0].irdnt[0].irdnttcket[0].contInfo;
-				$("#kcalall").append("음식이름 :" +foodname+"<br> 칼로리 : "+calorie);
+				var kcal = msg.service.list[0].irdnt[0].irdnttcket[0].contInfo;
+				$("#kcalall").append("음식이름 :" +foodname+"<br> 칼로리 : "+kcal);
 				
 			})
 		}
@@ -112,6 +112,16 @@
 		<!--  <button onclick="upload(event)">이미지 업로드</button> -->
 		 
 		 
+		 먹은 시간 : <input type="text" name="timeeat">
+		<!--  <button onclick="upload(event)">이미지 업로드</button> -->
+		칼로리 : <input type="text" name="kcal">
+		 
+		 
+		 
+		 
+		 <input type="submit" value="upload">
+		 		
+	</form>
 	
 	
 	 <div><p id="kcalall"></div>

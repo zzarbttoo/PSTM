@@ -1,3 +1,5 @@
+<%@page import="com.codachaya.dto.NctinfoDto"%>
+<%@page import="com.codachaya.dao.NctinfoDao"%>
 <%@page import="com.codachaya.dto.DietinfoDto"%>
 <%@page import="com.codachaya.dao.DietinfoDao"%>
 <%@page import="java.util.ArrayList"%>
@@ -29,6 +31,9 @@
 	
 	DietinfoDao daos = new DietinfoDao();
 	List<DietinfoDto> lists = daos.selectList();
+	
+	NctinfoDao nctdao = new NctinfoDao();
+	List<NctinfoDto> nctlist = nctdao.selectList();
 %>
 
 
@@ -56,7 +61,9 @@
 		<%
 		for(int i = 0; i < lists.size(); i++) {
 			for(int j = 0; j < list.size(); j++) {
+				for(int z = 0; z < nctlist.size(); i++){
 				if(list.get(j).getDailyinfoid() == lists.get(i).getDailyinfoid()) {
+					
 		%>
 				<tr>
 					<td><img src="daily.do?command=getimg&uploadimg=<%=lists.get(i).getOriginimg()%>" style="width:500px; height: 500px;"></td>
@@ -66,15 +73,24 @@
 						<p>운동 : <%=list.get(j).getExercise() %></p>
 						<p>피드백 : </p>
 						<p>먹은 시간 : <%=lists.get(i).getTimeeat() %></p>
+						<p>칼로리 : <%=nctlist.get(z).getKcal() %></p>
 					</td>
 				</tr>
-				
-	<%
+		
+		<tr>
+			<td>
+				<input type="button" value="수정" onclick="location.href='daily.do?command=upadteform'">
+				<input type="button" value="삭제" onclick="location.href='daily.do?command=delete&dietid=<%=lists.get(i).getDietid()%>'">
+				<input type="button" value="목록" onclick="">
+			</td>
+		</tr>
+				<%
+					
 				}
 			}
 		}
+		}
 	%>
-		
 		
 		
 	</table>

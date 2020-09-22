@@ -28,7 +28,7 @@
 	</update>
 	
 	<delete id="delete" parameterType="DietinfoDto">
-		DELETE FROM PSWM_DIETINFO WHERE DIETID = #{dietid}
+		DELETE FROM PSTM_DIETINFO WHERE DIETID = #{dietid}
 	</delete>	
 	
 	
