@@ -163,6 +163,22 @@
 	</select>
 	
 	
+	<!-- userid list를 전달하면, 그에 맞는 dto list를 전달해준다 -->
+	<select id = "keylistuser" resultType = "UserDto" parameterType = "java.util.HashMap">
+		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT,
+		ADMIT, SIGNOUT
+		FROM PSTM_USERINFO 
+		WHERE USERID IN
+		<choose>
+			<when test = "keyIntList.size != 0">
+			 	<foreach collection="keyIntList" item = "item" index = "index" separator = "," open = "(" close = ")">
+			 			#{item}
+			 	</foreach>
+			</when>
+		</choose>
+	</select>
+	
 	
 	
 </mapper>

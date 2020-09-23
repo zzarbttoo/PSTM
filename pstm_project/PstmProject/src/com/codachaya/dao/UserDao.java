@@ -1,11 +1,22 @@
 package com.codachaya.dao;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.session.SqlSession;
 
+import com.codachaya.dto.LessonDto;
 import com.codachaya.dto.UserDto;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
+import com.google.gson.JsonParser;
 
 public class UserDao extends SqlMapConfig {
 
+	private String namespaceLesson = "lessonmapper.";
 	private String namespace = "usermapper.";
 
 	// 일반회원, 강사 로그인
@@ -103,5 +114,60 @@ public class UserDao extends SqlMapConfig {
 
 		return dto;
 	}
-
+	
+	public List<UserDto> selectPayingUserList(int trainerid){
+		
+		SqlSession session = null;
+		List<UserDto> payingUserList = new ArrayList<UserDto>();
+		LessonDto trainerLessonDto = null;
+		String jsonUserdata = null;
+		ArrayList<Integer> keyIntList = new ArrayList<Integer>();
+		Map<String, Object> param = new HashMap<String, Object>();
+		
+		try {
+			session = getSqlSessionFactory().openSession(true);
+		} catch (Exception e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		
+		try {
+			//신청한 user을 jsonString 형태로 받아옴
+			 trainerLessonDto= session.selectOne(namespaceLesson + "selectOne", trainerid);
+			 jsonUserdata = trainerLessonDto.getStudentid();
+			 System.out.println("출력된 학생 id list" + jsonUserdata);
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+				
+		//biz단에서 실행해야 하나 biz가 없으므로 여기에 작성
+		 //jsonObject 생성
+		 JsonElement element = JsonParser.parseString(jsonUserdata);
+		 JsonObject userJsonObject = element.getAsJsonObject();
+		 
+		 //userJsonObject에서 키값만 추출
+		 Iterator useridkeyiter = userJsonObject.keySet().iterator();
+		 
+		 while(useridkeyiter.hasNext()) {
+			 String key = useridkeyiter.next().toString();
+			 keyIntList.add(Integer.parseInt(key));
+		 }
+		 
+		 System.out.println("리스트 사이즈" + keyIntList.size());
+		 
+		 try {
+			//Usermapper에서 해당 usernum을 가진 userdto만 꺼내온다
+			 param.put("keyIntList", keyIntList);
+			 payingUserList = session.selectList(namespace + "keylistuser", param);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		 
+				
+		return payingUserList;
+		
+	}
+	
+	
 }
