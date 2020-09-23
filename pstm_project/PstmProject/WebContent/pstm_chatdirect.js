@@ -4,35 +4,37 @@ var express = require('express')
   , server = http.createServer(app)
   , io = require('socket.io').listen(server);
 
-
-
 server.listen(9999);
-
+var specificroom =null;
 var trainernum = null;
 var trainername = null;
 var userid = null;
+var istrainer = null;
+var num = 1;
+
 // routing 앞 이후의 url로 들어오면, res.sendfile의 위치로 이동하겠다
 app.get('/PstmProject/trainerchating', function (req, res) {
   res.sendfile(__dirname + '/pstm_chatuser.html');
   trainernum = req.param('trainernum');
   trainername = req.param('trainername');
   userid = req.param('userid');
-  
- initinform(trainernum, trainername, userid);
+  istrainer = req.param('istrainer');
+ initinform(trainernum, trainername, userid, istrainer);
+ console.log(num);
 });
-var specificroom =null;
-function initinform(_trainernum, _trainername, _userid){
+
+function initinform(_trainernum, _trainername, _userid, _istrainer){
 	
 	trainernum = _trainernum;
 	trainername = _trainername;
 	userid = _userid;
-	
-	
-specificroom=trainernum + trainername;
-rooms.push(specificroom);
-
-console.log(specificroom);
+	istrainer = _istrainer;
+	console.log(istrainer);
+	specificroom=trainernum + trainername;
+	rooms.push(specificroom);
+	console.log(specificroom);
 }
+
 // usernames which are currently connected to the chat
 var usernames = {};
 
@@ -45,23 +47,32 @@ io.on('connection', (socket) => {
 	console.log()
 	// when the client emits 'adduser', this listens and executes
 	socket.on('adduser', (username) =>{
-		
-		// store the username in the socket session for this client
-		socket.username = username;
-		// store the room name in the socket session for this client
 		// 여기에도 톰캣에서 받은 값을 넣으면 될 듯
+		
 		socket.room = specificroom;
+		// store the username in the socket session for this client
+		if(istrainer == 'true'){
+			console.log("specificroom"  +specificroom);
+		//specificroom  = trainername + trainernum이므로 이렇게 설정했음
+		socket.username = specificroom  + "트레이너";
+		console.log( "socket.username" + socket.username);
+		usernames[username] = specificroom;
+		}else{
+		console.log("elseistrainer"  +istrainer);
+		socket.username = username + num;
+		num++;
+		// store the room name in the socket session for this client
 		// add the client's username to the global list
-		usernames[username] = username;
+		usernames[username] = username + num;
+		}
 		// send client to room 1
 		socket.join(specificroom);
 		// echo to client they've connected
 		socket.emit('updatechat', 'SERVER', 'you have connected to' + specificroom);
 		// echo to room 1 that a person has connected to their room
-		socket.broadcast.to(specificroom).emit('updatechat', 'SERVER', username + ' has connected to this room');
+		//socket.broadcast.to(specificroom).emit('updatechat', 'SERVER', username + ' has connected to this room');
 		socket.emit('updaterooms', rooms,specificroom);
 	});
-	
 	// when the client emits 'sendchat', this listens and executes
 	socket.on('sendchat', function (data) {
 		// we tell the client to execute 'updatechat' with 2 parameters
@@ -86,7 +97,9 @@ io.on('connection', (socket) => {
 		// update list of users in chat, client-side
 		io.sockets.emit('updateusers', usernames);
 		// echo globally that this client has left
-		socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has disconnected');
+		// socket.broadcast.emit('updatechat', 'SERVER', socket.username + ' has
+		// disconnected');
+		socket.emit('updatechat', 'SERVER', socket.username + 'leave the chat room');
 		socket.leave(socket.room);
 	});
 });  

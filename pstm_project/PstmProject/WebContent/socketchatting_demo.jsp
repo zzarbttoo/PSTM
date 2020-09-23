@@ -14,77 +14,30 @@
 	function chatPopupOpen(){
 		
 		//결국 쿼리스트링으로 가능했다
-		var popUrl = "http://localhost:9999/PstmProject/trainerchating?trainernum=4&trainername='user'&userid=3";
+		//채팅방 이름 trainer 
+		var popUrl = "http://localhost:9999/PstmProject/trainerchating?istrainer=false&trainernum=4&trainername='user'&userid=null";
 		var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
 		var popUpPage = window.open(popUrl, "",popOption);
 		
-		
-		/*
-		var popUrl = "http://localhost:9999/PstmProject/trainerchating";
-		var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
-		var popUpPage = window.open("about:blank", "",popOption);
-		
-		$.ajax({
-			
-			url : "http://localhost:9999/PstmProject/heyyowatssupp/hihi",
-			method : "POST",
-			data : {
-				
-				"trainernum" : "1",
-				"trainername" : "djdh"
-					
-			},
-			success:eventSuccess,
-			error:function(){
-				console.log("fail");
-				alert("에러!");
-			}
-
-			
-		});
-		
-		function eventSuccess(data){
-			popUpPage.location.href = popUrl;
-		}
-		*/
 	}
 function chatPopupOpen2(){
 		
 		//결국 쿼리스트링으로 가능했다
-		var popUrl = "http://localhost:9999/PstmProject/trainerchating?trainernum=5&trainername='user'&userid=3";
+		var popUrl = "http://localhost:9999/PstmProject/trainerchating?trainernum=5&trainername='user'&userid=4&istrainer=false";
 		var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
 		var popUpPage = window.open(popUrl, "",popOption);
 		
-		
-		/*
-		var popUrl = "http://localhost:9999/PstmProject/trainerchating";
-		var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
-		var popUpPage = window.open("about:blank", "",popOption);
-		
-		$.ajax({
-			
-			url : "http://localhost:9999/PstmProject/heyyowatssupp/hihi",
-			method : "POST",
-			data : {
-				
-				"trainernum" : "1",
-				"trainername" : "djdh"
-					
-			},
-			success:eventSuccess,
-			error:function(){
-				console.log("fail");
-				alert("에러!");
-			}
+}
 
-			
-		});
-		
-		function eventSuccess(data){
-			popUpPage.location.href = popUrl;
-		}
-		*/
-	}
+function chatPopupOpen3(){
+	
+	//결국 쿼리스트링으로 가능했다
+	var popUrl = "http://localhost:9999/PstmProject/trainerchating?trainernum=5&trainername='user'&userid=3&istrainer=true";
+	var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
+	var popUpPage = window.open(popUrl, "",popOption);
+	
+}
+
 
 </script>
 
@@ -92,6 +45,7 @@ function chatPopupOpen2(){
 
 	<button onclick = 'chatPopupOpen()'>채팅창 오픈테스트</button>
 	<button onclick = 'chatPopupOpen2()'>채팅창 오픈테스트</button>
+	<button onclick = 'chatPopupOpen3()'>채팅창 오픈테스트</button>
 
 
 </body>
