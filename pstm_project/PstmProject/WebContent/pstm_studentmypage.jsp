@@ -55,7 +55,20 @@
 		
 	
 	<%@include file="./form/pstm_header.jsp" %>
-	<h1>마이페이지</h1>
+	<h1><% if(dto != null){
+		
+		%>
+			<%=dto.getName() %>님의 마이페이지
+		<%
+			}else if(duo != null){	
+		%>
+			<%=duo.getName() %>님의 마이페이지
+		<%
+			}
+		%>
+		</h1>
+		
+	
 	
 	<nav id="topMenu">
 		<ul>

@@ -16,6 +16,14 @@
 
 }
 
+.signup {
+	width:510px;
+	height:50px;
+	margin:auto;
+	text-align:center;
+
+}
+
 input {
 
 	width: 510px;
@@ -25,13 +33,21 @@ input {
 }
 
 
+h1 {
+
+	text-align: center;
+
+}
+
+
 </style>
 </head>
 <body>
 <%@ include file="./form/pstm_header.jsp"%>
 <h1>회원가입</h1>
+<br />
 
-	<table border="1">
+	<table border="1" class="signup">
 		<tr>
 			<td class="select">일반 회원<p>PT 서비스를 받고 싶은 분</p></td>
 		</tr>
@@ -44,7 +60,7 @@ input {
 	<hr />
 	<br />
 
-	<table border="1">
+	<table border="1" class="signup">
 		<tr>
 			<td class="select">
 			트레이너

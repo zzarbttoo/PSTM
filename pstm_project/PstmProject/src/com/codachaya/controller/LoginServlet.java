@@ -30,6 +30,8 @@ import com.codachaya.dao.UserDao;
 import com.codachaya.dto.NaverDto;
 import com.codachaya.dto.UserDto;
 
+import sun.font.Script;
+
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
@@ -39,12 +41,12 @@ public class LoginServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		PrintWriter out = response.getWriter();
 
 		String command = request.getParameter("command");
 
 		UserDao dao = new UserDao();
 		SnsDao sns = new SnsDao();
-		PrintWriter out = response.getWriter();
 
 		if (command.equals("login")) {
 
@@ -53,16 +55,18 @@ public class LoginServlet extends HttpServlet {
 
 			UserDto dto = dao.login(id, password);
 
-			if (dto.getId() != null && dto.getPassword() != null) {
+			if (dto != null) {
 
 				HttpSession session = request.getSession();
 				session.setAttribute("login", dto);
 
-				session.setMaxInactiveInterval(10 * 60);
+				session.setMaxInactiveInterval(-1);
 
 				response.sendRedirect("mainpage.jsp");
 
 			} else {
+
+				jsResponse("로그인 실패", "pstm_login.jsp", response);
 
 			}
 		} else if (command.equals("logout")) {
@@ -107,6 +111,7 @@ public class LoginServlet extends HttpServlet {
 				br.close();
 
 				if (responseCode == 200) {
+					// PrintWriter out = response.getWriter();
 					out.println(res.toString()); // 웹에 출력함
 					JSONParser parsing = new JSONParser();
 					Object obj = parsing.parse(res.toString());
@@ -211,8 +216,8 @@ public class LoginServlet extends HttpServlet {
 					JSONParser parsing = new JSONParser();
 					Object ob = parsing.parse(respon.toString());
 					JSONObject jsonObj = (JSONObject) ob;
-					
-					Object obje=jsonObj.get("picture");
+
+					Object obje = jsonObj.get("picture");
 					JSONObject jsonObj2 = (JSONObject) obje;
 					Object objec = jsonObj2.get("data");
 					JSONObject jsonObj3 = (JSONObject) objec;
@@ -321,7 +326,6 @@ public class LoginServlet extends HttpServlet {
 	public void jsResponse(String msg, String url, HttpServletResponse response) throws IOException {
 		PrintWriter out = response.getWriter();
 		String res = "<script>alert('" + msg + "'); location.href='" + url + "';</script>";
-
 		out.print(res);
 
 	}
