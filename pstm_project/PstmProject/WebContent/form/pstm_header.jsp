@@ -1,3 +1,18 @@
+
+<%@page import="com.codachaya.dto.NaverDto"%>
+<%@page import="com.codachaya.dto.UserDto"%>
+
+
+<%
+response.setHeader("Pragma", "no-cache"); //HTTP 1.0
+response.setHeader("Cache-Control", "no-cache"); //HTTP 1.1
+response.setHeader("Cache-Control", "no-store"); //HTTP 1.1
+response.setDateHeader("Expires", 0L); // Do not cache in proxy server
+%>
+
+
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -94,9 +109,55 @@ header li {
 		<div class="header_inner">
 			<div class="header_wrapper">
 				<ul class="header_top_menu member-section">
-					<li id="headerMemberLogin" class="btn login">로그인</li>
-					<li id="headerMembersignup">회원가입</li>
-					<li id="headerMemberPage">마이페이지</li>
+				
+				
+											
+				<%
+					UserDto dto = (UserDto) session.getAttribute("login");
+					NaverDto duo = (NaverDto) session.getAttribute("nLogin");					
+				%>
+				
+				<%
+					if(dto != null){
+						
+				%>		
+						<li><%=dto.getName() %></li>
+						<li id="headerMemberLogin" class="btn login"><a href="Login.do?command=logout">로그아웃</a></li>
+						<li id="headerMembersignup"><a href="pstm_signUp.jsp">회원가입</a></li>
+				<%
+						if(dto.getUsertype().equals("N")){
+				%>
+							<li id="headerMemberPage"><a href="pstm_studentmypage.jsp">마이페이지</a></li>	
+				<% 			
+						}else if(dto.getUsertype().equals("T")){
+				%>
+							<li id="headerMemberPage"><a href="pstm_trainerMyPage.jsp">마이페이지</a></li>
+				<% 			
+						}
+				
+					}else if(duo != null){
+				%>	
+						<li><img src="<%=duo.getProfile_image()%>" style="height:30px;"/></li>
+						<li><%=duo.getName() %></li>
+						<li id="headerMemberLogin" class="btn login"><a href="Login.do?command=logout">로그아웃</a></li>
+						<li id="headerMembersignup"><a href="pstm_signUp.jsp">회원가입</a></li>	
+				<%
+						if(duo.getUsertype().equals("N")){
+				%>
+							<li id="headerMemberPage"><a href="pstm_studentmypage.jsp">마이페이지</a></li>
+				<%
+						}
+				
+					}else{
+				%>								
+						<li id="headerMemberLogin" class="btn login"><a href="pstm_login.jsp">로그인</a></li>
+						<li id="headerMembersignup"><a href="pstm_signUp.jsp">회원가입</a></li>
+				<%
+					}
+				%>
+					
+	
+								
 				</ul>
 			</div>
 		</div>

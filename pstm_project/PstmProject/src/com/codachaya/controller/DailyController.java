@@ -11,7 +11,10 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.UUID;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -25,6 +28,11 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.Part;
 import javax.servlet.jsp.PageContext;
 import javax.swing.plaf.basic.BasicScrollPaneUI.HSBChangeListener;
+
+import org.apache.commons.collections.map.HashedMap;
+import org.apache.commons.fileupload.FileItem;
+import org.apache.commons.fileupload.disk.DiskFileItemFactory;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.codachaya.dao.DailyinfoDao;
 import com.codachaya.dao.DietinfoDao;
@@ -140,6 +148,9 @@ public class DailyController extends HttpServlet {
 			} else if (command.equals("insertform")) {
 				response.sendRedirect("pstm_dailyinsert.jsp");
 
+			}else if(command.equals("asd")) {
+				
+				
 			}else if(command.equals("vision")) {
 				request.setCharacterEncoding("UTF-8");
 				response.setContentType("text/html; charset=UTF-8");
@@ -167,10 +178,64 @@ public class DailyController extends HttpServlet {
 	
     
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-	doPost(request, response);
+		doPost(request, response);
 	
 	}
+	
 
+	private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		request.setCharacterEncoding("UTF-8");
+		Map datas = new HashedMap();
+		
+		String tempStorePath = "C:\temp";
+		String storePath = "C:\\Users\\feelj\\OneDrive\\바탕 화면\\semi\\PSTM\\pstm_project\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\PstmProject\\imgfolder";
+		
+		try {
+			DiskFileItemFactory diskFactory = new DiskFileItemFactory();
+			diskFactory.setSizeThreshold(4096);												// 업로드시 사용할 임시 메모리
+			diskFactory.setRepository(new File(tempStorePath)); 						// 임시저장폴더
+			
+			ServletFileUpload upload = new ServletFileUpload(diskFactory);
+			upload.setSizeMax(100 * 1024 * 1024);										
+			List<FileItem> items = upload.parseRequest(request);
+			
+			Iterator iter = items.iterator();
+			while(iter.hasNext()) {
+				FileItem item = (FileItem) iter.next();
+				
+				if(item.isFormField()) {			// 파일이 아닌경우
+					String fileName = item.getFieldName();
+					String fieldValue = item.getString("UTF-8");
+					
+				}else {			// 파일인 경우
+					if(item.getSize() > 0) {
+						String newFileName = UUID.randomUUID().toString();
+						String name = item.getFieldName();
+						String fileName = item.getName();
+						String contentType = item.getContentType();
+						long fileSize = item.getSize();
+						
+						Path newFilePath = Paths.get(storePath + "/" + newFileName);
+						File uploadedFile = newFilePath.toFile();
+						item.write(uploadedFile);			// 파일 저장
+					}
+				}
+			}
+			
+
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+		
+		
+	}
+		
+		
+		
+		
+	
 	
 
 	protected List<String> Vision(String Path , String filename ) throws ServletException, IOException {
@@ -241,7 +306,8 @@ public class DailyController extends HttpServlet {
 	}
 	private void dispatch(String path, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		
+		RequestDispatcher dispatch = request.getRequestDispatcher(path);
+		dispatch.forward(request, response);
 		
 
 	}
