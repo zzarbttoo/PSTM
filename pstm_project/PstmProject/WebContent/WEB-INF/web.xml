@@ -32,6 +32,17 @@
   	<servlet-name>signUp</servlet-name>
   	<url-pattern>/signup.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>TrainerMyPage</servlet-name>
+  	<servlet-class>com.codachaya.controller.TrainerPageServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>TrainerMyPage</servlet-name>
+  	<url-pattern>/yana.do</url-pattern>
+  </servlet-mapping>
+  
 
   
 </web-app>
