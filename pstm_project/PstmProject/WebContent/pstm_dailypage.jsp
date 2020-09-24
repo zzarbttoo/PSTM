@@ -80,7 +80,7 @@
 		<tr>
 			<td colspan="4">
 				<input type="button" value="수정" onclick="location.href='daily.do?command=upadteform'">
-				<input type="button" value="삭제" onclick="location.href='daily.do?command=delete&dietid'">
+				<input type="button" value="삭제" onclick="location.href='daily.do?command=delete&dailyinfoid=<%=dietList.get(i).get(j).getDailyinfoid()%>'">
 				<input type="button" value="목록" onclick="location.href='daily.do?command=selectres'">
 			</td>
 		</tr>

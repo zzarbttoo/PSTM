@@ -31,7 +31,6 @@ public class DailyinfoDao extends SqlMapConfig{
 		
 		session = getSqlSessionFactory().openSession(true);
 		result = session.selectOne(namespace + "getLastDailyInfoId");
-		
 		session.close();
 		
 		return result;
@@ -44,7 +43,6 @@ public class DailyinfoDao extends SqlMapConfig{
 		session = getSqlSessionFactory().openSession(true);
 		res = session.insert(namespace + "insert", dto);
 		session.close();
-		
 		
 		return res;
 	}

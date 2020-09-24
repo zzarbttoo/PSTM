@@ -19,9 +19,6 @@
 	
 	
 	
-	
-	
-	
 	<select id="selectList" resultMap="DietinfoDto">
 		SELECT DIETID, DAILYINFOID, UPLOADIMG, ORIGINIMG, RESULT, EATENCOUNT, TIMEEAT, KCAL
 		FROM PSTM_DIETINFO

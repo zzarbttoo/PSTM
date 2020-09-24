@@ -80,6 +80,7 @@ public class DailyController extends HttpServlet {
 			int size = 1024 * 1024 * 5;
 			MultipartRequest multi = new MultipartRequest(request, path, size, "UTF-8", new DefaultFileRenamePolicy());
 			command = multi.getParameter("command");
+			System.out.println("이미지경로 : "+path);
 
 			if (command.equals("insertres")) {
 
@@ -203,9 +204,9 @@ public class DailyController extends HttpServlet {
 				// objectdetect.write(buffer, 0, length);
 				// }
 			} else if (command.equals("delete")) {
-				int dietid = Integer.parseInt(request.getParameter("dietid"));
+				int dailyinfoid = Integer.parseInt(request.getParameter("dailyinfoid"));
 
-				int res = dietdao.delete(dietid);
+				int res = dietdao.delete(dailyinfoid);
 				if (res > 0) {
 					jsResponse("성공", "daily.do?command=selectres", response);
 				}
@@ -254,6 +255,7 @@ public class DailyController extends HttpServlet {
 						Path newFilePath = Paths.get(storePath + "/" + newFileName);
 						File uploadedFile = newFilePath.toFile();
 						item.write(uploadedFile); // 파일 저장
+						System.out.println("storePath업로드 경로 : "+storePath);
 					}
 				}
 			}

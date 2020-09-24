@@ -25,6 +25,7 @@
   <select id="selectList" resultMap="DailyinfoDto">
   	SELECT DAILYINFOID, USERID, REGDATE, EXERCISE, CONSUMEKCAL, FEEDBACK
   	FROM PSTM_DAILYINFO
+  	ORDER BY DAILYINFOID DESC
   </select>
  
  
