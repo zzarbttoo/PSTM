@@ -110,9 +110,11 @@
 
 	<form method="post" enctype="multipart/form-data" id="createupload" action="daily.do">
 		<input type="hidden" name="command" value="insertres">
-		 파일 : <input type="file" name="uploadimg" id="imput_img" class="excelFile"> 
+		 파일 : <input type="file" name="uploadimg" id="imput_img" class="excelFile">
+		 <button onclick="upload(event)">이미지 업로드</button> 
+		 음식 : <input type="text" name="result"> 
 		 먹은 시간 : <input type="text" name="timeeat">
-		<!--  <button onclick="upload(event)">이미지 업로드</button> -->
+		 
 		칼로리 : <input type="text" name="kcal">
 		 
 		 

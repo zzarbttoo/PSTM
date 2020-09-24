@@ -70,10 +70,9 @@ public class DailyController extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		DietinfoDao dao = new DietinfoDao();
+		DietinfoDao dietdao = new DietinfoDao();
 		DailyinfoDao dailydao = new DailyinfoDao();
-		NctinfoDao nctdao = new NctinfoDao();
-		
+
 		String command = request.getParameter("command");
 		System.out.println("command : " + command);
 		if (command == null) {
@@ -89,7 +88,9 @@ public class DailyController extends HttpServlet {
 					String uploadimg = multi.getParameter("uploadimg");
 					String originimg = multi.getParameter("originimg");
 					String timeeat = multi.getParameter("timeeat");
-					int kcal = Integer.parseInt(request.getParameter("kcal"));
+					int kcal = Integer.parseInt(multi.getParameter("kcal"));
+					String result = multi.getParameter("result");
+
 					Enumeration files = multi.getFileNames();
 					String str = (String) files.nextElement();
 
@@ -98,26 +99,32 @@ public class DailyController extends HttpServlet {
 					System.out.println(uploadimg);
 					System.out.println(originimg);
 
-					
-
 					// 이후 db 저장하기
 					DietinfoDto dto = new DietinfoDto();
 					dto.setUploadimg(uploadimg);
 					dto.setOriginimg(originimg);
+					dto.setResult(result);
 					dto.setTimeeat(timeeat);
-					int res = dao.insert(dto);
+					dto.setKcal(kcal);
 					
-					NctinfoDto dtos = new NctinfoDto();
-					dtos.setKcal(kcal);
+					DailyinfoDto dailydto = new DailyinfoDto();
 					
-					int nctres = nctdao.insert(dtos);
+					int dailyres = dailydao.insert(dailydto);
 					
-					int result = res + nctres;
+					int lastDailyId = dailydao.getLastDailyInfoId();
+					
+					dto.setDailyinfoid(lastDailyId);
+					
+					int dietres = dietdao.insert(dto);
 
-					if (result > 0) {
-						jsResponse("성공", "pstm_dailypage.jsp", response);
+					int dresult = dailyres + dietres;
+					
+
+
+					if (dresult > 1) {
+						jsResponse("성공", "daily.do?command=selectres", response);
 					} else {
-						jsResponse("실패", "pstm_studentmypage.jsp", response);
+						jsResponse("실패", "daily.do?command=selectres", response);
 					}
 
 				} catch (Exception e) {
@@ -125,19 +132,30 @@ public class DailyController extends HttpServlet {
 				}
 			}
 		} else {
+			
 			if (command.equals("selectres")) {
 				// DB에서 DailyInfo 정보 가져와서 pstm_dailypage.jsp 로 보내주기
 				List<DailyinfoDto> list = dailydao.selectList();
-				request.setAttribute("list", list);
-				dispatch("pstm_dailypage.jsp", request, response);
 
-				List<DietinfoDto> lists = dao.selectList();
-				request.setAttribute("lists", lists);
+				List<List<DietinfoDto>> lists = new ArrayList<List<DietinfoDto>>();
+
+				for (int i = 0; i < list.size(); i++) {
+					lists.add(dietdao.selectList(list.get(i).getDailyinfoid()));
+					
+					for(int j = 0; j < lists.get(i).size(); j++) {
+						System.out.println(lists.get(i).get(j).getDietid());
+					}
+					// list.get(i); - DailyInfo 
+					// lists.get(i); - DietInfoList
+					// lists.get(0).get(0); // 
+				}
+				
+				request.setAttribute("list", list);
+				request.setAttribute("dietList", lists);
 				dispatch("pstm_dailypage.jsp", request, response);
 				
-				List<NctinfoDto> nctlist = nctdao.selectList();
-				request.setAttribute("nctlist", nctlist);
-				dispatch("pstm_dailypage.jsp", request, response);
+
+				
 
 			} else if (command.equals("getimg")) {
 				// Response에 결과값을 String으로 보낼 때 사용
@@ -184,11 +202,11 @@ public class DailyController extends HttpServlet {
 				// String 보내주기
 				// objectdetect.write(buffer, 0, length);
 				// }
-			}else if(command.equals("delete")) {
+			} else if (command.equals("delete")) {
 				int dietid = Integer.parseInt(request.getParameter("dietid"));
-				
-				int res = dao.delete(dietid);
-				if(res > 0) {
+
+				int res = dietdao.delete(dietid);
+				if (res > 0) {
 					jsResponse("성공", "daily.do?command=selectres", response);
 				}
 			}

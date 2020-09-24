@@ -26,14 +26,9 @@
 </head>
 <body>
 <%
-	DailyinfoDao dao = new DailyinfoDao();
-	List<DailyinfoDto> list = dao.selectList();
+	List<DailyinfoDto> dailyList = (ArrayList<DailyinfoDto>)request.getAttribute("list");
+	List<List<DietinfoDto>> dietList = (ArrayList<List<DietinfoDto>>)request.getAttribute("dietList");
 	
-	DietinfoDao daos = new DietinfoDao();
-	List<DietinfoDto> lists = daos.selectList();
-	
-	NctinfoDao nctdao = new NctinfoDao();
-	List<NctinfoDto> nctlist = nctdao.selectList();
 %>
 
 
@@ -54,49 +49,48 @@
 			<a href="daily.do?command=insertform"><img src="imgfolder/pen_green.png" onmouseover='this.src="imgfolder/pen_black.png"' onmouseout='this.src="imgfolder/pen_green.png"'></a>
 		</div>
 	</aside>
+	
+	
+	
+	<%
+	for(int i = 0; i < dailyList.size(); i++){
+		for(int j = 0; j < dietList.get(i).size(); j++){
+	%>
 	<section class="main_text">
-	
-	
+	<p>날짜 : <%=dailyList.get(i).getRegdate() %></p>
+
+
 	<table border="1" style="width:500px; height: 500px;">
-		<%
-		for(int i = 0; i < lists.size(); i++) {
-			for(int j = 0; j < list.size(); j++) {
-				for(int z = 0; z < nctlist.size(); i++){
-				if(list.get(j).getDailyinfoid() == lists.get(i).getDailyinfoid()) {
+	
 					
-		%>
 				<tr>
-					<td><img src="daily.do?command=getimg&uploadimg=<%=lists.get(i).getOriginimg()%>" style="width:500px; height: 500px;"></td>
+					<td colspan="4"><img src="daily.do?command=getimg&uploadimg=<%=dietList.get(i).get(j).getUploadimg()%>"></td>
 				</tr>
 				<tr>
 					<td>
-						<p>운동 : <%=list.get(j).getExercise() %></p>
-						<p>피드백 : </p>
-						<p>먹은 시간 : <%=lists.get(i).getTimeeat() %></p>
-						<p>칼로리 : <%=nctlist.get(z).getKcal() %></p>
+					<p>음식이름 : <%=dietList.get(i).get(j).getResult() %></p>
+					<p>먹은시간 : <%=dietList.get(i).get(j).getTimeeat() %></p>
+					<p>칼로리 : <%=dietList.get(i).get(j).getKcal() %></p>
 					</td>
+					
 				</tr>
 				
+
 		
 		<tr>
-			<td>
+			<td colspan="4">
 				<input type="button" value="수정" onclick="location.href='daily.do?command=upadteform'">
-				<input type="button" value="삭제" onclick="location.href='daily.do?command=delete&dietid=<%=lists.get(i).getDietid()%>'">
-				<input type="button" value="목록" onclick="">
+				<input type="button" value="삭제" onclick="location.href='daily.do?command=delete&dietid'">
+				<input type="button" value="목록" onclick="location.href='daily.do?command=selectres'">
 			</td>
 		</tr>
-				<%
-					
-				}
-			}
-		}
-		}
-	%>
-		
-		
 	</table>
-	
 	</section>
+	<br>
+	<%
+		}
+	}
+	%>	
 	
 
 	<%@include file="./form/pstm_footer.jsp"%>

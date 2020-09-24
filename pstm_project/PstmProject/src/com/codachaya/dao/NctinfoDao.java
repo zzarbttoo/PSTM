@@ -11,12 +11,12 @@ public class NctinfoDao extends SqlMapConfig{
 
 	private String namespace = "nctinfomapper.";
 	
-	public List<NctinfoDto> selectList(){
+	public List<NctinfoDto> selectList(int dietid){
 		SqlSession session = null;
 		
 		List<NctinfoDto> list = new ArrayList<NctinfoDto>();
 		session = getSqlSessionFactory().openSession(true);
-		list = session.selectList(namespace + "selectList");
+		list = session.selectList(namespace + "selectList",dietid);
 		
 		session.close();
 		
