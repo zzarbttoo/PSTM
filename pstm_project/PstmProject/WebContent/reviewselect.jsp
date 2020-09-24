@@ -64,9 +64,8 @@ ReviewDao dao = new ReviewDao();
 ReviewDto dto = dao.selectOne(reviewid);
 %>
 <body>
-
+<%@ include file="./form/pstm_header.jsp"%>
 	<div class="content" id="app" style="">
-			<%@ include file="./form/pstm_header.jsp"%>
 		<div class="review_contents wrapper">
 			<div class="member_header">
 				<div class="title">수강후기</div>

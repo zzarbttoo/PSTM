@@ -5,17 +5,17 @@ import java.util.List;
 
 import org.apache.ibatis.session.SqlSession;
 
-import com.codachaya.dto.DailyinfoDto;
 import com.codachaya.dto.DietinfoDto;
+import com.codachaya.dto.UserDto;
 
 public class DietinfoDao extends SqlMapConfig{
 
 	private String namespace = "dietinfomapper.";
 	
-	public List<DailyinfoDto> selectList(){
+	public List<DietinfoDto> selectList(){
 		SqlSession session = null;
 		
-		List<DailyinfoDto> list = new ArrayList<DailyinfoDto>();
+		List<DietinfoDto> list = new ArrayList<DietinfoDto>();
 		session = getSqlSessionFactory().openSession(true);
 		list = session.selectList(namespace + "selectList");
 		
@@ -36,4 +36,5 @@ public class DietinfoDao extends SqlMapConfig{
 		
 		return res;
 	}
+	
 }

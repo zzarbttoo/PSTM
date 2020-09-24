@@ -2,7 +2,15 @@
     pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("UTF-8");%>
 <%response.setContentType("text/html; charset=UTF-8");%>
-    
+ 
+ 
+<%
+	if(session.getAttribute("login") == null && session.getAttribute("nLogin") == null){
+		String result = "<script> alert('로그인을 먼저 해주세요!'); location.href='pstm_login.jsp'; </script> ";
+		response.getWriter().append(result);
+	}
+%>
+   
 <!DOCTYPE html>
 <html>
 <head>
@@ -47,14 +55,27 @@
 		
 	
 	<%@include file="./form/pstm_header.jsp" %>
-	<h1>마이페이지</h1>
+	<h1><% if(userdto != null){
+		
+		%>
+			<%=userdto.getName() %>님의 마이페이지
+		<%
+			}else if(duo != null){	
+		%>
+			<%=duo.getName() %>님의 마이페이지
+		<%
+			}
+		%>
+		</h1>
+		
+	
 	
 	<nav id="topMenu">
 		<ul>
 			<li><a class="menulink" href="#">인바디</a></li>
 			<li><a class="menulink" href="#">강좌</a></li>
 			<li><a class="menulink" href="#">정보변경</a></li>
-			<li><a class="menulink" href="pstm_dailypage.jsp">식단/운동기록</a></li>
+			<li><a class="menulink" href="daily.do?command=selectres">식단/운동기록</a></li>
 		</ul>
 	</nav>
 	

@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="snsmapper">
+	
+	<resultMap type="NaverDto" id="NaverDtoMap">
+		<result property="userid" column="USERID" />
+		<result property="id" column="ID" />
+		<result property="name" column="NAME" />	
+		<result property="usertype" column="USERTYPE"/>	
+		<result property="gender" column="GENDER"/>
+		<result property="height" column="HEIGHT"/>	
+		<result property="profile_image" column="PROFILE_IMAGE"/>	
+		<result property="admit" column="ADMIT"/>	
+		<result property="signout" column="SIGNOUT"/>	
+	</resultMap>
+
+	<insert id="insert" parameterType="NaverDto">
+		INSERT INTO PSTM_NAVERINFO
+		VALUES(
+		PSTM_NAVERSEQ.NEXTVAL, #{id}, 
+		#{name},'N', #{gender}, 0, #{profile_image},
+		NULL, 'N')
+	</insert>
+	
+	<insert id="FBinsert" parameterType="NaverDto">
+		INSERT INTO PSTM_NAVERINFO
+		VALUES(
+		PSTM_NAVERSEQ.NEXTVAL, #{id}, 
+		#{name},'N','M', 0, #{profile_image},
+		NULL, 'N')
+	</insert>
+	
+	<select id="naverLogin" parameterType="string" resultType="NaverDto">
+		
+		SELECT USERID, ID, NAME, USERTYPE, GENDER, HEIGHT, PROFILE_IMAGE, ADMIT, SIGNOUT
+		FROM PSTM_NAVERINFO
+		WHERE ID = #{id} AND USERTYPE= 'N' AND SIGNOUT = 'N' 
+
+	</select>
+	
+	<select id="FBLogin" parameterType="string" resultType="NaverDto">
+		
+		SELECT USERID, ID, NAME, USERTYPE, GENDER, HEIGHT, PROFILE_IMAGE, ADMIT, SIGNOUT
+		FROM PSTM_NAVERINFO
+		WHERE ID = #{id} AND USERTYPE= 'N' AND SIGNOUT = 'N' 
+
+	</select>
+	
+	
+
+
+</mapper>
