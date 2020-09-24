@@ -8,15 +8,24 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+	input {
+	
+		width:90px;height:50px;
+	
+	}
+
+</style>
 </head>
 
 <%
-	if(session.getAttribute("login") ==null){
+	if(session.getAttribute("login") == null){
 		String result = "<script> alert('로그인을 먼저 해주세요!'); location.href='pstm_login.jsp'; </script> ";
 		response.getWriter().append(result);
 		
 	}
-
+	
+	
 %>
 
 
@@ -39,35 +48,43 @@
 					<th>회원정보</th>
 					<th>화상채팅</th>				
 				</tr>
-		
-			<c:choose>
-				<c:when test="${empty list }">
+				
+				<c:choose>
+				<c:when test="${empty userlist }">
 					<tr>
-						<td colspan="4" align="center">---------신청한 회원이 존재하지 않습니다.-------</td>
+						<td colspan="3" align="center">---------신청한 회원이 존재하지 않습니다.-------</td>
 					</tr>
 				</c:when>				
-				<c:when test="${list }">
-					<c:forEach items="${list }" var="dto">
+				<c:when test="${userlist }">
+					<c:forEach items="${userlist }" var="dto">
 						<tr>
-							<td></td>
-							<td></td>
-							<td></td>
+							<td>${dto.uploadimg }</td>
+							<td>${dto.name }
+								 
+							<input type="button" value="회원관리" onclick="location.href='pstm_normalUserManagement.jsp'" />
+							</td>
 							<td align="center">
-					<input type="button" value="회원관리" onclick="location.href='pstm_normalUserManagement.jsp'" style="width:90px;height:50px;"/>
-					<input type="button" value="webRTC" onclick="" style="width:90px;height:50px; "/>					
+					<input type="button" value="webRTC" onclick="" />					
 							</td>
 						</tr>
 					</c:forEach>				
 				</c:when>
 				<c:otherwise>
-					<c:forEach items="${list }" var="Dto">
-					
-					
+					<c:forEach items="${list }" var="duo">
+							<td>${duo.profile_image }</td>
+							<td>${duo.name } </td>
+							<td align="center">
+					<input type="button" value="회원관리" onclick="location.href='pstm_normalUserManagement.jsp'" style="width:90px;height:50px;"/>
+					<input type="button" value="webRTC" onclick="" style="width:90px;height:50px; "/>					
+							</td>					
 					</c:forEach>				
 				</c:otherwise>
 			
 			
 			</c:choose>
+				
+				
+			
 		
 		
 				
