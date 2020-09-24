@@ -1,7 +1,8 @@
+<%@page import="com.codachaya.dto.LessonDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+
 
 <!DOCTYPE html>
 <html>
@@ -28,6 +29,10 @@
 	
 %>
 
+<%
+	List<UserDto> List = (List<UserDto>) request.getAttribute("userlist");
+%>
+
 
 <body>
 <%@ include file="./form/pstm_header.jsp"%>
@@ -49,40 +54,30 @@
 					<th>화상채팅</th>				
 				</tr>
 				
-				<c:choose>
-				<c:when test="${empty userlist }">
+				<%
+					if (List.size() == 0) {
+				%>
+				<tr>
+					<td colspan="3">------작성된 글이 존재하지 않습니다.------</td>
+				</tr>
+								
+				<%				
+					}else{
+						
+					for( UserDto user : List){
+				%>
 					<tr>
-						<td colspan="3" align="center">---------신청한 회원이 존재하지 않습니다.-------</td>
-					</tr>
-				</c:when>				
-				<c:when test="${userlist }">
-					<c:forEach items="${userlist }" var="dto">
-						<tr>
-							<td>${dto.uploadimg }</td>
-							<td>${dto.name }
-								 
-							<input type="button" value="회원관리" onclick="location.href='pstm_normalUserManagement.jsp'" />
-							</td>
-							<td align="center">
-					<input type="button" value="webRTC" onclick="" />					
-							</td>
-						</tr>
-					</c:forEach>				
-				</c:when>
-				<c:otherwise>
-					<c:forEach items="${list }" var="duo">
-							<td>${duo.profile_image }</td>
-							<td>${duo.name } </td>
-							<td align="center">
-					<input type="button" value="회원관리" onclick="location.href='pstm_normalUserManagement.jsp'" style="width:90px;height:50px;"/>
-					<input type="button" value="webRTC" onclick="" style="width:90px;height:50px; "/>					
-							</td>					
-					</c:forEach>				
-				</c:otherwise>
-			
-			
-			</c:choose>
-				
+						<td><%=user.getUploadimg() %></td>
+						<td><%=user.getName() %></td>
+						<td align="center">
+							<input type="button" value="회원관리" onclick="location.href='pstm_normalUserManagement.jsp'"/>
+							<input type="button" value="webRTC" onclick=""/>
+						</td>
+					</tr>				
+				<%
+						}
+					}
+				%>
 				
 			
 		

@@ -62,7 +62,7 @@ public class LoginServlet extends HttpServlet {
 
 				session.setMaxInactiveInterval(-1);
 
-				response.sendRedirect("mainpage.jsp");
+				response.sendRedirect("pstm_mainpage.jsp");
 
 			} else {
 
@@ -177,7 +177,7 @@ public class LoginServlet extends HttpServlet {
 
 						session.setMaxInactiveInterval(10 * 60);
 
-						response.sendRedirect("mainpage.jsp");
+						response.sendRedirect("pstm_mainpage.jsp");
 					}
 
 				}
@@ -255,7 +255,7 @@ public class LoginServlet extends HttpServlet {
 
 						session.setMaxInactiveInterval(-1);
 
-						response.sendRedirect("mainpage.jsp");
+						response.sendRedirect("pstm_mainpage.jsp");
 					}
 
 				}

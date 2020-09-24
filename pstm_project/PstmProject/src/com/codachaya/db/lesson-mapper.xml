@@ -15,8 +15,7 @@
 		FROM PSTM_LESSON
 	</select>
 
-	<select id="selectOne" resultType="LessonDto"
-		parameterType="int">
+	<select id="selectOne" resultType="LessonDto" parameterType="int">
 		SELECT USERID , CLASSCONTENT , PRICEINFO , STUDENTID, STUDENTCOUNT
 		FROM PSTM_LESSON WHERE USERID = #{userid}
 
@@ -34,8 +33,8 @@
 
 	<update id="update" parameterType="int">
 		UPDATE PSTM_LESSON SET
-		CLASSCONTENT = #{classcontent} , PRICEINFO = #{priceinfo} , STUDENTID
-		= #{studentid} WHERE USERID = #{userid}
+		CLASSCONTENT = #{classcontent} , PRICEINFO = #{priceinfo} , STUDENTID = #{studentid} 
+		WHERE USERID = #{userid}
 	</update>
 
 	<update id="updatestudent" parameterType="LessonDto">
