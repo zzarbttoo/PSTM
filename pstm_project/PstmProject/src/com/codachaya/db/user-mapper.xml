@@ -118,7 +118,7 @@
 	</select>
 	
 	<select id="selectNormalUserCount" resultType = "int">
-		SELECT COUNT(*) FROM PSTM_USERINFO WHERE USERTYPE = 'N'
+		SELECT COUNT(*) FROM PSTM_USERINFO WHERE USERTYPE = 'N'			
 	</select>
 	
 </mapper>

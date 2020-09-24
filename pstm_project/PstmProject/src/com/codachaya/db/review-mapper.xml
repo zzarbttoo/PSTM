@@ -3,39 +3,79 @@
 <mapper namespace="reviewmapper">
 <resultMap type="ReviewDto" id="ReviewDto">
 
-<result property="reviewid" column="REVIEWIDDTO"/>
-<result property="userid" column="USERIDDTO"/>
-<result property="reviewtitle" column="REVIEWTITLEDTO"/>
-<result property="reviewcontent" column="REVEIWCONTENTDTO"/>
-<result property="uploadimg" column="UPDATEIMGDTO"/>
-<result property="originimg" column="ORIGINIMGDTO"/>
-<result property="regdate" column="REGDATEDTO"/>
-<result property="trainerid" column="TRAINERIDDTO"/>
+<result property="reviewid" column="REVIEWID"/>
+<result property="userid" column="USERID"/>
+<result property="reviewtitle" column="REVIEWTITLE"/>
+<result property="reviewcontent" column="REVEIWCONTENT"/>
+<result property="uploadimg" column="UPLOADIMG"/>
+<result property="regdate" column="REGDATE"/>
+<result property="trainerid" column="TRAINERID"/>
+<result property="trainer" column="TRAINER"/>
 </resultMap>
+
 <select id="selectList" resultMap="ReviewDto">
-	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, ORIGINIMG, REGDATE, TRAINERID
+	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
 	FROM PSTM_REVIEWINFO
 </select>
+
 <insert id="insert" parameterType="ReviewDto">
 	INSERT INTO PSTM_REVIEWINFO
-	VALUES(MYSEQ.NEXTVAL,#{reviwtitle},#{reviewcontent},
-	#{uploadimg},#{originimg},#{regdate},SYSDATE)
+	VALUES(PSTM_REVIEWIDSEQ.NEXTVAL,#{userid},#{reviewtitle},#{reviewcontent},
+	#{uploadimg},SYSDATE,#{trainerid},#{trainer})
 </insert>
+
 <select id="selectOne" parameterType="int" resultType="ReviewDto">
-SELECT REVIEWID, USERID,  REVIEWTITLE, REVIEWCONTENT,UPLOADIMG, ORIGINIMG,REGDATE
-FROM PSTM_REVIEWINFO
-WHERE REVIEWID=#{reviewid}
-
+	SELECT REVIEWID, USERID,  REVIEWTITLE, REVIEWCONTENT,UPLOADIMG,REGDATE,TRAINER
+	FROM PSTM_REVIEWINFO
+	WHERE REVIEWID=#{reviewid}
 </select>
+
+<select id="selectsuch" parameterType="ReviewDto" resultType="ReviewDto">
+	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
+	FROM PSTM_REVIEWINFO
+	<where>
+		<if test="reviewtitle!=null">
+			 REVIEWTITLE LIKE '%' || #{reviewtitle}|| '%' 
+		</if>
+		<if test="trainer!=null">
+			TRAINER LIKE '%' || #{trainer} || '%'
+		</if>
+	</where>
+</select>
+
+
+
+
 <update id="update" parameterType="ReviewDto">
-UPDATE REVIEW 
-SET #{reviewtitle}, #{reviewtitle},#{reviewcontent},#{uploadimg},#{originimg},#{regdate}
+UPDATE PSTM_REVIEWINFO 
+SET REVIEWTITLE=#{reviewtitle},TRAINER=#{trainer},REVIEWCONTENT=#{reviewcontent}
 WHERE REVIEWID=#{reviewid}
-
-
 </update>
+
+
+
+
 <delete id="delete" parameterType="int">
 	DELETE FROM PSTM_REVIEWINFO WHERE REVIEWID=#{reviewid}
 </delete>
+<select id="selectReviewList" resultMap="ReviewDto">
+	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
+	FROM PSTM_REVIEWINFO
+</select>
+<select id="selectReviewCount" resultMap="ReviewDto">
+	SELECT COUNT(*) FROM REVIEWINFO WHERE REVIEWID
+</select>
+<select id="selectReviewPaging" resultType="ReviewDto" parameterType="ReviewDto">
 
+	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG,REGDATE, TRAINERID, TRAINER
+	FROM(
+		SELECT SEQ, REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT,UPLOADIMG, REGDATE, TRAINERID, TRAINER	
+		FROM(SELECT ROWNUM AS SEQ, REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG,REGDATE, TRAINERID, TRAINER
+			FROM(SELECT*FROM REVIEWINFO WHERE REVIEWID ORDER BY REVIEWID DESC)
+			)
+	WHERE SEQ<![CDATA[ > ]]> #{offset}
+		)
+	WHERE ROWNUM<![CDATA[ >= ]]> #{count}
+	
+</select>
 </mapper>

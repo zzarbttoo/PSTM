@@ -9,21 +9,27 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-</head>
-<body>
 
 <%
-	String reviewtitle=request.getParameter("reveiwtitle");
+	String reviewtitle=request.getParameter("reviewtitle");
+	String trainer=request.getParameter("trainer");
 	String reviewcontent=request.getParameter("reviewcontent");
 	
 	ReviewDto dto=new ReviewDto();
 	dto.setReviewtitle(reviewtitle);
+	dto.setTrainer(trainer);
 	dto.setReviewcontent(reviewcontent);
 	
 	ReviewDao dao=new ReviewDao();
 	int res=dao.insert(dto);
+%>
+
+</head>
+<body>
+<%
 	if(res>0){
 %>
+
 <script type="text/javascript">
 	alert("글 작성 성공");
 	location.href="review.jsp"

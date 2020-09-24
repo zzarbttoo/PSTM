@@ -15,15 +15,18 @@
 <%
 	int reviewid=Integer.parseInt(request.getParameter("reviewid"));
 	String reviewtitle= request.getParameter("reviewtitle");
+	String trainer=request.getParameter("trainer");
 	String reviewcontent= request.getParameter("reviewcontent");
 	
 	ReviewDto dto= new ReviewDto();
 	dto.setReviewid(reviewid);
 	dto.setReviewtitle(reviewtitle);
+	dto.setTrainer(trainer);
 	dto.setReviewcontent(reviewcontent);
 	
 	ReviewDao dao=new ReviewDao();
 	int res=dao.update(dto);
+	
 	if(res>0){
 %>
 <script type="text/javascript">

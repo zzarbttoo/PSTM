@@ -1,54 +1,58 @@
-<%@page import="com.codachaya.dto.ReviewDto"%>
-<%@page import="java.util.List"%>
 <%@page import="com.codachaya.dao.ReviewDao"%>
-
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ page import="com.codachaya.dto.ReviewDto" import="java.util.List"
+	import="java.util.ArrayList" import="com.codachaya.biz.*"
+	import="com.codachaya.util.*"%>
 <%
 	request.setCharacterEncoding("UTF-8");
 %>
 <%
-	response.setContentType("test/html; charset=UTF-8");
+	response.setCharacterEncoding("UTF-8");
+%>
+<%
+	//response.setContentType("text/html; charset=UTF-8");
 %>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+<style type="text/css">
+@import url("css/review.css");
+</style>
+<style type="text/css">
+</style>
 </head>
-<%
-	ReviewDao dao = new ReviewDao();
-List<ReviewDto> list = dao.selectList();
-%>
 
 <body>
 
 	<div class="content" id="app" style="">
-		<header id="header" style="margin-bottom: 70px;">
-			<div class="header_inner">
-				<div class="header_wrapper">
-					<ul class="header_top_menu member-section">
-						<li id="headerMemberLogin" class="btn login">로그인</li>
-						<li id="headerMembersignup">회원가입</li>
-						<li id="headerMemberPage">마이페이지</li>
-					</ul>
-				</div>
-			</div>
-			<div class="header_inner bottom" id="headerbottom">
-				<div class="header_wrapper">
-					<div id="PSTM_logo">
-						<h2>PSTM</h2>
-					</div>
-					<ul class="header_top_menu" id="header_bottom">
-						<li id="header_pstm_intro">교육과정</li>
-						<li id="header_pstm_apply">신청하기</li>
-						<li id="header_pstm_consult">상담센터</li>
-						<li id="header_pstm_review">후기게시판</li>
-					</ul>
-				</div>
 
-			</div>
-		</header>
+		<%@ include file="./form/pstm_header.jsp"%>
+		<%
+			//PagingUtil pagination=(PagingUtil)request.getAttribute("pagination");
+		
+		//List<ReviewDto> reviewList = (ArrayList<ReviewDto>) request.getAttribute("reviewList");
+		ReviewDao dao=new ReviewDao();
+		List<ReviewDto> reviewList=dao.selectReviewList();
+		System.out.println(reviewList.size());
+		/*
+		if(pagination !=null){
+			System.out.println(pagination);
+			System.out.println("받은 페이지 번호"+pagination.getCurrentPageNo());
+		}
+
+		if(pagination==null){
+			ReviewBiz biz=new ReviewBiz();
+			pagination=new PagingUtil(1, 3);
+			pagination.setRecordsPerPage(3);
+			pagination.setNumberOfRecords(biz.getselectReviewCount());
+			pagination.makePaging();
+			reviewList=biz.selectReviewPaging(0,3);
+		}
+		*/
+		%>
 
 		<div class="review_contents wrapper">
 			<div class="member_header">
@@ -62,8 +66,8 @@ List<ReviewDto> list = dao.selectList();
 				<div class="class_category_container">
 					<div class="title">수강후기</div>
 					<ul class="class_category_list">
-						<li class="navi-item on"><a href="review.html">전체보기</a></li>
-						<li class="navi-item"><a href="review_writer.html">후기쓰기</a></li>
+						<li class="navi-item on"><a href="review.do?command=review">전체보기</a></li>
+						<li class="navi-item"><a href="review_writer.jsp">후기쓰기</a></li>
 					</ul>
 				</div>
 			</div>
@@ -71,223 +75,73 @@ List<ReviewDto> list = dao.selectList();
 				<div class="review_list_container">
 					<div class="review_wrapper">
 						<div class="title">전체후기</div>
+						<form action="review.do" method="post">
+							
+								<input type="hidden" name="command" value="reviewsuch" />
+								<select name="such" >
+									<option value="reviewtitle">제목</option>
+									<option value="trainer">트레이너</option>
+								</select>
+								<input type="text" name="reviewtitle">
+								<input type="submit" value="검색">
+
+						</form>
 						<div class="body-wrapper">
-							<div class="review_item">
+							<%
+								for (int i = 0; i < reviewList.size(); i++) {
+
+								System.out.println(i);
+								System.out.println(reviewList.get(i));
+								System.out.println(reviewList.get(i).getReviewid());
+								System.out.println(reviewList.get(i).getReviewtitle());
+								System.out.println(reviewList.get(i).getTrainer());
+							%>
+							<div class="review_item"
+								onclick="location.href='review.do?command=selectres&ReviewId=<%=reviewList.get(i).getReviewid()%>'">
 								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
+									<img alt="후기사진"
+										src="<%="./resources/img/select/img" + i + ".jpg"%>"
+										style="width: 150px; height: 150px;">
 								</div>
 								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
+									<div class="review_class"><%=reviewList.get(i).getReviewtitle()%></div>
+									<div class="review_summary"><%=reviewList.get(i).getTrainer()%></div>
 								</div>
 							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
-								</div>
-							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
-								</div>
-							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
-								</div>
-							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
-								</div>
-							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
-								</div>
-							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유진강사님 수강후기</div>
-								</div>
-							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
-								</div>
-							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
-								</div>
-							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
-								</div>
-							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
-								</div>
-							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
-								</div>
-							</div>
-							<div class="review_item">
-								<div class="review_img" style="background-color: green;">
-									<img alt="후기사진" src="WEB-INF/img/다운로드.jpg">
-								</div>
-								<div class="review_text">
-									<div class="review_class">단기 체중감량</div>
-									<div class="review_title">너무좋아요</div>
-									<div class="review_summary">배유지강사님 수강후기</div>
-								</div>
-							</div>
+							<%
+								}
+							%>
+						</div>
+
+						<div class="subscription_navigation">
+							<%-->	<%
+					for (int i = pagination.getStartPageNo(); i <= pagination.getEndPageNo(); i++) {
+
+					System.out.println(i);
+					System.out.println(pagination.getCurrentPageNo());
+					if (i == pagination.getCurrentPageNo()) {*/
+				%> -->
+
+				<%=i%>
+
+
+				<%
+					//} else {
+				%>
+
+				<a href="review.do?command=review&reviewid=<%=i%>"><%=i%></a>
+
+				<%
+					//}
+				//}
+				%>   --%>
 						</div>
 					</div>
 				</div>
 			</div>
-			<footer class="footer">
-				<section>
-					<div class="footer_inner">
-						<table id="footer_top_table">
-							<tbody>
-								<tr>
-									<td><img
-										src="/site_media/new_images/footer-ic-call@2x.png"
-										style="width: 20px; height: 19px;">
-										<p id="service-center-title">
-											<a href="/board/faq.html"> "고객센터 1:1 문의" <img
-												src="/site_media/new_images/cs-arrow.png" alt="arrow"
-												class="cs-arrow-icon">
-											</a>
-										</p></td>
-									<td style="text-align: right;"><a href="" target="_blank"
-										rel="noopener noreferrer"> <img
-											src="/site_media/new_images/footer/m-menu-ic-kakaotalk@2x.png"
-											alt="kakao-icon" class="footer-icon">
-									</a> <a href="https://www.youtube.com" target="_blank"
-										rel="noopener noreferrer"> <img
-											src="/site_media/new_images/footer/m-menu-ic-youtube@2x.png"
-											alt="youtube-icon" class="footer-icon"
-											style="margin-left: 17px;">
-									</a> <a href="https://www.instagram.com/dano.fit/" target="_blank"
-										rel="noopener noreferrer"> <img
-											src="/site_media/new_images/footer/m-menu-ic-instagram@2x.png"
-											alt="instagram-icon" class="footer-icon"
-											style="margin-left: 17px;">
-									</a></td>
-								</tr>
-								<tr>
-									<td id="center-information">"운영시간 : 평일 10:00 - 18:00" <br>
-										"점심시간 : 평일 12:30 - 13:30 (주말, 공휴일 휴무)" <br>
-									</td>
-								</tr>
-							</tbody>
-						</table>
-						<div id="seperate-line"></div>
-						<table id="footer_bottom_table">
-							<tbody>
-								<tr>
-									<td class="footer_bottom_td"
-										style="width: 17%; text-align: left;"><img
-										class="footer_logo"
-										src="/site_media/new_images/footer-ic-logo@2x.png"></td>
-									<td style="width: 70%; text-align: left;">
-										<p class="copyright">
-											<br> "사업장소재지 | 사업자번호 010-0000-0000 " <br> "대표이사
-											pstm | 개인정보책임자 pstm |" <a
-												href="https://auth.dano.me/terms_of_use_new" target="_blank"
-												rel="noopener noreferrer"
-												style="text-decoration: underline;">통합약관</a> "|" <a
-												href="/terms-of-uses.html" target="_blank"
-												rel="noopener noreferrer"
-												style="text-decoration: underline;">이용약관</a> "|" <a
-												href="/member/privacy-policy.html" target="_blank"
-												rel="noopener noreferrer"
-												style="text-decoration: underline;">개인정보 처리방침</a> <br>
-											"Copyright © pstm, Inc. All Rights Reserved."
-										</p>
-									</td>
-									<td style="width: 13%; text-align: right;"><a
-										href="https://abr.ge/wqbttd" target="_blank"
-										rel="noopener noreferrer"> <img class="footer-icon"
-											src="/site_media/new_images/footer-ic-google-play@2x.png">
-									</a> <a href="https://abr.ge/wqbttd" target="_blank"
-										rel="noopener noreferrer"> <img class="footer-icon"
-											src="/site_media/new_images/footer-ic-appstore@2x.png"
-											style="margin-left: 15px;">
-									</a></td>
-								</tr>
-							</tbody>
-						</table>
-					</div>
-				</section>
-			</footer>
 		</div>
 	</div>
-
-
-
+	<%@ include file="./form/pstm_footer.jsp"%>
 
 </body>
 </html>

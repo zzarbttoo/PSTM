@@ -1,5 +1,6 @@
 @charset "UTF-8";
 
+
 body{
 	display: block;
 	margin:8px;
@@ -38,7 +39,7 @@ p{
     margin-inline-end: 0px;
 }
 
-.review_contens{
+.review_contents{
 	width: 1100px;
 	margin: auto;
 	background-color: #fff;
@@ -102,7 +103,7 @@ p{
 .right-container{
 	display:inline-block;
 	float: right;
-	width: 740px;
+	width: 800px;
 }
 .review_contents .right-container .review_wrapper{
 	width:100%;

@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.api.services.bigquery.Bigquery.Datasets.Get;
 import com.google.api.services.bigquery.model.Dataset;
@@ -48,7 +48,7 @@ import com.google.cloud.vision.v1.TextAnnotation;
 import com.google.cloud.vision.v1.Word;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.util.JsonFormat;
-
+*/
 import oracle.net.aso.k;
 
 import java.io.FileInputStream;
@@ -62,7 +62,7 @@ import java.util.regex.Pattern;
 public class CloudVision {
 
 	public static void main(String[] args) throws Exception {
-
+/*
 		// 이미지에서 감지된 엔티티를 반환
 		ImageAnnotatorClient vision = ImageAnnotatorClient.create();
 
@@ -110,7 +110,7 @@ public class CloudVision {
 				
 			}
 			System.out.println(result);
-		}
+		}*/
 	}
 
 }
