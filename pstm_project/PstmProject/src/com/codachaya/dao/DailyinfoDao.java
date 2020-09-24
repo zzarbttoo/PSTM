@@ -24,6 +24,18 @@ public class DailyinfoDao extends SqlMapConfig{
 		
 	}
 	
+	public int getLastDailyInfoId() {
+		int result = 0;
+		
+		SqlSession session = null;
+		
+		session = getSqlSessionFactory().openSession(true);
+		result = session.selectOne(namespace + "getLastDailyInfoId");
+		session.close();
+		
+		return result;
+	}
+	
 	public int insert(DailyinfoDto dto) {
 		SqlSession session = null;
 		int res = 0;
@@ -32,18 +44,15 @@ public class DailyinfoDao extends SqlMapConfig{
 		res = session.insert(namespace + "insert", dto);
 		session.close();
 		
-		
 		return res;
 	}
-	
 	public int delete(int dailyinfoid) {
 		SqlSession session = null;
-		
 		int res = 0;
-		session = getSqlSessionFactory().openSession(true);
-		res = session.delete(namespace + "delete", dailyinfoid);
-		session.close();
 		
+		session = getSqlSessionFactory().openSession(true);
+		res = session.delete(namespace + "delete",dailyinfoid);
+		session.close();
 		
 		return res;
 	}

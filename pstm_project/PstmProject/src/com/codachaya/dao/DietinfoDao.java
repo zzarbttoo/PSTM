@@ -13,18 +13,21 @@ public class DietinfoDao extends SqlMapConfig{
 
 	private String namespace = "dietinfomapper.";
 	
-	public List<DietinfoDto> selectList(){
+	public List<DietinfoDto> selectList(int dailyinfoid){
 		SqlSession session = null;
 		
 		List<DietinfoDto> list = new ArrayList<DietinfoDto>();
 		session = getSqlSessionFactory().openSession(true);
-		list = session.selectList(namespace + "selectList");
+		list = session.selectList(namespace + "selectList",dailyinfoid);
 		
 		session.close();
 		
 		return list;
 		
 	}
+	
+	
+	
 	
 	public int insert(DietinfoDto dto) {
 		SqlSession session = null;

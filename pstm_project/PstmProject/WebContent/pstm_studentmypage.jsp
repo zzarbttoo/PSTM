@@ -49,6 +49,7 @@
 	<%@include file="./form/pstm_header.jsp" %>
 	<h1>마이페이지</h1>
 	
+	
 	<nav id="topMenu">
 		<ul>
 			<li><a class="menulink" href="#">인바디</a></li>

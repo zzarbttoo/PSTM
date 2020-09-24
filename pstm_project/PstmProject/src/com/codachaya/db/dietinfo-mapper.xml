@@ -2,6 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="dietinfomapper">
 
+
+
 	<resultMap type="DietinfoDto" id="DietinfoDto">
 	
 		<result property="dietid" column="DIETID"/>
@@ -11,17 +13,21 @@
 		<result property="result" column="RESULT"/>
 		<result property="eatencount" column="EATENCOUNT"/>
 		<result property="timeeat" column="TIMEEAT"/>
+		<result property="kcal" column="KCAL"/>
 	</resultMap>
 	
+	
+	
+	
 	<select id="selectList" resultMap="DietinfoDto">
-		SELECT DIETID, DAILYINFOID, UPLOADIMG, ORIGINIMG, RESULT, EATENCOUNT, TIMEEAT
+		SELECT DIETID, DAILYINFOID, UPLOADIMG, ORIGINIMG, RESULT, EATENCOUNT, TIMEEAT, KCAL
 		FROM PSTM_DIETINFO
 		WHERE DAILYINFOID = #{dailyinfoid}
 	</select>
 	
 	<insert id="insert" parameterType="DietinfoDto">
 		INSERT INTO PSTM_DIETINFO
-		VALUES(DIETIDSEQ.NEXTVAL, 1, #{uploadimg}, #{originimg}, #{result}, 0, #{timeeat})
+		VALUES(DIETIDSEQ.NEXTVAL, #{dailyinfoid}, #{uploadimg}, #{originimg}, #{result}, 0, #{timeeat}, #{kcal})
 	</insert>
 	
 	<update id="update" parameterType="DietinfoDto">
@@ -31,7 +37,5 @@
 	<delete id="delete" parameterType="DietinfoDto">
 		DELETE FROM PSTM_DIETINFO WHERE DIETID = #{dietid}
 	</delete>	
-	
-	
 
 </mapper>

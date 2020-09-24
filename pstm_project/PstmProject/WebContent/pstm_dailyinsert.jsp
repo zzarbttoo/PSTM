@@ -84,15 +84,16 @@
 					//fdGrupp :"I",
 					fdEngNm : ""+foodname+""
 				}, 
-
 			}).done(function(msg) {
 				console.log(msg);
 				var kcal = msg.service.list[0].irdnt[0].irdnttcket[0].contInfo;
 				$("#kcalall").append("음식이름 :" +foodname+"<br> 칼로리 : "+kcal);
 				
 			})
-			
 		}
+		
+		
+		
 </script>
 
 
@@ -108,15 +109,13 @@
 
 	<form method="post" enctype="multipart/form-data" id="createupload" action="daily.do">
 		<input type="hidden" name="command" value="insertres">
-		 파일 : <input type="file" name="uploadimg" id="imput_img" class="excelFile"> 
-		 먹은 시간 : <input type="text" name="timeeat"> 
-		<!--  <button onclick="upload(event)">이미지 업로드</button> -->
+		 파일 : <input type="file" name="uploadimg" id="imput_img" class="excelFile">
+		 <button onclick="upload(event)">이미지 업로드</button> 
+		 음식 : <input type="text" name="result"> 
+		 먹은 시간 : <input type="text" name="timeeat">
 		 
-		 
-		<!--  <button onclick="upload(event)">이미지 업로드</button> -->
 		칼로리 : <input type="text" name="kcal">
-		음식이름 : <input type="text" name="result">
-		
+		 
 		 
 		 
 		 
@@ -124,13 +123,9 @@
 		 		
 	</form>
 	
-	
-	 <div><p id="kcalall"></div>
-	 
-	 <div>
+	<div>
 		<button onclick="kcalcount();">계산하기</button>
 	</div>
-	
 	
 	<div>
 		내가먹은 음식 선택 : 
@@ -138,6 +133,7 @@
 		</select>
 		<button onclick="foodnamesend();">선택</button>
 	</div>
+	 <div><p id="kcalall"></div>
 
 	<%@include file="./form/pstm_footer.jsp"%>
 </body>

@@ -25,11 +25,18 @@
   <select id="selectList" resultMap="DailyinfoDto">
   	SELECT DAILYINFOID, USERID, REGDATE, EXERCISE, CONSUMEKCAL, FEEDBACK
   	FROM PSTM_DAILYINFO
+  	ORDER BY DAILYINFOID DESC
   </select>
+ 
+ 
+	<select id="getLastDailyInfoId" resultType="int">
+	SELECT MAX(DAILYINFOID) FROM PSTM_DAILYINFO
+	</select>
+	
  
   <insert id="insert" parameterType="DailyinfoDto">
   	INSERT INTO PSTM_DAILYINFO
-  	VALUES(DAILYINFOIDSEQ.NEXTVAL,1, SYSTATE, '스쿼트', 150, 'ㅎㅎ')
+  	VALUES(DAILYINFOIDSEQ.NEXTVAL,1, SYSDATE, '스쿼트', 150, 'ㅎㅎ')
   </insert>
   
   <update id="update" parameterType="DailyinfoDto">
