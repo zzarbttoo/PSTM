@@ -24,12 +24,13 @@ public class UserDao extends SqlMapConfig {
 	private String namespace = "usermapper.";
 
 	// 일반회원, 강사 로그인
-	public UserDto login(String id, String password) {
+	public UserDto login(String id, String password, String usertype) {
 
 		UserDto dto = new UserDto();
 		UserDto duo = new UserDto();
 		duo.setId(id);
 		duo.setPassword(password);
+		duo.setUsertype(usertype);
 
 		SqlSession session = null;
 

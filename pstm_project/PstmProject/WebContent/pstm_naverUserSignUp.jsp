@@ -69,34 +69,24 @@ th {
 
 <%@ include file="./form/pstm_header.jsp"%>
 
+<%
+	String userid = (String)request.getAttribute("userid");
+	String name = (String)request.getAttribute("name");
+	String imgurl = (String)request.getAttribute("imgurl");
+	String gender = (String)request.getAttribute("gender");
+%>
+
 <h1>일반 회원 가입</h1>
 
 <form action="signup.do" method="post">
-	<input type="hidden" name="command" value="signup"/>
+	<input type="hidden" name="command" value="signupNaver"/>
+	<input type="hidden" name="id" value="<%=userid %>"/>
+	<input type="hidden" name="imgurl" value="<%=imgurl %>"/>
 		
 		<table>
 				<tr>
-					<th>아이디</th>
-					<td><input type="text" name="id" placeholder="아이디 입력" class="inputSize" required="required" title="n"/>
-					<input type="button" value="중복체크" onclick="idChk();" id="DupChk"/></td>
-				</tr>
-				
-				<tr>
-					<th>비밀번호</th>
-					<td><input type="password" name="password" placeholder="비밀번호 입력" class="inputPw" onclick="idChkConfirm();" required="required"/></td>	
-				</tr>
-				
-				<tr>
-					<th></th>
-					<td><input type="password" name="password_key" placeholder="비밀번호 입력확인" class="inputPw" onclick="idChkConfirm();" required="required"/>
-					<span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
-    				<span id="alert-danger" style="display: none; color: red; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span>
-					</td>	
-				</tr>
-				
-				<tr>
 					<th>이름</th>
-					<td><input type="text" name="name" placeholder="이름" class="inputSize" onclick="idChkConfirm();" required="required"/></td>				
+					<td><input type="text" name="name" value="<%=name %>" disabled="disabled"/></td>				
 				</tr>
 				
 				<tr>
@@ -107,8 +97,8 @@ th {
 				<tr>
 					<th>성별</th>
 					<td>
-						<input type="radio" name="gender" value="M"/>남자
-						<input type="radio" name="gender" value="F"/>여자
+						<input type="radio" name="gender" value="M" checked="<%=gender == "M" ? "checked" : "" %>" disabled="<%=gender != "U" ? "disabled" : "" %>"/>남자
+						<input type="radio" name="gender" value="F" checked="<%=gender == "F" ? "checked" : "" %>" disabled="<%=gender != "U" ? "disabled" : "" %>"/>여자
 					</td>				
 				</tr>
 				

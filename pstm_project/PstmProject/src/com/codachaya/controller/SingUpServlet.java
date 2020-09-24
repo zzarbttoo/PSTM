@@ -41,7 +41,7 @@ public class SingUpServlet extends HttpServlet {
 			String mycomment = request.getParameter("mycomment");
 			String signout = request.getParameter("signout");
 			
-			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, 0, null, null, career, mycomment, null, signout);
+			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, 0, null, career, mycomment, null, signout);
 			
 			int res = dao.insertTrainer(dto);
 			
@@ -50,7 +50,7 @@ public class SingUpServlet extends HttpServlet {
 			}else {
 				jsResponse("회원가입 실패", "pstm_trainerSignUp.jsp", response);
 			}
-		}else if(command.equals("signupN")) {
+		}else if(command.equals("signup")) {
 			
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
@@ -59,12 +59,60 @@ public class SingUpServlet extends HttpServlet {
 			String phone = request.getParameter("phone");
 			String addr = request.getParameter("addr");
 			String detailaddr = request.getParameter("detailaddr");
-			String usertype = request.getParameter("usertype");
+			String usertype = "S";
 			String gender = request.getParameter("gender");
 			int height = Integer.parseInt(request.getParameter("height"));
-			String signout = request.getParameter("signout");
+			String signout = "N";
 			
-			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, null, null, null, null, null, signout);
+			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, null, null, null, null, signout);
+					
+			int res = dao.insertNormalUser(dto);
+			
+			if (res > 0) {
+				jsResponse("회원가입 성공!", "pstm_login.jsp", response);
+			} else {
+				jsResponse("회원가입 실패", "pstm_normalUserSignUp.jsp", response);
+			}
+		}else if(command.equals("signupNaver")) {
+			
+			String id = request.getParameter("id");
+			String password = "";
+			String password_key = "";
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone");
+			String addr = request.getParameter("addr");
+			String detailaddr = request.getParameter("detailaddr");
+			String usertype = "N";
+			String gender = request.getParameter("gender");
+			int height = Integer.parseInt(request.getParameter("height"));
+			String imgurl = request.getParameter("imgurl");
+			String signout = "N";
+			
+			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, imgurl, null, null, null, signout);
+					
+			int res = dao.insertNormalUser(dto);
+			
+			if (res > 0) {
+				jsResponse("회원가입 성공!", "pstm_login.jsp", response);
+			} else {
+				jsResponse("회원가입 실패", "pstm_normalUserSignUp.jsp", response);
+			}
+		}else if(command.equals("signupFB")) {
+			
+			String id = request.getParameter("id");
+			String password = "";
+			String password_key = "";
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone");
+			String addr = request.getParameter("addr");
+			String detailaddr = request.getParameter("detailaddr");
+			String usertype = "F";
+			String gender = request.getParameter("gender");
+			int height = Integer.parseInt(request.getParameter("height"));
+			String imgurl = request.getParameter("imgurl");
+			String signout = "N";
+			
+			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, imgurl, null, null, null, signout);
 					
 			int res = dao.insertNormalUser(dto);
 			
