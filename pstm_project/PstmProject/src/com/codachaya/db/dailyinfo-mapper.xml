@@ -41,7 +41,5 @@
   	DELETE FROM PSTM_DAILYINFO WHERE DAILYINFOID = #{dailyinfoid}
   </delete>
   
-  
-  
-  
+
 </mapper>

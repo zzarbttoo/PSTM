@@ -1,5 +1,6 @@
 
-<%@page import="com.codachaya.dto.NaverDto"%>
+<%@page import="java.util.List"%>
+<%@page import="com.codachaya.dto.ReceiptinfoDto"%>
 <%@page import="com.codachaya.dto.UserDto"%>
 
 
@@ -113,39 +114,27 @@ header li {
 				
 											
 				<%
-					UserDto dto = (UserDto) session.getAttribute("login");
-					NaverDto duo = (NaverDto) session.getAttribute("nLogin");					
+					
+					UserDto userdto = (UserDto) session.getAttribute("login");
+					
 				%>
 				
 				<%
-					if(dto != null){
+					if(userdto != null){
 						
 				%>		
-						<li><%=dto.getName() %></li>
-						<li id="headerMemberLogin" class="btn login"><a href="Login.do?command=logout">로그아웃</a></li>
-						<li id="headerMembersignup"><a href="pstm_signUp.jsp">회원가입</a></li>
+						<li><%=userdto.getName() %></li>
+						<li id="headerMemberLogin"><a href="Login.do?command=logout">로그아웃</a></li>
 				<%
-						if(dto.getUsertype().equals("N")){
+						if(userdto.getUsertype().equals("N") || userdto.getUsertype().equals("F") || userdto.getUsertype().equals("S")){
 				%>
 							<li id="headerMemberPage"><a href="pstm_studentmypage.jsp">마이페이지</a></li>	
 				<% 			
-						}else if(dto.getUsertype().equals("T")){
+						}else if(userdto.getUsertype().equals("T")){
+							
 				%>
-							<li id="headerMemberPage"><a href="pstm_trainerMyPage.jsp">마이페이지</a></li>
+							<li id="headerMemberPage"><a href="yana.do?command=list&trainerid=<%=userdto.getUserid()%>">마이페이지</a></li>
 				<% 			
-						}
-				
-					}else if(duo != null){
-				%>	
-						<li><img src="<%=duo.getProfile_image()%>" style="height:30px;"/></li>
-						<li><%=duo.getName() %></li>
-						<li id="headerMemberLogin" class="btn login"><a href="Login.do?command=logout">로그아웃</a></li>
-						<li id="headerMembersignup"><a href="pstm_signUp.jsp">회원가입</a></li>	
-				<%
-						if(duo.getUsertype().equals("N")){
-				%>
-							<li id="headerMemberPage"><a href="pstm_studentmypage.jsp">마이페이지</a></li>
-				<%
 						}
 				
 					}else{

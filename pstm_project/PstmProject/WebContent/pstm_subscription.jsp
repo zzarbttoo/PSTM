@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ page import="com.codachaya.dto.UserDto" import="java.util.List"
+<%@ page 
+	import="com.codachaya.dto.UserDto" 
+	import="java.util.List"
 	import="java.util.ArrayList" 
 	import="com.codachaya.biz.*"
 	import = "com.codachaya.util.*"
@@ -119,7 +121,8 @@
 				
 				
 			%>
-			<div class="innerintroduce"onclick="location.href='paying.do?command=payment&trainerUserId=<%=trainerList.get(i).getUserid()%>'">
+			<div class="innerintroduce"
+			onclick="location.href='paying.do?command=payment&trainerUserId=<%=trainerList.get(i).getUserid()%>'">
 				<div class="body">
 					<div class="trainerbox">
 						<div class="left-area">

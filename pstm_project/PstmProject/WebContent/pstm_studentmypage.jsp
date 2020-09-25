@@ -55,14 +55,10 @@
 		
 	
 	<%@include file="./form/pstm_header.jsp" %>
-	<h1><% if(dto != null){
+	<h1><% if(userdto != null){
 		
 		%>
-			<%=dto.getName() %>님의 마이페이지
-		<%
-			}else if(duo != null){	
-		%>
-			<%=duo.getName() %>님의 마이페이지
+			<%=userdto.getName() %>님의 마이페이지
 		<%
 			}
 		%>
