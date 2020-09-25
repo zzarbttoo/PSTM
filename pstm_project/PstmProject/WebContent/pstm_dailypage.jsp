@@ -23,6 +23,15 @@
 <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <link href="css/pstm_daily.css" rel="stylesheet" type="text/css">
 
+<%
+	if(session.getAttribute("login") == null){
+		String result = "<script> alert('로그인을 먼저 해주세요!'); location.href='pstm_login.jsp'; </script> ";
+		response.getWriter().append(result);
+		
+	}
+	
+	
+%>
 </head>
 <body>
 <%
