@@ -1,0 +1,207 @@
+package com.codachaya.controller;
+
+import java.io.IOException;
+import java.io.PrintWriter;
+
+import javax.servlet.RequestDispatcher;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+
+import com.codachaya.dao.UserDao;
+import com.codachaya.dto.UserDto;
+
+@WebServlet("/SingUpServlet")
+public class SingUpServlet extends HttpServlet {
+	private static final long serialVersionUID = 1L;
+
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+		
+		request.setCharacterEncoding("UTF-8");
+		response.setContentType("text/html; charset=UTF-8");
+
+		String command = request.getParameter("command");
+		
+		UserDao dao = new UserDao();
+		
+		if(command.equals("signupT")) {
+			
+			String id = request.getParameter("id");
+			String password = request.getParameter("password");
+			String password_key = request.getParameter("password_key");
+			String name = request.getParameter("name");
+			String gender = request.getParameter("gender");
+			String phone = request.getParameter("phone");
+			String addr = request.getParameter("addr");
+			String detailaddr = request.getParameter("detailaddr");
+			String usertype = request.getParameter("usertype");
+			String career = request.getParameter("career");
+			String mycomment = request.getParameter("mycomment");
+			String signout = request.getParameter("signout");
+			
+			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, 0, null, career, mycomment, null, signout);
+			
+			int res = dao.insertTrainer(dto);
+			
+			if(res > 0) {
+				jsResponse("회원가입 성공", "pstm_login.jsp", response);
+			}else {
+				jsResponse("회원가입 실패", "pstm_trainerSignUp.jsp", response);
+			}
+		}else if(command.equals("signup")) {
+			
+			String id = request.getParameter("id");
+			String password = request.getParameter("password");
+			String password_key = request.getParameter("password_key");
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone");
+			String addr = request.getParameter("addr");
+			String detailaddr = request.getParameter("detailaddr");
+			String usertype = "S";
+			String gender = request.getParameter("gender");
+			int height = Integer.parseInt(request.getParameter("height"));
+			String signout = "N";
+			
+			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, null, null, null, null, signout);
+					
+			int res = dao.insertNormalUser(dto);
+			
+			if (res > 0) {
+				dto = dao.login(id, password, "S");
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("login", dto);
+
+				session.setMaxInactiveInterval(-1);
+
+				jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
+			} else {
+				jsResponse("회원가입 실패", "pstm_normalUserSignUp.jsp", response);
+			}
+		}else if(command.equals("signupNaver")) {
+			
+			String id = request.getParameter("id");
+			String password = "N";
+			String password_key = "N";
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone");
+			String addr = request.getParameter("addr");
+			String detailaddr = request.getParameter("detailaddr");
+			String usertype = "N";
+			String gender = request.getParameter("gender");
+			int height = Integer.parseInt(request.getParameter("height"));
+			String imgurl = request.getParameter("imgurl");
+			String signout = "N";
+			
+			System.out.println(id);
+			System.out.println(imgurl);
+			System.out.println(phone);
+			System.out.println(height);
+			System.out.println(name);
+			System.out.println(gender);
+			
+			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, imgurl, null, null, null, signout);
+					
+			int res = dao.insertNormalUser(dto);
+			
+			if (res > 0) {
+				
+				dto = dao.login(id, null, "N");
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("login", dto);
+
+				session.setMaxInactiveInterval(-1);
+
+				jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
+			} else {
+
+				request.setAttribute("userid", id);
+				request.setAttribute("name", name);
+				request.setAttribute("imgurl", imgurl);
+				request.setAttribute("gender", gender);
+				request.setAttribute("error", "T");
+				
+				dispatch("pstm_naverUserSignUp.jsp", request, response);
+			}
+		}else if(command.equals("signupFB")) {
+			
+			String id = request.getParameter("id");
+			String password = "F";
+			String password_key = "F";
+			String name = request.getParameter("name");
+			String phone = request.getParameter("phone");
+			String addr = request.getParameter("addr");
+			String detailaddr = request.getParameter("detailaddr");
+			String usertype = "F";
+			String gender = request.getParameter("gender");
+			int height = Integer.parseInt(request.getParameter("height"));
+			String imgurl = request.getParameter("imgurl");
+			String signout = "N";
+			
+			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, imgurl, null, null, null, signout);
+					
+			int res = dao.insertNormalUser(dto);
+			
+			if (res > 0) {
+				dto = dao.login(id, null, "F");
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("login", dto);
+
+				session.setMaxInactiveInterval(-1);
+
+				jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
+			} else {
+				request.setAttribute("userid", id);
+				request.setAttribute("name", name);
+				request.setAttribute("imgurl", imgurl);
+				request.setAttribute("error", "T");
+
+				dispatch("pstm_fbUserSignUp.jsp", request, response);
+			}
+		}else if(command.equals("idChk")) {
+			
+			String id = request.getParameter("id");
+			UserDto dto = new UserDto();
+			
+			dto = dao.idCheck(id);
+			boolean idNotUse = true;
+
+			if (dto != null) {
+
+				idNotUse = false;
+
+			}
+
+			response.sendRedirect("pstm_idchk.jsp?idNotUse=" + idNotUse);
+			
+		}
+
+	}
+
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		doGet(request, response);
+	}
+	
+	public void jsResponse(String msg, String url, HttpServletResponse response) throws IOException {
+		PrintWriter out = response.getWriter();
+		String res = "<script>alert('" + msg + "'); location.href='" + url + "';</script>";
+
+		out.print(res);
+
+	}
+
+	private void dispatch(String path, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RequestDispatcher dispatch = request.getRequestDispatcher(path);
+		dispatch.forward(request, response);
+	}
+}

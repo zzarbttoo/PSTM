@@ -21,7 +21,7 @@
 	text-align: center;
 	display: inline-block;
 	border: 1px solid grey;
-}
+}	
 .right-area {
 	width: 440px;
 	display: inline-block;
@@ -92,6 +92,7 @@
 		console.log(jsonTrainerDto);
 		
 		var obj = new Object();
+		var isright;
 		var jsonData;
 		var selectedamount = $(".monthoptionselect option:selected").text();
 		var selectedpg = $(".payoptionselect option:selected").text(); 
@@ -113,8 +114,6 @@
 				duration = 6;
 			}
 			
-			
-			alert("잘했다 녀석");
 			IMP.request_pay({
 				
 				pg : 'kakao',
@@ -128,15 +127,38 @@
 				
 			
 			}, function(rsp) {
+				
 				if (rsp.success) {
-					var msg = "결제가 완료되었습니다";
+					
+					alert('imp_uid' + rsp.imp_uid);	
+					$.ajax({
+						url : "http://localhost:9999/aaa",
+						method : "POST", 
+						dataType : "text",
+						data : {
+							'imp_uid' : rsp.imp_uid,
+							'amount' : userpay
+						}
+						
+					}).done(function(data){
+						
+						if(data == 'W'){
+							alert('오류입니다. 관리자에게 문의해주세요');
+						}else{
+							alert('결제가 완료되었습니다');
+						}
+						isright = data;
+						
+					});
+					
 					
 					obj.normalUserId  = jsonNormalUserDto["userid"];
 					obj.trainerUserId = jsonTrainerDto["userid"];
 					obj.imp_uid = rsp.imp_uid;
 					obj.duration = duration;
 					obj.purchaseType =selectedpg;
-					obj.price = userpay
+					obj.price = userpay;
+					obj.isRight = isright;
 					
 					jsonData = JSON.stringify(obj);
 					
@@ -163,9 +185,6 @@
 					var msg = "결제에 실패하였습니다";
 					msg += "에러내용" + rsp.error_msg;
 				}
-				
-				
-				
 			});
 			
 		}else{
@@ -184,7 +203,6 @@
 		var popUrl = "pstm_trainermap.jsp?addr=" + addr + "&detailaddr=" + detailaddr + "&name=" + trainername; //팝업창에 출력될 페이지 URL
 		var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
 		window.open(popUrl, "", popOption);
-		
 		
 	}
 	
@@ -267,7 +285,6 @@
 					<div class="optionpack">
 						<button class="payingbutton"
 							onclick='correct(<%=jsonNormalUserDto%>, <%=jsonTrainerDto%>)'>결제하기</button>
-
 					</div>
 				</div>
 			</div>

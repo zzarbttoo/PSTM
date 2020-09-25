@@ -1,0 +1,20 @@
+{
+  "name": "mukhin_chat",
+  "description": "example chat application with socket.io",
+  "version": "0.0.1",
+  "dependencies": {
+    "-": "0.0.1",
+    "body-parser": "^1.19.0",
+    "cors": "^2.8.5",
+    "express": "",
+    "socket.io": ""
+  },
+  "main": "paymentcheck.js",
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}

@@ -3,8 +3,13 @@ package com.codachaya.dao;
 import java.util.ArrayList;
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
+<<<<<<< HEAD
 import com.codachaya.dto.DietinfoDto;
 import com.codachaya.dto.NctinfoDto;
+=======
+
+import com.codachaya.dto.DietinfoDto;
+>>>>>>> 8bde238fb9daed1806e948a0bcc3fa737d90f5b1
 import com.codachaya.dto.UserDto;
 
 public class DietinfoDao extends SqlMapConfig{
@@ -37,6 +42,7 @@ public class DietinfoDao extends SqlMapConfig{
 		return res;
 	}
 	
+<<<<<<< HEAD
 	public int delete(int dailyinfoid) {
 		SqlSession session = null;
 		
@@ -47,5 +53,7 @@ public class DietinfoDao extends SqlMapConfig{
 		
 		return res;
 	}
+=======
+>>>>>>> 8bde238fb9daed1806e948a0bcc3fa737d90f5b1
 }
 

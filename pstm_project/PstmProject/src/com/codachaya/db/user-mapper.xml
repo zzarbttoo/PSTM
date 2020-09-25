@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
@@ -37,7 +38,7 @@
 		SELECT
 		USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
 		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT,
-		ADMIT, SIGNOUTFROM PSTM_USERINFO
+		ADMIT, SIGNOUT FROM PSTM_USERINFO
 		WHERE USERID = #{userId}
 	</select>
 	
@@ -122,4 +123,278 @@
 		SELECT COUNT(*) FROM PSTM_USERINFO WHERE USERTYPE = 'N'
 	</select>
 	
+	<select id="login" resultType="UserDto" parameterType="string">
+		SELECT
+		USERID, ID, PASSWORD,
+		PASSWORD_KEY, NAME, PHONE, ADDR,
+		DETAILADDR,
+		USERTYPE, GENDER, HEIGHT,
+		UPLOADIMG, ORIGINIMG, CAREER,
+		MYCOMMENT,ADMIT, SIGNOUT
+		FROM PSTM_USERINFO
+		WHERE ID = #{id} AND PASSWORD = #{password} AND SIGNOUT = 'N'
+	</select>
+	
+	<insert id="insertNormalUser" parameterType="UserDto">
+		INSERT INTO PSTM_USERINFO
+		VALUES(PSTM_USERSEQ.NEXTVAL, #{id}, #{password},
+		#{password_key},#{name},
+		#{phone},#{addr}, #{detailaddr}, 'N',
+		#{gender}, #{height}, NULL, NULL, NULL, NULL,NULL, 'N')
+	</insert>
+	
+	<insert id="insertTrainer" parameterType="UserDto">
+		INSERT INTO
+		PSTM_USERINFO
+		VALUES(PSTM_USERSEQ.NEXTVAL, #{id}, #{password},
+		#{password_key}, #{name},
+		#{phone},#{addr}, #{detailaddr}, 'T',
+		#{gender}, 0, NULL, NULL,#{career}, #{mycomment},NULL, 'N')
+	
+	</insert>
+	
+	<select id="idCheck" resultType="UserDto" parameterType="string">
+		SELECT
+		USERID, ID, PASSWORD,
+		PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT,
+		UPLOADIMG, ORIGINIMG, CAREER,
+		MYCOMMENT,ADMIT, SIGNOUT
+		FROM PSTM_USERINFO WHERE ID = #{id}
+	</select>
+	
+	
+	<!-- userid list를 전달하면, 그에 맞는 dto list를 전달해준다 -->
+	<select id = "keylistuser" resultType = "UserDto" parameterType = "java.util.HashMap">
+		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT, UPLOADIMG, ORIGINIMG, CAREER, MYCOMMENT,
+		ADMIT, SIGNOUT
+		FROM PSTM_USERINFO 
+		WHERE USERID IN
+		<choose>
+			<when test = "keyIntList.size != 0">
+			 	<foreach collection="keyIntList" item = "item" index = "index" separator = "," open = "(" close = ")">
+			 			#{item}
+			 	</foreach>
+			</when>
+		</choose>
+	</select>
+	
+	
+	
+=======
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="usermapper">
+
+	<resultMap type="UserDto" id="userDtoMap">
+		<result property="userid" column="USERID" />
+		<result property="id" column="ID" />
+		<result property="password" column="PASSWORD" />
+		<result property="password_key" column="PASSWORD_KEY" />
+		<result property="name" column="NAME" />
+		<result property="phone" column="PHONE" />
+		<result property="addr" column="ADDR" />
+		<result property="detailaddr" column="DETAILADDR" />
+		<result property="usertype" column="USERTYPE" />
+		<result property="gender" column="GENDER" />
+		<result property="height" column="HEIGHT" />
+		<result property="uploadimg" column="UPLOADIMG" />
+		<result property="career" column="CAREER" />
+		<result property="mycomment" column="MYCOMMENT" />
+		<result property="admit" column="ADMIT" />
+		<result property="signout" column="SIGNOUT" />
+	</resultMap>
+
+	<select id="selectList" resultType="UserDto">
+		SELECT USERID, ID, PASSWORD,
+		PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT,
+		UPLOADIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT
+		FROM
+		PSTM_USERINFO ORDER BY USERID DESC
+	</select>
+	
+<!-- https://m.blog.naver.com/PostView.nhn?blogId=cir213&logNo=221214715748&proxyReferer=https:%2F%2Fwww.google.com%2F -->
+
+	<select id="selectOne" parameterType="String" resultType="UserDto">
+		SELECT
+		USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT,
+		ADMIT, SIGNOUT FROM PSTM_USERINFO
+		WHERE USERID = #{userId}
+	</select>
+
+	<insert id="insert" parameterType="UserDto">
+		INSERT INTO PSTM_USERINFO
+		VALUES(
+		PSTM_USERSEQ.NEXTVAL, #{id}, #{password}, #{password_key},
+		#{name}, #{phone},
+		#{addr}, #{deatiladdr}, #{usertype}, #{gender},
+		#{height}, #{uploadimg},
+		#{originimg}, #{career},#{mycomment},
+		#{admit}, #{signout})
+	</insert>
+	
+	<insert id="insertSNS" parameterType="UserDto">
+		INSERT INTO PSTM_USERINFO
+		VALUES(
+		#{userid}, #{id}, #{password}, #{password_key},
+		#{name}, #{phone},
+		#{addr}, #{deatiladdr}, #{usertype}, #{gender},
+		#{height}, #{uploadimg},
+		#{originimg}, #{career},#{mycomment},
+		#{admit}, #{signout})
+	</insert>
+
+	<!-- 이후에 필요한 것 추가해서 사용할 것 -->
+	<update id="update" parameterType="UserDto">
+
+	</update>
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM PSTM_USERINFO WHERE
+	</delete>
+	<insert id=""></insert>
+
+
+	<!-- user와 trainer을 각각 list로 출력 -->
+	<select id="selectTrainerList" resultType="UserDto">
+		SELECT USERID, ID,
+		PASSWORD, PASSWORD_KEY, NAME,
+		PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER,
+		HEIGHT, UPLOADIMG,
+		CAREER, MYCOMMENT, ADMIT, SIGNOUT
+		FROM
+		PSTM_USERINFO
+		WHERE USERTYPE = 'T'
+		ORDER BY USERID DESC
+	</select>
+
+	<select id="selectNormalList" resultType="UserDto">
+		SELECT USERID, ID,
+		PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE,
+		GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT,
+		ADMIT, SIGNOUT
+		FROM PSTM_USERINFO WHERE USERTYPE = 'N' ORDER BY USERID DESC
+	</select>
+
+	<select id="selectTrainerPaging" resultType="UserDto"
+		parameterType="hashmap">
+
+		 <![CDATA[ 
+			SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR, USERTYPE, GENDER, HEIGHT,
+			UPLOADIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT 
+			FROM (SELECT SEQ, USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR, USERTYPE, 
+			GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT 
+			FROM (SELECT ROWNUM AS SEQ,USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR, 
+			USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT,
+			ADMIT, SIGNOUT 
+			FROM (SELECT * FROM PSTM_USERINFO WHERE USERTYPE = 'T' ORDER BY USERID DESC) ) WHERE SEQ > #{offset} )
+			WHERE ROWNUM <= #{count} ]]>
+
+	</select>
+
+	<select id="selectNormalUserPaging" resultType="UserDto"
+		parameterType="hashmap">
+
+		  <![CDATA[ 
+			SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+			USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT,
+			ADMIT, SIGNOUT 
+			FROM (SELECT SEQ, USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+			USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT,
+			ADMIT, SIGNOUT 
+			FROM (SELECT ROWNUM AS SEQ, USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+			USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT 
+			FROM (SELECT * FROM PSTM_USERINFO WHERE USERTYPE = 'N' ORDER BY USERID DESC) ) 
+			WHERE SEQ > #{offset})
+			WHERE ROWNUM <= #{count} ]]>
+
+	</select>
+
+	<select id="selectTrainerCount" resultType="int">
+		SELECT COUNT(*) FROM
+		PSTM_USERINFO WHERE USERTYPE = 'T'
+	</select>
+
+
+	<select id="selectNormalUserCount" resultType="int">
+		SELECT COUNT(*)
+		FROM PSTM_USERINFO WHERE USERTYPE = 'N'
+	</select>
+
+	<select id="login" resultType="UserDto" parameterType="UserDto">
+		SELECT
+		USERID, ID, PASSWORD,
+		PASSWORD_KEY, NAME, PHONE, ADDR,
+		DETAILADDR,
+		USERTYPE, GENDER, HEIGHT,
+		UPLOADIMG, CAREER,
+		MYCOMMENT,ADMIT, SIGNOUT
+		FROM PSTM_USERINFO
+		WHERE ID = #{id}
+		<if test='usertype == "S"'>
+			AND PASSWORD = #{password}
+		</if>
+		AND USERTYPE = #{usertype} AND SIGNOUT = 'N'
+	</select>
+	
+	<insert id="insertNormalUser" parameterType="UserDto">
+		INSERT INTO
+		PSTM_USERINFO
+		VALUES(PSTM_USERSEQ.NEXTVAL, #{id}, #{password},
+		#{password_key},#{name},
+		#{phone},#{addr}, #{detailaddr}, #{usertype},
+		#{gender}, #{height}, NULL, NULL, NULL,NULL, 'N')
+	</insert>
+
+	<insert id="insertTrainer" parameterType="UserDto">
+		INSERT INTO
+		PSTM_USERINFO
+		VALUES(PSTM_USERSEQ.NEXTVAL, #{id}, #{password},
+		#{password_key}, #{name},
+		#{phone},#{addr}, #{detailaddr}, 'T',
+		#{gender}, 0, NULL, NULL,#{career}, #{mycomment},NULL, 'N')
+
+	</insert>
+
+	<select id="idCheck" resultType="UserDto" parameterType="string">
+		SELECT
+		USERID, ID, PASSWORD,
+		PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
+		USERTYPE, GENDER, HEIGHT,
+		UPLOADIMG, CAREER,
+		MYCOMMENT,ADMIT, SIGNOUT
+		FROM PSTM_USERINFO WHERE ID = #{id}
+	</select>
+
+
+	<!-- userid list를 전달하면, 그에 맞는 dto list를 전달해준다 -->
+	<select id="keylistuser" resultType="UserDto"
+		parameterType="java.util.HashMap">
+		SELECT USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR,
+		DETAILADDR,
+		USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER,
+		MYCOMMENT,
+		ADMIT, SIGNOUT
+		FROM PSTM_USERINFO
+		WHERE USERID IN
+		<choose>
+			<when test="keyIntList.size gt 0">
+				<foreach collection="keyIntList" item="item" index="index"
+					separator="," open="(" close=")">
+					#{item}
+				</foreach>
+			</when>
+		</choose>
+	</select>
+
+
+
+>>>>>>> 9012c10a3ae39be503022033064cfa8f36246229
 </mapper>

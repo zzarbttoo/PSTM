@@ -33,7 +33,7 @@
 	</select>
 	
 	<insert id = "insert">
-		INSERT INTO PSTM_RECEIPTINFO VALUES(PSTM_RECEIPTIDSEQ.NEXTVAL, #{imp_uid} ,#{userid}, #{trainerid},SYSDATE , #{startdate},#{duration}, #{purchasetype}, 'R', 'N', #{price})
+		INSERT INTO PSTM_RECEIPTINFO VALUES(PSTM_RECEIPTIDSEQ.NEXTVAL, #{imp_uid} ,#{userid}, #{trainerid},SYSDATE , #{startdate},#{duration}, #{purchasetype}, #{checkright}, 'N', #{price})
 	</insert>
 	
 	<delete id = "delete" parameterType = "int">
@@ -53,3 +53,4 @@
 	
 
 </mapper>
+

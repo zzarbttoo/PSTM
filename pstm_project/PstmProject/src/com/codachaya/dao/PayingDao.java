@@ -14,6 +14,7 @@ import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 import com.codachaya.dto.LessonDto;
 import com.codachaya.dto.ReceiptinfoDto;
 import com.codachaya.dto.UserDto;
+import com.codachaya.dto.ReviewDto;
 
 public class PayingDao extends SqlMapConfig{
 	
@@ -21,11 +22,10 @@ public class PayingDao extends SqlMapConfig{
 	private String namespaceUser = "usermapper.";
 	private String namespaceReceiptinfo = "receiptinfomapper.";
 	private String namespaceLesson = "lessonmapper.";
-	
+	private String nameReview="reviewmapper.";
 	
 	private SqlSessionFactory sqlSessionFactory;
 	public SqlSessionFactory getSqlSessionFactory() {
-		
 		
 		String resource = "com/codachaya/db/pstm-config.xml";
 		try {
@@ -39,6 +39,7 @@ public class PayingDao extends SqlMapConfig{
 		
 		
 	}
+
 	
 	public List<UserDto> selectTrainerList(){
 		
@@ -77,6 +78,17 @@ public class PayingDao extends SqlMapConfig{
 		return trainerDto;
 				
 	}
+	public ReviewDto selectReviewOne(int reviewId) {
+		SqlSession session=null;
+		ReviewDto reviewDto=null;
+		
+		session=getSqlSessionFactory().openSession(true);
+		reviewDto=session.selectOne(nameReview+"selectOne",reviewId);
+		
+		session.close();
+		return reviewDto;
+		
+	}
 	
 	public UserDto selectNormalUserOne(int normalUser) {
 		
@@ -90,6 +102,29 @@ public class PayingDao extends SqlMapConfig{
 		
 		return normalUserDto;
 		
+		
+	}
+	
+	public List<ReviewDto>selectReviewPaging(int offset,int count){
+		SqlSession session=null;
+		List<ReviewDto>list=new ArrayList<ReviewDto>();
+		session=getSqlSessionFactory().openSession(true);
+		
+		System.out.println("payingDao.selectReviewPaging세션확인");
+		
+		HashMap<String, Object>parameters=new HashMap<String, Object>();
+		
+		parameters.put("offset",offset);
+		parameters.put("count", count);
+		
+		try {
+			list=session.selectList(nameReview+"selectReviewPaging",parameters);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}finally {
+			session.close();
+		}
+		return list;
 		
 	}
 	
