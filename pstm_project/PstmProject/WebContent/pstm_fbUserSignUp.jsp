@@ -56,7 +56,7 @@ th {
 	
 	function idChkConfirm() {
 		var chk = document.getElementsByName("id")[0].title;
-		if (chk === "n") {
+		if (chk = "n") {
 			alert("아이디 중복체크를 먼저 해주세여.");
 			document.getElementsByName("id")[0].focus();
 		}
@@ -69,34 +69,32 @@ th {
 
 <%@ include file="./form/pstm_header.jsp"%>
 
+<%
+	String userid = (String)request.getAttribute("userid");
+	String name = (String)request.getAttribute("name");
+	String imgurl = (String)request.getAttribute("imgurl");
+	
+	if("T".equals((String)request.getAttribute("error"))) {
+%>
+	<script type="text/javascript">
+		alert("회원가입 중 에러가 발생했습니다. 다시 시도해주세요.")
+	</script>
+<%
+	}
+%>
+
 <h1>회원 가입</h1>
 
 <form action="signup.do" method="post">
-	<input type="hidden" name="command" value="signup"/>
+	<input type="hidden" name="command" value="signupFB"/>
+	<input type="hidden" name="id" value="<%=userid %>"/>
+	<input type="hidden" name="name" value="<%=name %>"/>
+	<input type="hidden" name="imgurl" value="<%=imgurl %>"/>
 		
 		<table>
 				<tr>
-					<th>아이디</th>
-					<td><input type="text" name="id" placeholder="아이디 입력" class="inputSize" required="required" title="n"/>
-					<input type="button" value="중복체크" onclick="idChk();" id="DupChk"/></td>
-				</tr>
-				
-				<tr>
-					<th>비밀번호</th>
-					<td><input type="password" name="password" placeholder="비밀번호 입력" class="inputPw" onclick="idChkConfirm();" required="required"/></td>	
-				</tr>
-				
-				<tr>
-					<th></th>
-					<td><input type="password" name="password_key" placeholder="비밀번호 입력확인" class="inputPw" onclick="idChkConfirm();" required="required"/>
-					<span id="alert-success" style="display: none;">비밀번호가 일치합니다.</span>
-    				<span id="alert-danger" style="display: none; color: red; font-weight: bold; ">비밀번호가 일치하지 않습니다.</span>
-					</td>	
-				</tr>
-				
-				<tr>
 					<th>이름</th>
-					<td><input type="text" name="name" placeholder="이름" class="inputSize" onclick="idChkConfirm();" required="required"/></td>				
+					<td><input type="text" name="name" value="<%=name %>" disabled="disabled"/></td>				
 				</tr>
 				
 				<tr>

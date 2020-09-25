@@ -127,9 +127,8 @@ header li {
 				%>		
 						<li><%=userdto.getName() %></li>
 						<li id="headerMemberLogin"><a href="Login.do?command=logout">로그아웃</a></li>
-						<li id="headerMembersignup"><a href="pstm_signUp.jsp">회원가입</a></li>
 				<%
-						if(userdto.getUsertype().equals("N")){
+						if(dto.getUsertype().equals("N") || dto.getUsertype().equals("F") || dto.getUsertype().equals("S")){
 				%>
 							<li id="headerMemberPage"><a href="pstm_studentmypage.jsp">마이페이지</a></li>	
 				<% 			
