@@ -9,7 +9,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.json.simple.JSONObject;
 
 import com.codachaya.dto.LessonDto;
 import com.codachaya.dto.UserDto;
@@ -24,13 +23,11 @@ public class UserDao extends SqlMapConfig {
 	private String namespace = "usermapper.";
 
 	// 일반회원, 강사 로그인
-	public UserDto login(String id, String password, String usertype) {
+	public UserDto login(String id) {
 
 		UserDto dto = new UserDto();
 		UserDto duo = new UserDto();
 		duo.setId(id);
-		duo.setPassword(password);
-		duo.setUsertype(usertype);
 
 		SqlSession session = null;
 

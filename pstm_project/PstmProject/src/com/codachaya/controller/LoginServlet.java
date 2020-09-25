@@ -27,6 +27,7 @@ import org.json.simple.parser.JSONParser;
 
 import com.codachaya.dao.UserDao;
 import com.codachaya.dto.UserDto;
+import com.codachaya.util.PasswordUtil;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -48,19 +49,25 @@ public class LoginServlet extends HttpServlet {
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
 
-			UserDto dto = dao.login(id, password, "S");
+			UserDto dto = dao.login(id);
 
+			boolean login = false;
+			
 			if (dto != null) {
+				if(dto.getUsertype().equals("S") || dto.getUsertype().equals(""))
+				if(PasswordUtil.checkPassword(password, dto.getPassword_key(), dto.getPassword())) {
+					HttpSession session = request.getSession();
+					session.setAttribute("login", dto);
 
-				HttpSession session = request.getSession();
-				session.setAttribute("login", dto);
+					session.setMaxInactiveInterval(-1);
 
-				session.setMaxInactiveInterval(-1);
+					response.sendRedirect("pstm_mainpage.jsp");
+					
+					login = true;
+				}
+			} 
 
-				response.sendRedirect("pstm_mainpage.jsp");
-
-			} else {
-
+			if(!login) {
 				jsResponse("로그인 실패", "pstm_login.jsp", response);
 
 			}
@@ -137,7 +144,7 @@ public class LoginServlet extends HttpServlet {
 
 					String id = (String) resObj.get("id");
 					
-					UserDto dto = dao.login(id, null, "N");
+					UserDto dto = dao.login(id);
 
 					System.out.println(dto);
 					
@@ -205,16 +212,18 @@ public class LoginServlet extends HttpServlet {
 
 					String id = (String) jsonObj.get("id");
 					
-					UserDto dto = dao.login(id, null, "F");
+					UserDto dto = dao.login(id);
 					
 					if(dto != null) {
-						HttpSession session = request.getSession();
-						session.setAttribute("login", dto);
+						if(dto.getUsertype().equals("F")) {
+							HttpSession session = request.getSession();
+							session.setAttribute("login", dto);
 
-						session.setMaxInactiveInterval(-1);
+							session.setMaxInactiveInterval(-1);
 
-						response.sendRedirect("pstm_mainpage.jsp");
-						
+							response.sendRedirect("pstm_mainpage.jsp");
+							
+						}
 					} else {
 						String name = (String) jsonObj.get("name");
 						String profile_image = (String) jsonObj3.get("url");
