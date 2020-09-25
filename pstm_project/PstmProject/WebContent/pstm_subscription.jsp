@@ -13,11 +13,37 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type = "text/javascript">
 	
+	//trainerUserid를 나타나게 하는 지 모르겠다
 	function gotochat(trainername, traineruserid){
 		
-		return false;
+		alert("에베베베베");
+		console.log("어기 오긴 했니");
+		var popUrl = "http://localhost:9999/PstmProject/trainerchating";
+		var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
+		var popUpPage = window.open("about:blank", "",popOption);
+		
+		
+		$.ajax({
+			
+			url:"http://localhost:9999/PstmProject/trainerchating",
+			method : "POST",
+			data : {
+				
+				'trainername' : trainername,
+				'trainernum' : traineruserid
+			}
+			
+		}).done(function(){
+			
+			popUpPage.location.href = 'http://localhost:9999/PstmProject/trainerchating';
+			
+		});
+		
 		
 	}
 	
@@ -121,8 +147,7 @@
 				
 				
 			%>
-			<div class="innerintroduce"
-			onclick="location.href='paying.do?command=payment&trainerUserId=<%=trainerList.get(i).getUserid()%>'">
+			<div class="innerintroduce">
 				<div class="body">
 					<div class="trainerbox">
 						<div class="left-area">
@@ -134,7 +159,8 @@
 							<div class="trainername"><%=trainerList.get(i).getName()%> 강사</div>
 							<div class = "trainercomment">강사 한마디  <%= trainerList.get(i).getMycomment()%> </div>
 							<div class = "trainercareer">강사 경력 <%=trainerList.get(i).getCareer()%></div>
-							<div><input class  = "gotochatting" type = "button" onclick = 'gotochat(<%=trainerList.get(i).getName()%>,<%=trainerList.get(i).getUserid()%>)' value = "강사와 상담하기"></div>
+							<div><input class ="" type = "button" onclick="location.href='paying.do?command=payment&trainerUserId=<%=trainerList.get(i).getUserid()%>'" value = "강의 신청하기"></div>
+							<div><input class ="gotochatting" type = "button" onclick = "gotochat('<%=trainerList.get(i).getName()%>',<%=trainerList.get(i).getUserid()%>)" value = "강사와 상담하기"></div>
 						</div>
 					</div>
 				</div>
@@ -145,7 +171,6 @@
 			<div class="subscription_navigation">
 				<%
 					for (int i = pagination.getStartPageNo(); i <= pagination.getEndPageNo(); i++) {
-
 					System.out.println(i);
 					System.out.println(pagination.getCurrentPageNo());
 					if (i == pagination.getCurrentPageNo()) {
