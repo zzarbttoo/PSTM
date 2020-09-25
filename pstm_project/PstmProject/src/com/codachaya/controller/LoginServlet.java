@@ -25,12 +25,8 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.codachaya.dao.SnsDao;
 import com.codachaya.dao.UserDao;
-import com.codachaya.dto.NaverDto;
 import com.codachaya.dto.UserDto;
-
-import sun.font.Script;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -46,14 +42,13 @@ public class LoginServlet extends HttpServlet {
 		String command = request.getParameter("command");
 
 		UserDao dao = new UserDao();
-		SnsDao sns = new SnsDao();
 
 		if (command.equals("login")) {
 
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
 
-			UserDto dto = dao.login(id, password);
+			UserDto dto = dao.login(id, password, "S");
 
 			if (dto != null) {
 
@@ -62,7 +57,7 @@ public class LoginServlet extends HttpServlet {
 
 				session.setMaxInactiveInterval(-1);
 
-				response.sendRedirect("mainpage.jsp");
+				response.sendRedirect("pstm_mainpage.jsp");
 
 			} else {
 
@@ -89,7 +84,6 @@ public class LoginServlet extends HttpServlet {
 			apiURL += "&code=" + code;
 			apiURL += "&state=" + state;
 			String access_token = "";
-			String refresh_token = "";
 			System.out.println("apiURL=" + apiURL);
 			try {
 				URL url = new URL(apiURL);
@@ -118,7 +112,6 @@ public class LoginServlet extends HttpServlet {
 					JSONObject jsonObj = (JSONObject) obj;
 
 					access_token = (String) jsonObj.get("access_token");
-					refresh_token = (String) jsonObj.get("refresh_token");
 
 					String token = access_token; // 네이버 로그인 접근 토큰;
 					String header = "Bearer " + token; // Bearer 다음에 공백 추가
@@ -143,43 +136,31 @@ public class LoginServlet extends HttpServlet {
 					JSONObject resObj = (JSONObject) JsonObj.get("response");
 
 					String id = (String) resObj.get("id");
-					String profile_image = (String) resObj.get("profile_image");
-					String gender = (String) resObj.get("gender");
-					String name = (String) resObj.get("name");
-					String usertype = "";
-					String signout = "";
+					
+					UserDto dto = dao.login(id, null, "N");
 
-					if (sns.naverLogin(id) == null) {
-						NaverDto dto1 = new NaverDto(0, id, name, usertype, gender, 0, profile_image, null, signout);
-
-						int result = sns.insert(dto1);
-
-						if (result > 0) {
-							System.out.println("db 저장 성공");
-						} else {
-							System.out.println("db 저장 실패");
-						}
-
-					}
-
-					NaverDto dto = new NaverDto(0, id, name, usertype, gender, 0, profile_image, null, signout);
-
-					dto = sns.naverLogin(id);
-
-					System.out.println("id:" + dto.getId());
-					System.out.println("usertype:" + dto.getUsertype());
-					System.out.println("signout:" + dto.getSignout());
-
-					if (dto.getId() != null) {
-
+					System.out.println(dto);
+					
+					if(dto != null) {
 						HttpSession session = request.getSession();
-						session.setAttribute("nLogin", dto);
+						session.setAttribute("login", dto);
 
-						session.setMaxInactiveInterval(10 * 60);
+						session.setMaxInactiveInterval(-1);
 
-						response.sendRedirect("mainpage.jsp");
+						response.sendRedirect("pstm_mainpage.jsp");
+						
+					} else {
+						String profile_image = (String) resObj.get("profile_image");
+						String gender = (String) resObj.get("gender");
+						String name = (String) resObj.get("name");
+
+						request.setAttribute("userid", id);
+						request.setAttribute("name", name);
+						request.setAttribute("imgurl", profile_image);
+						request.setAttribute("gender", gender);
+						
+						dispatch("pstm_naverUserSignUp.jsp", request, response);
 					}
-
 				}
 
 			} catch (Exception e) {
@@ -223,41 +204,30 @@ public class LoginServlet extends HttpServlet {
 					JSONObject jsonObj3 = (JSONObject) objec;
 
 					String id = (String) jsonObj.get("id");
-					String name = (String) jsonObj.get("name");
-					String profile_image = (String) jsonObj3.get("url");
-					String gender = "";
-					String usertype = "";
-					String signout = "";
-					System.out.println("id:" + id);
-					System.out.println("name:" + name);
-					System.out.println("profile_image :" + profile_image);
-
-					if (sns.FBLogin(id) == null) {
-						NaverDto dto = new NaverDto(0, id, name, usertype, gender, 0, profile_image, null, signout);
-						int res = sns.FBinsert(dto);
-
-						if (res > 0) {
-							System.out.println("db 저장 성공");
-						} else {
-							System.out.println("db 저장 실패");
-						}
-
-					}
-
-					NaverDto dto = new NaverDto(0, id, name, usertype, gender, 0, profile_image, null, signout);
-
-					dto = sns.FBLogin(id);
-
-					if (dto.getId() != null) {
-
+					
+					UserDto dto = dao.login(id, null, "F");
+					
+					if(dto != null) {
 						HttpSession session = request.getSession();
-						session.setAttribute("nLogin", dto);
+						session.setAttribute("login", dto);
 
 						session.setMaxInactiveInterval(-1);
 
-						response.sendRedirect("mainpage.jsp");
-					}
+						response.sendRedirect("pstm_mainpage.jsp");
+						
+					} else {
+						String name = (String) jsonObj.get("name");
+						String profile_image = (String) jsonObj3.get("url");
+						System.out.println("id:" + id);
+						System.out.println("name:" + name);
+						System.out.println("profile_image :" + profile_image);
 
+						request.setAttribute("userid", id);
+						request.setAttribute("name", name);
+						request.setAttribute("imgurl", profile_image);
+						
+						dispatch("pstm_fbUserSignUp.jsp", request, response);
+					}
 				}
 			} catch (Exception e) {
 				System.out.println("error");
@@ -330,4 +300,10 @@ public class LoginServlet extends HttpServlet {
 
 	}
 
+	private void dispatch(String path, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RequestDispatcher dispatch = request.getRequestDispatcher(path);
+		dispatch.forward(request, response);
+	}
 }
