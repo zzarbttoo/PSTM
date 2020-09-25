@@ -94,15 +94,17 @@ public class SingUpServlet extends HttpServlet {
 			if (res > 0) {
 				dto = dao.login(id);
 				
-				if(dto.getUsertype().equals("S") && dto.getPassword().equals(password)) {
-					HttpSession session = request.getSession();
-					session.setAttribute("login", dto);
+				if(dto.getUsertype().equals("S")) {
+					if(PasswordUtil.checkPassword(password, dto.getPassword_key(), dto.getPassword())) {
+						HttpSession session = request.getSession();
+						session.setAttribute("login", dto);
 
-					session.setMaxInactiveInterval(-1);
-					
-					register = true;
-					
-					jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
+						session.setMaxInactiveInterval(-1);
+						
+						register = true;
+						
+						jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
+					}
 				}
 				
 			} 

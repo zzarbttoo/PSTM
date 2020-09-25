@@ -53,24 +53,20 @@ public class LoginServlet extends HttpServlet {
 			
 			UserDto dto = dao.login(id);
 
-			boolean login = false;
-			
 			if (dto != null) {
-				if(dto.getUsertype().equals("S") || dto.getUsertype().equals(""))
-				if(PasswordUtil.checkPassword(password, dto.getPassword_key(), dto.getPassword())) {
-					HttpSession session = request.getSession();
-					session.setAttribute("login", dto);
+				if(dto.getUsertype().equals("S") || dto.getUsertype().equals("T")) {
+					if(PasswordUtil.checkPassword(password, dto.getPassword_key(), dto.getPassword())) {
+						HttpSession session = request.getSession();
+						session.setAttribute("login", dto);
 
-					session.setMaxInactiveInterval(-1);
-					
-					login = true;
+						session.setMaxInactiveInterval(-1);
+						
+						login = true;
 
-					response.sendRedirect("pstm_mainpage.jsp");
+						response.sendRedirect("pstm_mainpage.jsp");
+					}
 				}
-
 			} 
-
-			if(!login) {
 
 			if(!login) {
 				jsResponse("로그인 실패", "pstm_login.jsp", response);
