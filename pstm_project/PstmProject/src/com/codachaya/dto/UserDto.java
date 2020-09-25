@@ -14,7 +14,6 @@ public class UserDto {
 	private String gender;
 	private int height;
 	private String uploadimg;
-	private String originimg;
 	private String career;
 	private String mycomment;
 	private String admit;
@@ -25,7 +24,7 @@ public class UserDto {
 	}
 
 	public UserDto(int userid, String id, String password, String password_key, String name, String phone, String addr,
-			String detailaddr, String usertype, String gender, int height, String uploadimg, String originimg,
+			String detailaddr, String usertype, String gender, int height, String uploadimg,
 			String career, String mycomment, String admit, String signout) {
 
 		this.userid = userid;
@@ -40,7 +39,6 @@ public class UserDto {
 		this.gender = gender;
 		this.height = height;
 		this.uploadimg = uploadimg;
-		this.originimg = originimg;
 		this.career = career;
 		this.mycomment = mycomment;
 		this.admit = admit;
@@ -141,14 +139,6 @@ public class UserDto {
 
 	public void setUploadimg(String uploadimg) {
 		this.uploadimg = uploadimg;
-	}
-
-	public String getOriginimg() {
-		return originimg;
-	}
-
-	public void setOriginimg(String originimg) {
-		this.originimg = originimg;
 	}
 
 	public String getCareer() {

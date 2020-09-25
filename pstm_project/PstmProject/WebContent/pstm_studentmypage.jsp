@@ -60,10 +60,6 @@
 		%>
 			<%=userdto.getName() %>님의 마이페이지
 		<%
-			}else if(duo != null){	
-		%>
-			<%=duo.getName() %>님의 마이페이지
-		<%
 			}
 		%>
 		</h1>
