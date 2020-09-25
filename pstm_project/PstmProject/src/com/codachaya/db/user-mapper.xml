@@ -170,7 +170,7 @@
 		VALUES(PSTM_USERSEQ.NEXTVAL, #{id}, #{password},
 		#{password_key}, #{name},
 		#{phone},#{addr}, #{detailaddr}, 'T',
-		#{gender}, 0, NULL, NULL,#{career}, #{mycomment},NULL, 'N')
+		#{gender}, 0, NULL,#{career}, #{mycomment},NULL, 'N')
 
 	</insert>
 

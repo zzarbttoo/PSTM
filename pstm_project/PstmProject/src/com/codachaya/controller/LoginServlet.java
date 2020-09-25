@@ -49,6 +49,8 @@ public class LoginServlet extends HttpServlet {
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
 
+			boolean login = false;
+			
 			UserDto dto = dao.login(id);
 
 			boolean login = false;
@@ -60,12 +62,15 @@ public class LoginServlet extends HttpServlet {
 					session.setAttribute("login", dto);
 
 					session.setMaxInactiveInterval(-1);
-
-					response.sendRedirect("pstm_mainpage.jsp");
 					
 					login = true;
+
+					response.sendRedirect("pstm_mainpage.jsp");
 				}
+
 			} 
+
+			if(!login) {
 
 			if(!login) {
 				jsResponse("로그인 실패", "pstm_login.jsp", response);
@@ -144,19 +149,27 @@ public class LoginServlet extends HttpServlet {
 
 					String id = (String) resObj.get("id");
 					
+					boolean login = false;
+					
 					UserDto dto = dao.login(id);
 
 					System.out.println(dto);
 					
 					if(dto != null) {
-						HttpSession session = request.getSession();
-						session.setAttribute("login", dto);
+						if(dto.getUsertype().equals("N")) {
+							HttpSession session = request.getSession();
+							session.setAttribute("login", dto);
 
-						session.setMaxInactiveInterval(-1);
+							session.setMaxInactiveInterval(-1);
 
-						response.sendRedirect("pstm_mainpage.jsp");
+							login = true;
+							
+							response.sendRedirect("pstm_mainpage.jsp");
+						}
 						
-					} else {
+					} 
+
+					if(!login) {
 						String profile_image = (String) resObj.get("profile_image");
 						String gender = (String) resObj.get("gender");
 						String name = (String) resObj.get("name");
@@ -212,6 +225,8 @@ public class LoginServlet extends HttpServlet {
 
 					String id = (String) jsonObj.get("id");
 					
+					boolean login = false;
+					
 					UserDto dto = dao.login(id);
 					
 					if(dto != null) {
@@ -220,11 +235,15 @@ public class LoginServlet extends HttpServlet {
 							session.setAttribute("login", dto);
 
 							session.setMaxInactiveInterval(-1);
+							
+							login = true;
 
 							response.sendRedirect("pstm_mainpage.jsp");
-							
 						}
-					} else {
+						
+					} 
+
+					if(!login) {
 						String name = (String) jsonObj.get("name");
 						String profile_image = (String) jsonObj3.get("url");
 						System.out.println("id:" + id);

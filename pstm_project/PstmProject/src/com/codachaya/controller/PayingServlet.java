@@ -123,6 +123,7 @@ public class PayingServlet extends HttpServlet {
 			String imp_uid = receiptJsonObject.get("imp_uid").getAsString();
 			int duration = receiptJsonObject.get("duration").getAsInt();
 			String purchaseType = receiptJsonObject.get("purchaseType").getAsString();
+			String isRight = receiptJsonObject.get("isRight").getAsString();
 			int price = receiptJsonObject.get("price").getAsInt();
 			Date tempDate = new Date();
 			
@@ -140,7 +141,7 @@ public class PayingServlet extends HttpServlet {
 			int price= 30000;
 			*/
 			
-			ReceiptinfoDto newReceiptinfoDto = new ReceiptinfoDto(imp_uid, normalUserId, trainerUserId, tempDate , duration, purchaseType, price);
+			ReceiptinfoDto newReceiptinfoDto = new ReceiptinfoDto(imp_uid, normalUserId, trainerUserId, tempDate , duration, purchaseType, isRight, price);
 			
 			int insertres = biz.insertNewReceiptinfo(newReceiptinfoDto);
 			//lesson insert는 강사 회원 가입 시 돼있다고 생각하고 만들 것임
