@@ -14,17 +14,9 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 
-
-<style type="text/css">
-@import url("css/header.css");
-</style>
-<style type="text/css">
-@import url("css/footer.css");
-</style>
 <style type="text/css">
 @import url("css/review_writer.css");
 </style>
-
 
 <link rel="stylesheet" href="css/summernote/summernote-lite.css">
 <link href="http://netdna.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.css" rel="stylesheet">
@@ -97,14 +89,18 @@ ReviewDto dto = dao.selectOne(reviewid);
 						<tr>
 							<th>제목</th>
 							<td><%=dto.getReviewtitle() %></td>
-							<td>강사선택 <%=dto.getTrainer() %>
+							<th>강사</th> 
+							<td>
+							<%=dto.getTrainer() %>
 							</td>
 						</tr>
 					</table>
-					<textarea>
-						<%=dto.getReviewcontent()%>
-					</textarea>
 					
+					<table border="1">
+					<td>
+						<%=dto.getReviewcontent()%>
+					</td>
+					</table>
 					<table style="float: right;">
 						<tr>
 							<td colspan="2" align="right">
