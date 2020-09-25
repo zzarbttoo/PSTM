@@ -61,7 +61,7 @@ import java.util.regex.Pattern;
 public class CloudVision {
 
 	public static void main(String[] args) throws Exception {
-<<<<<<< HEAD:pstm_project/PstmProject/src/com/codachaya/dao/CloudVision.java
+//<<<<<<< HEAD:pstm_project/PstmProject/src/com/codachaya/dao/CloudVision.java
 /*
 		// 이미지에서 감지된 엔티티를 반환
 =======
