@@ -74,11 +74,19 @@ th {
 	String name = (String)request.getAttribute("name");
 	String imgurl = (String)request.getAttribute("imgurl");
 	String gender = (String)request.getAttribute("gender");
+
+	if("T".equals((String)request.getAttribute("error"))) {
+%>
+	<script type="text/javascript">
+		alert("회원가입 중 에러가 발생했습니다. 다시 시도해주세요.");
+	</script>
+<%
+	}
 %>
 
 <h1>일반 회원 가입</h1>
 
-<form action="signup.do" method="post">
+<form action="signup.do" method="get">
 	<input type="hidden" name="command" value="signupNaver"/>
 	<input type="hidden" name="id" value="<%=userid %>"/>
 	<input type="hidden" name="imgurl" value="<%=imgurl %>"/>
@@ -86,7 +94,7 @@ th {
 		<table>
 				<tr>
 					<th>이름</th>
-					<td><input type="text" name="name" value="<%=name %>" disabled="disabled"/></td>				
+					<td><input type="text" name="name" value="<%=name %>" readonly="readonly"/></td>				
 				</tr>
 				
 				<tr>
@@ -97,8 +105,8 @@ th {
 				<tr>
 					<th>성별</th>
 					<td>
-						<input type="radio" name="gender" value="M" checked="<%=gender == "M" ? "checked" : "" %>" disabled="<%=gender != "U" ? "disabled" : "" %>"/>남자
-						<input type="radio" name="gender" value="F" checked="<%=gender == "F" ? "checked" : "" %>" disabled="<%=gender != "U" ? "disabled" : "" %>"/>여자
+						<input type="radio" name="gender" value="M" <% if(gender.equals("M")) { %> checked="checked" <% } %> readonly="<%=gender != "U" ? "readonly" : "" %>"/>남자
+						<input type="radio" name="gender" value="F" <% if(gender.equals("F")) { %> checked="checked" <% } %> readonly="<%=gender != "U" ? "readonly" : "" %>"/>여자
 					</td>				
 				</tr>
 				

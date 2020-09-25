@@ -3,11 +3,13 @@ package com.codachaya.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import com.codachaya.dao.UserDao;
 import com.codachaya.dto.UserDto;
@@ -76,8 +78,8 @@ public class SingUpServlet extends HttpServlet {
 		}else if(command.equals("signupNaver")) {
 			
 			String id = request.getParameter("id");
-			String password = "";
-			String password_key = "";
+			String password = "N";
+			String password_key = "N";
 			String name = request.getParameter("name");
 			String phone = request.getParameter("phone");
 			String addr = request.getParameter("addr");
@@ -88,20 +90,42 @@ public class SingUpServlet extends HttpServlet {
 			String imgurl = request.getParameter("imgurl");
 			String signout = "N";
 			
+			System.out.println(id);
+			System.out.println(imgurl);
+			System.out.println(phone);
+			System.out.println(height);
+			System.out.println(name);
+			System.out.println(gender);
+			
 			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, imgurl, null, null, null, signout);
 					
 			int res = dao.insertNormalUser(dto);
 			
 			if (res > 0) {
-				jsResponse("회원가입 성공!", "pstm_login.jsp", response);
+				
+				dto = dao.login(id, null, "N");
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("login", dto);
+
+				session.setMaxInactiveInterval(-1);
+
+				jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
 			} else {
-				jsResponse("회원가입 실패", "pstm_normalUserSignUp.jsp", response);
+
+				request.setAttribute("userid", id);
+				request.setAttribute("name", name);
+				request.setAttribute("imgurl", imgurl);
+				request.setAttribute("gender", gender);
+				request.setAttribute("error", "T");
+				
+				dispatch("pstm_naverUserSignUp.jsp", request, response);
 			}
 		}else if(command.equals("signupFB")) {
 			
 			String id = request.getParameter("id");
-			String password = "";
-			String password_key = "";
+			String password = "F";
+			String password_key = "F";
 			String name = request.getParameter("name");
 			String phone = request.getParameter("phone");
 			String addr = request.getParameter("addr");
@@ -117,9 +141,21 @@ public class SingUpServlet extends HttpServlet {
 			int res = dao.insertNormalUser(dto);
 			
 			if (res > 0) {
-				jsResponse("회원가입 성공!", "pstm_login.jsp", response);
+				dto = dao.login(id, null, "F");
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("login", dto);
+
+				session.setMaxInactiveInterval(-1);
+
+				jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
 			} else {
-				jsResponse("회원가입 실패", "pstm_normalUserSignUp.jsp", response);
+				request.setAttribute("userid", id);
+				request.setAttribute("name", name);
+				request.setAttribute("imgurl", imgurl);
+				request.setAttribute("error", "T");
+
+				dispatch("pstm_fbUserSignUp.jsp", request, response);
 			}
 		}else if(command.equals("idChk")) {
 			
@@ -155,4 +191,10 @@ public class SingUpServlet extends HttpServlet {
 
 	}
 
+	private void dispatch(String path, HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
+
+		RequestDispatcher dispatch = request.getRequestDispatcher(path);
+		dispatch.forward(request, response);
+	}
 }

@@ -156,7 +156,7 @@
 		<if test="password != null">
 			AND PASSWORD = #{password}
 		</if>
-		AND USERTYPE = #{usertype] AND SIGNOUT = 'N'
+		AND USERTYPE = #{usertype} AND SIGNOUT = 'N'
 	</select>
 	
 	<insert id="insertNormalUser" parameterType="UserDto">
@@ -164,8 +164,8 @@
 		TEST_USERINFO
 		VALUES(TEST_USERSEQ.NEXTVAL, #{id}, #{password},
 		#{password_key},#{name},
-		#{phone},#{addr}, #{detailaddr}, 'N',
-		#{gender}, #{height}, NULL, NULL, NULL, NULL,NULL, 'N')
+		#{phone},#{addr}, #{detailaddr}, #{usertype},
+		#{gender}, #{height}, NULL, NULL, NULL,NULL, 'N')
 	</insert>
 
 	<insert id="insertTrainer" parameterType="UserDto">

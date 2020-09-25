@@ -73,6 +73,14 @@ th {
 	String userid = (String)request.getAttribute("userid");
 	String name = (String)request.getAttribute("name");
 	String imgurl = (String)request.getAttribute("imgurl");
+	
+	if("T".equals((String)request.getAttribute("error"))) {
+%>
+	<script type="text/javascript">
+		alert("회원가입 중 에러가 발생했습니다. 다시 시도해주세요.")
+	</script>
+<%
+	}
 %>
 
 <h1>일반 회원 가입</h1>

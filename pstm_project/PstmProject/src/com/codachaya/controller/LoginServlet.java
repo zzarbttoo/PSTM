@@ -143,6 +143,8 @@ public class LoginServlet extends HttpServlet {
 					String id = (String) resObj.get("id");
 					
 					UserDto dto = dao.login(id, null, "N");
+
+					System.out.println(dto);
 					
 					if(dto != null) {
 						HttpSession session = request.getSession();
