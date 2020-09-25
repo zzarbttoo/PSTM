@@ -71,7 +71,14 @@ public class SingUpServlet extends HttpServlet {
 			int res = dao.insertNormalUser(dto);
 			
 			if (res > 0) {
-				jsResponse("회원가입 성공!", "pstm_login.jsp", response);
+				dto = dao.login(id, password, "S");
+				
+				HttpSession session = request.getSession();
+				session.setAttribute("login", dto);
+
+				session.setMaxInactiveInterval(-1);
+
+				jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
 			} else {
 				jsResponse("회원가입 실패", "pstm_normalUserSignUp.jsp", response);
 			}

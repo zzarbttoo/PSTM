@@ -153,7 +153,7 @@
 		MYCOMMENT,ADMIT, SIGNOUT
 		FROM TEST_USERINFO
 		WHERE ID = #{id}
-		<if test="password != null">
+		<if test='usertype == "S"'>
 			AND PASSWORD = #{password}
 		</if>
 		AND USERTYPE = #{usertype} AND SIGNOUT = 'N'

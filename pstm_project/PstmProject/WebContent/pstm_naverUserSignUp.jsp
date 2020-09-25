@@ -84,7 +84,7 @@ th {
 	}
 %>
 
-<h1>일반 회원 가입</h1>
+<h1>회원 가입</h1>
 
 <form action="signup.do" method="get">
 	<input type="hidden" name="command" value="signupNaver"/>
