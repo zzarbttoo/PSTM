@@ -152,11 +152,7 @@
 		UPLOADIMG, CAREER,
 		MYCOMMENT,ADMIT, SIGNOUT
 		FROM PSTM_USERINFO
-		WHERE ID = #{id}
-		<if test='usertype == "S"'>
-			AND PASSWORD = #{password}
-		</if>
-		AND USERTYPE = #{usertype} AND SIGNOUT = 'N'
+		WHERE ID = #{id} AND SIGNOUT = 'N'
 	</select>
 	
 	<insert id="insertNormalUser" parameterType="UserDto">
@@ -174,7 +170,7 @@
 		VALUES(PSTM_USERSEQ.NEXTVAL, #{id}, #{password},
 		#{password_key}, #{name},
 		#{phone},#{addr}, #{detailaddr}, 'T',
-		#{gender}, 0, NULL, NULL,#{career}, #{mycomment},NULL, 'N')
+		#{gender}, 0, NULL,#{career}, #{mycomment},NULL, 'N')
 
 	</insert>
 
