@@ -133,6 +133,7 @@ public class UserDao extends SqlMapConfig {
 			session = getSqlSessionFactory().openSession(true);
 			
 			trainerLessonDto = session.selectOne(namespaceLesson + "selectOne", trainerid);
+			System.out.println(trainerLessonDto);
 			jsonUserdata = trainerLessonDto.getStudentid();
 			
 		} catch (Exception e) {
