@@ -6,15 +6,17 @@ import sun.misc.BASE64Encoder;
 
 public class PasswordUtil {
 	
-	private final int KEY_LENGTH = 64;
+	private final static int KEY_LENGTH = 64;
 	
-	public String getRandomKey() {
+	public static String getRandomKey() {
 		
 		String result = null;
 		
 		Random random = new Random();
 		
-		byte[] value = {};
+		byte[] value = new byte[KEY_LENGTH];
+		
+		random.nextBytes(value);
 		
 		BASE64Encoder encoder = new BASE64Encoder();
 		
@@ -23,4 +25,10 @@ public class PasswordUtil {
 		return result;
 	}
 
+	public static String pbkdf2() {
+		String result = null;
+		
+		return result;
+	}
+	
 }
