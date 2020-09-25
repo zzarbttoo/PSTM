@@ -1,0 +1,148 @@
+@charset "UTF-8";
+
+footer{
+	background-color: #fff;
+	display: block;
+}
+footer{
+	display: block;
+}
+footer section{
+	margin: auto;
+	max-width: 1100px;
+	color: #8f8f8f;
+	font-size: 12px;
+	line-height: 20px;
+}
+section{
+	display: block;
+}
+footer section div.footer_inner{
+	width: 100%;
+	height: 100%;
+	overflow: hidden;
+	padding: 55px 0 35px;
+}
+footer section #footer_top_table{
+	width:1100px;
+}
+table{
+	display: table;
+	border-collapse: separate;
+	box-sizing: border-box;
+	border-spacing: 2px;
+	border-color: grey;
+}
+footer section{
+	margin:auto;
+	max-width: 1100px;
+	color: #8f8f8f;
+	font-size: 12px;
+	line-height: 20px;
+}
+tbody{
+	display: table-row-group;
+	vertical-align: middle;
+	border-color: inherit;
+}
+footer section #footer_top_table tr{
+	text-align: left;
+}
+tr{
+	display: table-row;
+	vertical-align: inherit;
+	border-color: inherit;
+}
+footer section #footer_top_table td{
+	width: 50%;
+}
+td{
+	display: table-cell;
+	vertical-align: inherit;
+}
+footer section #footer_top_table p#service-center-title {
+    padding-left: 6px;
+    display: inline;
+    vertical-align: super;
+    font-size: 15px;
+    color: #4f4f4f;
+    font-weight: 700;
+}
+p{
+	display: block;
+	margin-block-start: 1em;
+    margin-block-end: 1em;
+    margin-inline-start: 0px;
+    margin-inline-end: 0px;
+}
+footer sction .footer_inner a{
+	text-decoration: none;
+}
+footer scetion #footer_top_table td .cs-arrow-icon{
+	width: 6px;
+	margin-left: 5px;
+}
+footer .cs-arrow-icon{
+	width: 6px;
+	margin-left: 2px;
+}
+footer .cs-arrow-icon{
+	width: 6px;
+	margin-left: 2px;
+}
+footer sction .footer_inner img.footer-icon{
+	width: 40px;
+	height: 40px;
+}
+footer sction #seperate-line{
+	width:100%;
+	height: 1px;
+	background-color: #f2f2f2;
+	margin: 38px 0;
+}
+footer section #footer_bottom_table tbody{
+	vertical-align: middle;
+}
+.footer_bottom_td{
+	width: 17%;
+	text-align: left;
+}
+
+
+footer section p.copyright{
+	text-align: left;
+	max-width: 860px;
+	float:left;
+	color: #a9a9a9;
+	font-size: 12px;
+}
+.footer_logo{
+	width: 115px;
+	height: 25px;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

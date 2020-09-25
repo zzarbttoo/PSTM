@@ -8,7 +8,7 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
-
+/*
 import com.google.api.gax.longrunning.OperationFuture;
 import com.google.api.services.bigquery.Bigquery.Datasets.Get;
 import com.google.api.services.bigquery.model.Dataset;
@@ -48,7 +48,7 @@ import com.google.cloud.vision.v1.TextAnnotation;
 import com.google.cloud.vision.v1.Word;
 import com.google.protobuf.ByteString;
 import com.google.protobuf.util.JsonFormat;
-
+*/
 import oracle.net.aso.k;
 import java.io.FileInputStream;
 import java.io.IOException;
@@ -61,8 +61,12 @@ import java.util.regex.Pattern;
 public class CloudVision {
 
 	public static void main(String[] args) throws Exception {
+/*
+		// 이미지에서 감지된 엔티티를 반환
+=======
 
 		
+>>>>>>> c218be7a57701394f7d4fd1c1ad135d7017e6de0:pstm_project/PstmProject/src/com/codachaya/util/CloudVision.java
 		ImageAnnotatorClient vision = ImageAnnotatorClient.create();
 
 		String fileName = "C:\\Users\\feelj\\OneDrive\\바탕 화면\\semi\\PSTM\\pstm_project\\PstmProject\\WebContent\\imgfolder\\tomato1.jpg";
@@ -109,7 +113,7 @@ public class CloudVision {
 				
 			}
 			System.out.println(result);
-		}
+		}*/
 	}
 
 }

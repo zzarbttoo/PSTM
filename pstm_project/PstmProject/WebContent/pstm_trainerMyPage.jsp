@@ -32,7 +32,7 @@
 <body>
 <%@ include file="./form/pstm_header.jsp"%>
 
-<h1><%=dto.getName() %> 강사 마이페이지</h1>
+<h1><%=userdto.getName() %> 강사 마이페이지</h1>
 <br />
 <br />
 <h3>회원 정보 리스트</h3>

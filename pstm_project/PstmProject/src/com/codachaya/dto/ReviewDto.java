@@ -1,23 +1,31 @@
 package com.codachaya.dto;
 
 import java.util.Date;
+import java.util.List;
 
 public class ReviewDto {
 
 	private int reviewid;
 	private int userid;
-	private String revewtitle;
+	private String reviewtitle;
 	private String reviewcontent;
 	private String uploadimg;
-	private String originimg;
 	private Date regdate;
-	private int trainnerrid;
+	private int trainerid;
+	private String trainer;
 
 	public ReviewDto() {
 		
 	}
-	public ReviewDto(int reviewid, int userid, String reviewtitle, String reviewcontent, String uploadimg, String originimg, Date regdate, int trainnerrid) {
-		
+	public ReviewDto(int reviewid, int userid, String reviewtitle, String reviewcontent, String uploadimg,Date regdate, int trainerid, String trainer) {
+		this.reviewid=reviewid;
+		this.userid=userid;
+		this.reviewtitle=reviewtitle;
+		this.reviewcontent=reviewcontent;
+		this.uploadimg=uploadimg;
+		this.regdate=regdate;
+		this.trainerid=trainerid;
+		this.trainer=trainer;
 	}
 	public int getReviewid() {
 		return reviewid;
@@ -31,11 +39,11 @@ public class ReviewDto {
 	public void setUserid(int userid) {
 		this.userid = userid;
 	}
-	public String getRevewtitle() {
-		return revewtitle;
+	public String getReviewtitle() {
+		return reviewtitle;
 	}
-	public void setRevewtitle(String revewtitle) {
-		this.revewtitle = revewtitle;
+	public void setReviewtitle(String reviewtitle) {
+		this.reviewtitle = reviewtitle;
 	}
 	public String getReviewcontent() {
 		return reviewcontent;
@@ -49,23 +57,22 @@ public class ReviewDto {
 	public void setUploadimg(String uploadimg) {
 		this.uploadimg = uploadimg;
 	}
-	public String getOriginimg() {
-		return originimg;
-	}
-	public void setOriginimg(String originimg) {
-		this.originimg = originimg;
-	}
 	public Date getRegdate() {
 		return regdate;
 	}
 	public void setRegdate(Date regdate) {
 		this.regdate = regdate;
 	}
-	public int getTrainnerrid() {
-		return trainnerrid;
+	public int getTrainerid() {
+		return trainerid;
 	}
-	public void setTrainnerrid(int trainnerrid) {
-		this.trainnerrid = trainnerrid;
+	public void setTrainerid(int trainerid) {
+		this.trainerid = trainerid;
 	}
-	
+	public String getTrainer() {
+		return trainer;
+	}
+	public void setTrainer(String trainer) {
+		this.trainer=trainer;
+	}
 }
