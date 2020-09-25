@@ -56,7 +56,7 @@ th {
 	
 	function idChkConfirm() {
 		var chk = document.getElementsByName("id")[0].title;
-		if (chk = "n") {
+		if (chk === "n") {
 			alert("아이디 중복체크를 먼저 해주세여.");
 			document.getElementsByName("id")[0].focus();
 		}
@@ -69,10 +69,10 @@ th {
 
 <%@ include file="./form/pstm_header.jsp"%>
 
-<h1>일반 회원 가입</h1>
+<h1>회원 가입</h1>
 
 <form action="signup.do" method="post">
-	<input type="hidden" name="command" value="signupN"/>
+	<input type="hidden" name="command" value="signup"/>
 		
 		<table>
 				<tr>

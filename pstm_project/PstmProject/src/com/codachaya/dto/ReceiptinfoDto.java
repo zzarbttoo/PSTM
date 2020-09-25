@@ -40,7 +40,7 @@ public class ReceiptinfoDto {
 		
 	}
 
-	public ReceiptinfoDto(String imp_uid, int userid, int trainerid, Date startdate,int duration, String purchasetype, int price) {
+	public ReceiptinfoDto(String imp_uid, int userid, int trainerid, Date startdate,int duration, String purchasetype,String isRight , int price) {
 		
 		this.imp_uid = imp_uid;
 		this.userid = userid;
@@ -48,6 +48,7 @@ public class ReceiptinfoDto {
 		this.startdate = startdate;
 		this.duration = duration;
 		this.purchasetype = purchasetype;
+		this.checkright = isRight;
 		this.price = price;
 		
 	}
