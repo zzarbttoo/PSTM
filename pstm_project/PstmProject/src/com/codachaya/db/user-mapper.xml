@@ -45,7 +45,7 @@
 	<insert id="insert" parameterType="UserDto">
 		INSERT INTO PSTM_USERINFO
 		VALUES(
-		TEST_USERSEQ.NEXTVAL, #{id}, #{password}, #{password_key},
+		PSTM_USERSEQ.NEXTVAL, #{id}, #{password}, #{password_key},
 		#{name}, #{phone},
 		#{addr}, #{deatiladdr}, #{usertype}, #{gender},
 		#{height}, #{uploadimg},
@@ -162,7 +162,7 @@
 	<insert id="insertNormalUser" parameterType="UserDto">
 		INSERT INTO
 		PSTM_USERINFO
-		VALUES(TEST_USERSEQ.NEXTVAL, #{id}, #{password},
+		VALUES(PSTM_USERSEQ.NEXTVAL, #{id}, #{password},
 		#{password_key},#{name},
 		#{phone},#{addr}, #{detailaddr}, #{usertype},
 		#{gender}, #{height}, NULL, NULL, NULL,NULL, 'N')
@@ -171,7 +171,7 @@
 	<insert id="insertTrainer" parameterType="UserDto">
 		INSERT INTO
 		PSTM_USERINFO
-		VALUES(TEST_USERSEQ.NEXTVAL, #{id}, #{password},
+		VALUES(PSTM_USERSEQ.NEXTVAL, #{id}, #{password},
 		#{password_key}, #{name},
 		#{phone},#{addr}, #{detailaddr}, 'T',
 		#{gender}, 0, NULL, NULL,#{career}, #{mycomment},NULL, 'N')
