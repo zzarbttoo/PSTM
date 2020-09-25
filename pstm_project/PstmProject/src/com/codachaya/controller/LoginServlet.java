@@ -48,18 +48,25 @@ public class LoginServlet extends HttpServlet {
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
 
-			UserDto dto = dao.login(id, password, "S");
+			boolean login = false;
+			
+			UserDto dto = dao.login(id);
 
 			if (dto != null) {
+				if(dto.getUsertype().equals("S") || dto.getUsertype().equals("T") && dto.getPassword().equals(password)) {
+					HttpSession session = request.getSession();
+					session.setAttribute("login", dto);
 
-				HttpSession session = request.getSession();
-				session.setAttribute("login", dto);
+					session.setMaxInactiveInterval(-1);
+					
+					login = true;
 
-				session.setMaxInactiveInterval(-1);
+					response.sendRedirect("pstm_mainpage.jsp");
+				}
 
-				response.sendRedirect("pstm_mainpage.jsp");
+			} 
 
-			} else {
+			if(!login) {
 
 				jsResponse("로그인 실패", "pstm_login.jsp", response);
 
@@ -137,19 +144,27 @@ public class LoginServlet extends HttpServlet {
 
 					String id = (String) resObj.get("id");
 					
-					UserDto dto = dao.login(id, null, "N");
+					boolean login = false;
+					
+					UserDto dto = dao.login(id);
 
 					System.out.println(dto);
 					
 					if(dto != null) {
-						HttpSession session = request.getSession();
-						session.setAttribute("login", dto);
+						if(dto.getUsertype().equals("N")) {
+							HttpSession session = request.getSession();
+							session.setAttribute("login", dto);
 
-						session.setMaxInactiveInterval(-1);
+							session.setMaxInactiveInterval(-1);
 
-						response.sendRedirect("pstm_mainpage.jsp");
+							login = true;
+							
+							response.sendRedirect("pstm_mainpage.jsp");
+						}
 						
-					} else {
+					} 
+
+					if(!login) {
 						String profile_image = (String) resObj.get("profile_image");
 						String gender = (String) resObj.get("gender");
 						String name = (String) resObj.get("name");
@@ -205,17 +220,25 @@ public class LoginServlet extends HttpServlet {
 
 					String id = (String) jsonObj.get("id");
 					
-					UserDto dto = dao.login(id, null, "F");
+					boolean login = false;
+					
+					UserDto dto = dao.login(id);
 					
 					if(dto != null) {
-						HttpSession session = request.getSession();
-						session.setAttribute("login", dto);
+						if(dto.getUsertype().equals("F")) {
+							HttpSession session = request.getSession();
+							session.setAttribute("login", dto);
 
-						session.setMaxInactiveInterval(-1);
+							session.setMaxInactiveInterval(-1);
+							
+							login = true;
 
-						response.sendRedirect("pstm_mainpage.jsp");
+							response.sendRedirect("pstm_mainpage.jsp");
+						}
 						
-					} else {
+					} 
+
+					if(!login) {
 						String name = (String) jsonObj.get("name");
 						String profile_image = (String) jsonObj3.get("url");
 						System.out.println("id:" + id);
