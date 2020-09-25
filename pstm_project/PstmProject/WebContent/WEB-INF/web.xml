@@ -3,6 +3,17 @@
   <display-name>PstmProject</display-name>
   
   <servlet>
+		<servlet-name>loginController</servlet-name>
+		<servlet-class>com.codachaya.controller.LoginServlet</servlet-class>
+	</servlet>
+
+	<servlet-mapping>
+		<servlet-name>loginController</servlet-name>
+		<url-pattern>/Login.do</url-pattern>
+	</servlet-mapping>
+  
+  
+  <servlet>
   	<servlet-name>paying</servlet-name>
   	<servlet-class>com.codachaya.controller.PayingServlet</servlet-class>
   </servlet>
@@ -11,5 +22,27 @@
   	<servlet-name>paying</servlet-name>
   	<url-pattern>/paying.do</url-pattern>
   </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>signUp</servlet-name>
+  	<servlet-class>com.codachaya.controller.SingUpServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>signUp</servlet-name>
+  	<url-pattern>/signup.do</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>TrainerMyPage</servlet-name>
+  	<servlet-class>com.codachaya.controller.TrainerPageServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>TrainerMyPage</servlet-name>
+  	<url-pattern>/yana.do</url-pattern>
+  </servlet-mapping>
+  
+
   
 </web-app>
