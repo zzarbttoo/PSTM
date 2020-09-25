@@ -4,7 +4,6 @@ import java.util.List;
 
 import com.codachaya.dao.ReviewDao;
 import com.codachaya.dto.ReviewDto;
-import com.codachaya.dto.UserDto;
 
 public class ReviewBiz {
 	
@@ -12,13 +11,13 @@ public class ReviewBiz {
 	
 	public List<ReviewDto>selectReviewList(){
 		
-		System.out.println("ReviewBiz selectList");
 		
 		return reviewdao.selectReviewList();
 	}
 	
-	public List<ReviewDto>reviewsuch(ReviewDto dto){
+	public List<ReviewDto> reviewsuch(ReviewDto dto){
 		
+		System.out.println("biz"+dto.getReviewtitle());
 		return reviewdao.reviewsuch(dto);
 	}
 	
@@ -39,7 +38,7 @@ public class ReviewBiz {
 	
 	}
 	public List<ReviewDto>selectReviewPaging(int offset,int count){
-		System.out.println("biz"+offset+","+count);
+
 		return reviewdao.selectReviewPaging(offset, count);
 	}
 	
@@ -47,20 +46,13 @@ public class ReviewBiz {
 		return reviewdao.getselectReviewCount();
 	}
 	public int delete(int reviewid) {
-		System.out.println();
 		return reviewdao.delete(reviewid);
 		
 	}
 
-
-	public UserDto selectNormalUserOne(int normalUserId) {
-		// TODO Auto-generated method stub
-		return reviewdao.selectReveiwOne(normalUserId);
-	}
 	public List<ReviewDto>selectReveiwPaging(int offset, int count){
 		
-		System.out.println("biz"+offset+","+count);
-		return reviewdao.selectReviewPaging(offset,count);
+			return reviewdao.selectReviewPaging(offset,count);
 		
 	}
 

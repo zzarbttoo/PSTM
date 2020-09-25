@@ -12,81 +12,54 @@ import org.apache.ibatis.session.SqlSessionFactory;
 import org.apache.ibatis.session.SqlSessionFactoryBuilder;
 
 import com.codachaya.dto.ReviewDto;
-import com.codachaya.dto.UserDto;
 
 public class ReviewDao extends SqlMapConfig {
 
 	private String nameReview="reviewmapper.";
-	private String namespaceUser="usermapper.";
-	
-	private SqlSessionFactory sqlSessionFactory;
-	public SqlSessionFactory getSqlSessionFactroy() {
-		
-		String resource="com/codachaya/db/pstm-config.xml";
-		
-		try {
-			Reader reader=Resources.getResourceAsReader(resource);
-			sqlSessionFactory=new SqlSessionFactoryBuilder().build(reader);
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		return sqlSessionFactory;
-	}
-	
-	public UserDto selectNormalUserOne(int normalUserId) {
-		SqlSession session=null;
-		UserDto normalUserDto=null;
-		session=getSqlSessionFactory().openSession(true);
-		normalUserDto=session.selectOne(namespaceUser+"selectOne",normalUserId);
-		session.close();
-		
-		return normalUserDto;
-	}
 	
 	//글 목록 가져오기(검색)
 	public List<ReviewDto>reviewsuch(ReviewDto dto){
+		
 //		ArrayList<ReviewDto>list=new ArrayList<ReviewDto>();
 //		String opt=(String)listOpt.get("opt");//검색옵션(제목, 내용 글쓴이 등..)
 //		String Condition=(String)listOpt.get("condition");//검색 내용
 //		int start=(Integer)listOpt.get("start");//현재 페이지 번호
 //		return null;
+	
 		List<ReviewDto>reviewList=new ArrayList<ReviewDto>();
+		
 		SqlSession session=null;
+		System.out.println("dao21:"+dto.getReviewtitle());
 		
 		try {
-			session=getSqlSessionFactroy().openSession();
-			reviewList=session.selectList(nameReview+"selectsuch",dto);
+			session=getSqlSessionFactory().openSession();
+			
+			reviewList=session.selectList(nameReview+"reviewsuch",dto);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}finally {
 			session.close();
-			System.out.println(reviewList);
 		}
 		return reviewList; 
 	}
 	
 	public List<ReviewDto> selectReviewList(){
-		
 		List<ReviewDto>reviewList=new ArrayList<ReviewDto>();
-		
 		SqlSession session =null;
-		
-		
 		try {
 			session=getSqlSessionFactory().openSession();
 			reviewList=session.selectList(nameReview+"selectReviewList");
-		
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
+			System.out.println("ERROR 3. 4.");
 			e.printStackTrace();
 		}finally {
-			
 			session.close();
 			System.out.println(reviewList);
-			
 		}		
 		return reviewList;
 	}
+	
 	public ReviewDto selectOne(int reviewid) {
 		SqlSession session =null;
 		
@@ -126,17 +99,6 @@ public class ReviewDao extends SqlMapConfig {
 		
 		return res;
 	}
-	public UserDto selectReveiwOne(int reviewId) {
-		SqlSession session=null;
-		UserDto reviewDto=null;
-		
-		session=getSqlSessionFactory().openSession(true);
-		reviewDto=session.selectOne(nameReview+"selectOne"+reviewId);
-		
-		session.close();
-		return reviewDto;
-	}		
-	
 	public List<ReviewDto>selectReviewPaging(int offset,int count){
 		
 		SqlSession session=null;
@@ -162,7 +124,7 @@ public class ReviewDao extends SqlMapConfig {
 	}
 	public int getselectReviewCount() {
 		SqlSession session=null;
-		session=getSqlSessionFactroy().openSession(true);
+		session=getSqlSessionFactory().openSession(true);
 		
 		int noOfRecords=0;
 		

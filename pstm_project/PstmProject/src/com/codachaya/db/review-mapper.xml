@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="reviewmapper">
-<resultMap type="ReviewDto" id="ReviewDto">
+<resultMap type="ReviewDto" id="ReviewDtoMap">
 
 <result property="reviewid" column="REVIEWID"/>
 <result property="userid" column="USERID"/>
@@ -12,11 +12,6 @@
 <result property="trainerid" column="TRAINERID"/>
 <result property="trainer" column="TRAINER"/>
 </resultMap>
-
-<select id="selectList" resultMap="ReviewDto">
-	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
-	FROM PSTM_REVIEWINFO
-</select>
 
 <insert id="insert" parameterType="ReviewDto">
 	INSERT INTO PSTM_REVIEWINFO
@@ -30,7 +25,7 @@
 	WHERE REVIEWID=#{reviewid}
 </select>
 
-<select id="selectsuch" parameterType="ReviewDto" resultType="ReviewDto">
+<select id="reviewsuch" parameterType="ReviewDto" resultMap="ReviewDtoMap">
 	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
 	FROM PSTM_REVIEWINFO
 	<where>
@@ -41,30 +36,29 @@
 			TRAINER LIKE '%' || #{trainer} || '%'
 		</if>
 	</where>
+	
+		
 </select>
 
-
-
-
 <update id="update" parameterType="ReviewDto">
-UPDATE PSTM_REVIEWINFO 
-SET REVIEWTITLE=#{reviewtitle},TRAINER=#{trainer},REVIEWCONTENT=#{reviewcontent}
-WHERE REVIEWID=#{reviewid}
+	UPDATE PSTM_REVIEWINFO 
+	SET REVIEWTITLE=#{reviewtitle},TRAINER=#{trainer},REVIEWCONTENT=#{reviewcontent}
+	WHERE REVIEWID=#{reviewid}
 </update>
-
-
-
 
 <delete id="delete" parameterType="int">
 	DELETE FROM PSTM_REVIEWINFO WHERE REVIEWID=#{reviewid}
 </delete>
-<select id="selectReviewList" resultMap="ReviewDto">
+
+<select id="selectReviewList" resultMap="ReviewDtoMap">
 	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
 	FROM PSTM_REVIEWINFO
 </select>
-<select id="selectReviewCount" resultMap="ReviewDto">
+
+<select id="selectReviewCount" resultMap="ReviewDtoMap">
 	SELECT COUNT(*) FROM REVIEWINFO WHERE REVIEWID
 </select>
+
 <select id="selectReviewPaging" resultType="ReviewDto" parameterType="ReviewDto">
 
 	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG,REGDATE, TRAINERID, TRAINER

@@ -38,9 +38,7 @@ public class ReviewServlet extends HttpServlet {
 		
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html;charset=UTF-8");
-		PrintWriter out = response.getWriter();
 		String command = request.getParameter("command");
-		ReviewDao dao=new ReviewDao();
 		System.out.println(command);
 		
 		ReviewBiz biz = new ReviewBiz();
@@ -113,18 +111,15 @@ public class ReviewServlet extends HttpServlet {
 		
 		else if(command.equals("reviewsuch")) {
 			String reviewtitle=request.getParameter("reviewtitle"); 
-			//String reviewtitle=request.getParameter("reviewtitle");
-			//String trainer=request.getParameter("trainer");
-			System.out.println("res"+reviewtitle);
-		//	System.out.println(trainer);
-			//System.out.println(such);
+			
+			System.out.println("reviewtitle"+ reviewtitle);
 			
 			ReviewDto dto=new ReviewDto();
+			dto.setReviewtitle(reviewtitle);
 			List<ReviewDto>reviewDto=biz.reviewsuch(dto);
-			System.out.println("controller"+reviewDto.get(0).getTrainer());
 			
 			request.setAttribute("suchList",reviewDto);
-			dispatch("review.jsp", request, response);
+			dispatch("review_such.jsp", request, response);
 			
 		}
 		
@@ -153,7 +148,7 @@ public class ReviewServlet extends HttpServlet {
 		} else if(command.equals("update")) {
 			int reviewid=Integer.parseInt(request.getParameter("ReviewId"));
 			
-			ReviewDto dto=dao.selectOne(reviewid);
+			ReviewDto dto=biz.selectOne(reviewid);
 			request.setAttribute("dto", dto);
 			dispatch("reviewupdate.jsp", request, response);
 			
