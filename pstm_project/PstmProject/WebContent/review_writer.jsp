@@ -101,7 +101,6 @@
 				<form action="review.do" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="command" value="insertres">
 					<table border="1">
-					
 						<tr>
 							<td>제목<input type="text" name="reviewtitle" /></td>
 							<td>강사선택 <select name="trainer" id="searchYear">
@@ -109,8 +108,6 @@
 									<option value="배유진 강사님">배유진 강사님</option>
 									<option value="박준범 강사님">박준범 강사님</option>
 							</select>
-
-
 							</td>
 						</tr>
 						

@@ -11,7 +11,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import com.codachaya.dao.PayingDao;
 import com.codachaya.dao.UserDao;
+import com.codachaya.dto.LessonDto;
 import com.codachaya.dto.UserDto;
 
 @WebServlet("/SingUpServlet")
@@ -27,6 +29,7 @@ public class SingUpServlet extends HttpServlet {
 		String command = request.getParameter("command");
 		
 		UserDao dao = new UserDao();
+		PayingDao payingDao = new PayingDao();
 		
 		if(command.equals("signupT")) {
 			
@@ -48,7 +51,20 @@ public class SingUpServlet extends HttpServlet {
 			int res = dao.insertTrainer(dto);
 			
 			if(res > 0) {
-				jsResponse("회원가입 성공", "pstm_login.jsp", response);
+				
+				dto = dao.login(id);
+				if(dto.getUsertype().equals("T") && dto.getPassword().equals(password)) {
+					
+					LessonDto lessonDto = new LessonDto();
+
+					lessonDto.setUserid(dto.getUserid());
+					lessonDto.setClasscontent(dto.getName() + "의 강의");
+					lessonDto.setPriceinfo("dummy");
+					
+					payingDao.insertLesson(lessonDto);
+					
+					jsResponse("회원가입 성공", "pstm_login.jsp", response);
+				}
 			}else {
 				jsResponse("회원가입 실패", "pstm_trainerSignUp.jsp", response);
 			}
@@ -70,16 +86,25 @@ public class SingUpServlet extends HttpServlet {
 					
 			int res = dao.insertNormalUser(dto);
 			
+			boolean register = false;
+			
 			if (res > 0) {
-				dto = dao.login(id, password, "S");
+				dto = dao.login(id);
 				
-				HttpSession session = request.getSession();
-				session.setAttribute("login", dto);
+				if(dto.getUsertype().equals("S") && dto.getPassword().equals(password)) {
+					HttpSession session = request.getSession();
+					session.setAttribute("login", dto);
 
-				session.setMaxInactiveInterval(-1);
-
-				jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
-			} else {
+					session.setMaxInactiveInterval(-1);
+					
+					register = true;
+					
+					jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
+				}
+				
+			} 
+			
+			if(!register) {
 				jsResponse("회원가입 실패", "pstm_normalUserSignUp.jsp", response);
 			}
 		}else if(command.equals("signupNaver")) {
@@ -108,17 +133,26 @@ public class SingUpServlet extends HttpServlet {
 					
 			int res = dao.insertNormalUser(dto);
 			
+			boolean register = false;
+			
 			if (res > 0) {
 				
-				dto = dao.login(id, null, "N");
+				dto = dao.login(id);
 				
-				HttpSession session = request.getSession();
-				session.setAttribute("login", dto);
+				if(dto.getUsertype().equals("N")) {
+					HttpSession session = request.getSession();
+					session.setAttribute("login", dto);
 
-				session.setMaxInactiveInterval(-1);
+					session.setMaxInactiveInterval(-1);
 
-				jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
-			} else {
+					register = true;
+					
+					jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
+				}
+			}
+			
+			
+			if(!register) {
 
 				request.setAttribute("userid", id);
 				request.setAttribute("name", name);
@@ -145,18 +179,27 @@ public class SingUpServlet extends HttpServlet {
 			
 			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, imgurl, null, null, null, signout);
 					
+			boolean register = false;
+			
 			int res = dao.insertNormalUser(dto);
 			
 			if (res > 0) {
-				dto = dao.login(id, null, "F");
+				dto = dao.login(id);
 				
-				HttpSession session = request.getSession();
-				session.setAttribute("login", dto);
+				if(dto.getUsertype().equals("F")) {
+					HttpSession session = request.getSession();
+					session.setAttribute("login", dto);
 
-				session.setMaxInactiveInterval(-1);
+					session.setMaxInactiveInterval(-1);
+					
+					register = true;
 
-				jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
-			} else {
+					jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
+					
+				}
+			} 
+			
+			if(!register) {
 				request.setAttribute("userid", id);
 				request.setAttribute("name", name);
 				request.setAttribute("imgurl", imgurl);

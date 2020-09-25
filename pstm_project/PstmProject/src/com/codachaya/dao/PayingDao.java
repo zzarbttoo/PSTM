@@ -253,7 +253,19 @@ public class PayingDao extends SqlMapConfig{
 		return receiptDto.getReceiptid();
 	}
 	
-	
+
+	public int insertLesson(LessonDto lesson) {
+
+		SqlSession session = null;
+		
+		session = getSqlSessionFactory().openSession(true);
+		
+		int updateColnum = 0;
+		
+		updateColnum = session.insert(namespaceLesson + "insert", lesson);
+		
+		return updateColnum;
+	}
 	
 	public int updateLessonStudents(LessonDto updatelessonDto) {
 		
