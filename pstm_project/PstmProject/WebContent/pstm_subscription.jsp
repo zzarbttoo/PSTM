@@ -11,6 +11,16 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 </head>
+<script type = "text/javascript">
+	
+	function gotochat(trainername, traineruserid){
+		
+		return false;
+		
+	}
+	
+</script>
+
 <style type="text/css">
 .wrapper {
 	min-width: 1100px;
@@ -39,6 +49,31 @@
 	padding-top: 100px;
 	text-align: center;
 }
+
+.trainerbox{
+	
+	text-align : center;
+}
+
+.right-area{
+	
+	display : inline-block;
+	width: 500px;
+}
+
+.lift-area{
+
+	display : inline-block;
+	width:300px;
+	
+}
+
+.gotochatting{
+	
+	padding  : 10px;
+	margin : 10px;
+}
+
 </style>
 
 <body>
@@ -81,6 +116,8 @@
 				System.out.println(i);
 				System.out.println(trainerList.get(i));
 				System.out.println(trainerList.get(i).getName());
+				
+				
 			%>
 			<div class="innerintroduce"onclick="location.href='paying.do?command=payment&trainerUserId=<%=trainerList.get(i).getUserid()%>'">
 				<div class="body">
@@ -91,8 +128,10 @@
 								style="width: 150px; height: 150px;" />
 						</div>
 						<div class="right-area">
-							<div class="trainername"><%=trainerList.get(i).getName()%></div>
-							<div></div>
+							<div class="trainername"><%=trainerList.get(i).getName()%> 강사</div>
+							<div class = "trainercomment">강사 한마디  <%= trainerList.get(i).getMycomment()%> </div>
+							<div class = "trainercareer">강사 경력 <%=trainerList.get(i).getCareer()%></div>
+							<div><input class  = "gotochatting" type = "button" onclick = 'gotochat(<%=trainerList.get(i).getName()%>,<%=trainerList.get(i).getUserid()%>)' value = "강사와 상담하기"></div>
 						</div>
 					</div>
 				</div>
