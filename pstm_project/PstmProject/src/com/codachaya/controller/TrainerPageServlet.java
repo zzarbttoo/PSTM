@@ -24,19 +24,18 @@ public class TrainerPageServlet extends HttpServlet {
 		response.setContentType("text/html; charset=UTF-8");
 		String command = request.getParameter("command");
 		System.out.printf("[%s]\n", command);
-		
+
 		UserDao dao = new UserDao();
 
 		if (command.equals("list")) {
 
 			int trainerid = Integer.parseInt(request.getParameter("trainerid"));
-			
-			
+			System.out.println("trainerid:" +trainerid);
 			List<UserDto> userlist = dao.selectPayingUserList(trainerid);
-			
+
 			request.setAttribute("userlist", userlist);
 			dispatch("pstm_trainerMyPage.jsp", request, response);
-			
+
 		}
 
 	}

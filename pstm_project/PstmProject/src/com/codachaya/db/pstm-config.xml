@@ -16,7 +16,6 @@
 <typeAlias type="com.codachaya.dto.ReviewDto" alias="ReviewDto" />
 <typeAlias type="com.codachaya.dto.UserDto" alias="UserDto" />
 <typeAlias type="com.codachaya.dto.WeightDto" alias="WeightDto" />
-<typeAlias type="com.codachaya.dto.NaverDto" alias="NaverDto" />
 
 </typeAliases>
 
@@ -44,7 +43,6 @@
     <mapper resource="com/codachaya/db/review-mapper.xml"/> 
     <mapper resource="com/codachaya/db/user-mapper.xml"/> 
     <mapper resource="com/codachaya/db/weight-mapper.xml"/> 
-    <mapper resource="com/codachaya/db/sns-mapper.xml"/> 
   </mappers>
 
 </configuration>
