@@ -25,12 +25,8 @@ import javax.servlet.http.HttpSession;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 
-import com.codachaya.dao.SnsDao;
 import com.codachaya.dao.UserDao;
-import com.codachaya.dto.NaverDto;
 import com.codachaya.dto.UserDto;
-
-import sun.font.Script;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -46,7 +42,6 @@ public class LoginServlet extends HttpServlet {
 		String command = request.getParameter("command");
 
 		UserDao dao = new UserDao();
-		SnsDao sns = new SnsDao();
 
 		if (command.equals("login")) {
 

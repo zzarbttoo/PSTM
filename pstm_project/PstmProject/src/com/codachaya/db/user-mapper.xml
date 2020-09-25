@@ -29,7 +29,7 @@
 		USERTYPE, GENDER, HEIGHT,
 		UPLOADIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT
 		FROM
-		TEST_USERINFO ORDER BY USERID DESC
+		PSTM_USERINFO ORDER BY USERID DESC
 	</select>
 	
 <!-- https://m.blog.naver.com/PostView.nhn?blogId=cir213&logNo=221214715748&proxyReferer=https:%2F%2Fwww.google.com%2F -->
@@ -38,12 +38,12 @@
 		SELECT
 		USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
 		USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT,
-		ADMIT, SIGNOUT FROM TEST_USERINFO
+		ADMIT, SIGNOUT FROM PSTM_USERINFO
 		WHERE USERID = #{userId}
 	</select>
 
 	<insert id="insert" parameterType="UserDto">
-		INSERT INTO TEST_USERINFO
+		INSERT INTO PSTM_USERINFO
 		VALUES(
 		TEST_USERSEQ.NEXTVAL, #{id}, #{password}, #{password_key},
 		#{name}, #{phone},
@@ -54,7 +54,7 @@
 	</insert>
 	
 	<insert id="insertSNS" parameterType="UserDto">
-		INSERT INTO TEST_USERINFO
+		INSERT INTO PSTM_USERINFO
 		VALUES(
 		#{userid}, #{id}, #{password}, #{password_key},
 		#{name}, #{phone},
@@ -70,7 +70,7 @@
 	</update>
 
 	<delete id="delete" parameterType="int">
-		DELETE FROM TEST_USERINFO WHERE
+		DELETE FROM PSTM_USERINFO WHERE
 	</delete>
 	<insert id=""></insert>
 
@@ -84,7 +84,7 @@
 		HEIGHT, UPLOADIMG,
 		CAREER, MYCOMMENT, ADMIT, SIGNOUT
 		FROM
-		TEST_USERINFO
+		PSTM_USERINFO
 		WHERE USERTYPE = 'T'
 		ORDER BY USERID DESC
 	</select>
@@ -95,7 +95,7 @@
 		USERTYPE,
 		GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT,
 		ADMIT, SIGNOUT
-		FROM TEST_USERINFO WHERE USERTYPE = 'N' ORDER BY USERID DESC
+		FROM PSTM_USERINFO WHERE USERTYPE = 'N' ORDER BY USERID DESC
 	</select>
 
 	<select id="selectTrainerPaging" resultType="UserDto"
@@ -109,7 +109,7 @@
 			FROM (SELECT ROWNUM AS SEQ,USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR, 
 			USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT,
 			ADMIT, SIGNOUT 
-			FROM (SELECT * FROM TEST_USERINFO WHERE USERTYPE = 'T' ORDER BY USERID DESC) ) WHERE SEQ > #{offset} )
+			FROM (SELECT * FROM PSTM_USERINFO WHERE USERTYPE = 'T' ORDER BY USERID DESC) ) WHERE SEQ > #{offset} )
 			WHERE ROWNUM <= #{count} ]]>
 
 	</select>
@@ -126,7 +126,7 @@
 			ADMIT, SIGNOUT 
 			FROM (SELECT ROWNUM AS SEQ, USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
 			USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT, ADMIT, SIGNOUT 
-			FROM (SELECT * FROM TEST_USERINFO WHERE USERTYPE = 'N' ORDER BY USERID DESC) ) 
+			FROM (SELECT * FROM PSTM_USERINFO WHERE USERTYPE = 'N' ORDER BY USERID DESC) ) 
 			WHERE SEQ > #{offset})
 			WHERE ROWNUM <= #{count} ]]>
 
@@ -134,13 +134,13 @@
 
 	<select id="selectTrainerCount" resultType="int">
 		SELECT COUNT(*) FROM
-		TEST_USERINFO WHERE USERTYPE = 'T'
+		PSTM_USERINFO WHERE USERTYPE = 'T'
 	</select>
 
 
 	<select id="selectNormalUserCount" resultType="int">
 		SELECT COUNT(*)
-		FROM TEST_USERINFO WHERE USERTYPE = 'N'
+		FROM PSTM_USERINFO WHERE USERTYPE = 'N'
 	</select>
 
 	<select id="login" resultType="UserDto" parameterType="UserDto">
@@ -151,7 +151,7 @@
 		USERTYPE, GENDER, HEIGHT,
 		UPLOADIMG, CAREER,
 		MYCOMMENT,ADMIT, SIGNOUT
-		FROM TEST_USERINFO
+		FROM PSTM_USERINFO
 		WHERE ID = #{id}
 		<if test='usertype == "S"'>
 			AND PASSWORD = #{password}
@@ -161,7 +161,7 @@
 	
 	<insert id="insertNormalUser" parameterType="UserDto">
 		INSERT INTO
-		TEST_USERINFO
+		PSTM_USERINFO
 		VALUES(TEST_USERSEQ.NEXTVAL, #{id}, #{password},
 		#{password_key},#{name},
 		#{phone},#{addr}, #{detailaddr}, #{usertype},
@@ -170,7 +170,7 @@
 
 	<insert id="insertTrainer" parameterType="UserDto">
 		INSERT INTO
-		TEST_USERINFO
+		PSTM_USERINFO
 		VALUES(TEST_USERSEQ.NEXTVAL, #{id}, #{password},
 		#{password_key}, #{name},
 		#{phone},#{addr}, #{detailaddr}, 'T',
@@ -185,7 +185,7 @@
 		USERTYPE, GENDER, HEIGHT,
 		UPLOADIMG, CAREER,
 		MYCOMMENT,ADMIT, SIGNOUT
-		FROM TEST_USERINFO WHERE ID = #{id}
+		FROM PSTM_USERINFO WHERE ID = #{id}
 	</select>
 
 
@@ -197,7 +197,7 @@
 		USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER,
 		MYCOMMENT,
 		ADMIT, SIGNOUT
-		FROM TEST_USERINFO
+		FROM PSTM_USERINFO
 		WHERE USERID IN
 		<choose>
 			<when test="keyIntList.size gt 0">
