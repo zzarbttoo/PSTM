@@ -36,8 +36,10 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 
 import com.codachaya.dao.DailyinfoDao;
 import com.codachaya.dao.DietinfoDao;
+import com.codachaya.dao.NctinfoDao;
 import com.codachaya.dto.DailyinfoDto;
 import com.codachaya.dto.DietinfoDto;
+import com.codachaya.dto.NctinfoDto;
 import com.google.cloud.vision.v1.AnnotateImageRequest;
 import com.google.cloud.vision.v1.AnnotateImageResponse;
 import com.google.cloud.vision.v1.BatchAnnotateImagesResponse;
@@ -53,24 +55,21 @@ import com.google.protobuf.ByteString;
 import com.oreilly.servlet.MultipartRequest;
 import com.oreilly.servlet.multipart.DefaultFileRenamePolicy;
 
-
 import net.sf.json.JSON;
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
-
-
 
 @WebServlet("/daily.do")
 
 public class DailyController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
-	
+
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
-		DietinfoDao dao = new DietinfoDao();
+		DietinfoDao dietdao = new DietinfoDao();
 		DailyinfoDao dailydao = new DailyinfoDao();
 
 		String command = request.getParameter("command");
@@ -80,6 +79,7 @@ public class DailyController extends HttpServlet {
 			int size = 1024 * 1024 * 5;
 			MultipartRequest multi = new MultipartRequest(request, path, size, "UTF-8", new DefaultFileRenamePolicy());
 			command = multi.getParameter("command");
+			System.out.println("이미지경로 : "+path);
 
 			if (command.equals("insertres")) {
 
@@ -87,6 +87,9 @@ public class DailyController extends HttpServlet {
 
 					String uploadimg = multi.getParameter("uploadimg");
 					String originimg = multi.getParameter("originimg");
+					String timeeat = multi.getParameter("timeeat");
+					int kcal = Integer.parseInt(multi.getParameter("kcal"));
+					String result = multi.getParameter("result");
 
 					Enumeration files = multi.getFileNames();
 					String str = (String) files.nextElement();
@@ -96,19 +99,32 @@ public class DailyController extends HttpServlet {
 					System.out.println(uploadimg);
 					System.out.println(originimg);
 
-					String timeeat = multi.getParameter("timeeat");
-
 					// 이후 db 저장하기
 					DietinfoDto dto = new DietinfoDto();
 					dto.setUploadimg(uploadimg);
 					dto.setOriginimg(originimg);
+					dto.setResult(result);
 					dto.setTimeeat(timeeat);
-					int res = dao.insert(dto);
+					dto.setKcal(kcal);
+					
+					DailyinfoDto dailydto = new DailyinfoDto();
+					
+					int dailyres = dailydao.insert(dailydto);
+					
+					int lastDailyId = dailydao.getLastDailyInfoId();
+					
+					dto.setDailyinfoid(lastDailyId);
+					
+					int dietres = dietdao.insert(dto);
 
-					if (res > 0) {
-						jsResponse("성공", "pstm_dailypage.jsp", response);
+					int dresult = dailyres + dietres;
+					
+
+
+					if (dresult > 1) {
+						jsResponse("성공", "daily.do?command=selectres", response);
 					} else {
-						jsResponse("실패", "pstm_studentmypage.jsp", response);
+						jsResponse("실패", "daily.do?command=selectres", response);
 					}
 
 				} catch (Exception e) {
@@ -116,15 +132,30 @@ public class DailyController extends HttpServlet {
 				}
 			}
 		} else {
+			
 			if (command.equals("selectres")) {
 				// DB에서 DailyInfo 정보 가져와서 pstm_dailypage.jsp 로 보내주기
 				List<DailyinfoDto> list = dailydao.selectList();
-				request.setAttribute("list", list);
-				dispatch("pstm_dailypage.jsp", request, response);
 
-				List<DietinfoDto> lists = dao.selectList();
-				request.setAttribute("lists", lists);
+				List<List<DietinfoDto>> lists = new ArrayList<List<DietinfoDto>>();
+
+				for (int i = 0; i < list.size(); i++) {
+					lists.add(dietdao.selectList(list.get(i).getDailyinfoid()));
+					
+					for(int j = 0; j < lists.get(i).size(); j++) {
+						System.out.println(lists.get(i).get(j).getDietid());
+					}
+					// list.get(i); - DailyInfo 
+					// lists.get(i); - DietInfoList
+					// lists.get(0).get(0); // 
+				}
+				
+				request.setAttribute("list", list);
+				request.setAttribute("dietList", lists);
 				dispatch("pstm_dailypage.jsp", request, response);
+				
+
+				
 
 			} else if (command.equals("getimg")) {
 				// Response에 결과값을 String으로 보낼 때 사용
@@ -148,101 +179,99 @@ public class DailyController extends HttpServlet {
 			} else if (command.equals("insertform")) {
 				response.sendRedirect("pstm_dailyinsert.jsp");
 
-			}else if(command.equals("asd")) {
-				
-				
-			}else if(command.equals("vision")) {
+			} else if (command.equals("asd")) {
+
+			} else if (command.equals("vision")) {
 				request.setCharacterEncoding("UTF-8");
 				response.setContentType("text/html; charset=UTF-8");
-				
+
 				String filename = request.getParameter("filename");
-				List<String> visionresult = Vision(request.getSession().getServletContext().getRealPath("imgfolder"), request.getParameter("filename"));
-					JSONArray obj = new JSONArray();
-					obj.add(visionresult);
-				//response.setContentType("application/x-json; charset=UTF-8");
-					
-				  response.getWriter().print(obj);
-			//	response.getWriter().write(visionresult.toString());
-			//	ServletOutputStream objectdetect = response.getOutputStream();
-			//	FileInputStream input = new FileInputStream(visionresult.toString());
-			//	int length;
-			//	byte[] buffer = new byte[1024*1024];
-			//	while ((length = input.read(buffer)) != -1) {
-					// String 보내주기
-			//		objectdetect.write(buffer, 0, length);
-				//}
+				List<String> visionresult = Vision(request.getSession().getServletContext().getRealPath("imgfolder"),
+						request.getParameter("filename"));
+				JSONArray obj = new JSONArray();
+				obj.add(visionresult);
+				// response.setContentType("application/x-json; charset=UTF-8");
+
+				response.getWriter().print(obj);
+				// response.getWriter().write(visionresult.toString());
+				// ServletOutputStream objectdetect = response.getOutputStream();
+				// FileInputStream input = new FileInputStream(visionresult.toString());
+				// int length;
+				// byte[] buffer = new byte[1024*1024];
+				// while ((length = input.read(buffer)) != -1) {
+				// String 보내주기
+				// objectdetect.write(buffer, 0, length);
+				// }
+			} else if (command.equals("delete")) {
+				int dailyinfoid = Integer.parseInt(request.getParameter("dailyinfoid"));
+
+				int res = dietdao.delete(dailyinfoid);
+				if (res > 0) {
+					jsResponse("성공", "daily.do?command=selectres", response);
+				}else {
+					jsResponse("실패", "daily.do?command=selectres", response);
+				}
 			}
 		}
 	}
 
-	
-    
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doPost(request, response);
-	
+
 	}
-	
 
 	private void upload(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		request.setCharacterEncoding("UTF-8");
 		Map datas = new HashedMap();
-		
+
 		String tempStorePath = "C:\temp";
 		String storePath = "C:\\Users\\feelj\\OneDrive\\바탕 화면\\semi\\PSTM\\pstm_project\\.metadata\\.plugins\\org.eclipse.wst.server.core\\tmp0\\wtpwebapps\\PstmProject\\imgfolder";
-		
+
 		try {
 			DiskFileItemFactory diskFactory = new DiskFileItemFactory();
-			diskFactory.setSizeThreshold(4096);												// 업로드시 사용할 임시 메모리
-			diskFactory.setRepository(new File(tempStorePath)); 						// 임시저장폴더
-			
+			diskFactory.setSizeThreshold(4096); // 업로드시 사용할 임시 메모리
+			diskFactory.setRepository(new File(tempStorePath)); // 임시저장폴더
+
 			ServletFileUpload upload = new ServletFileUpload(diskFactory);
-			upload.setSizeMax(100 * 1024 * 1024);										
+			upload.setSizeMax(100 * 1024 * 1024);
 			List<FileItem> items = upload.parseRequest(request);
-			
+
 			Iterator iter = items.iterator();
-			while(iter.hasNext()) {
+			while (iter.hasNext()) {
 				FileItem item = (FileItem) iter.next();
-				
-				if(item.isFormField()) {			// 파일이 아닌경우
+
+				if (item.isFormField()) { // 파일이 아닌경우
 					String fileName = item.getFieldName();
 					String fieldValue = item.getString("UTF-8");
-					
-				}else {			// 파일인 경우
-					if(item.getSize() > 0) {
+
+				} else { // 파일인 경우
+					if (item.getSize() > 0) {
 						String newFileName = UUID.randomUUID().toString();
 						String name = item.getFieldName();
 						String fileName = item.getName();
 						String contentType = item.getContentType();
 						long fileSize = item.getSize();
-						
+
 						Path newFilePath = Paths.get(storePath + "/" + newFileName);
 						File uploadedFile = newFilePath.toFile();
-						item.write(uploadedFile);			// 파일 저장
+						item.write(uploadedFile); // 파일 저장
+						System.out.println("storePath업로드 경로 : "+storePath);
 					}
 				}
 			}
-			
 
-			
-		}catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		
-		
-		
-	}
-		
-		
-		
-		
-	
-	
 
-	protected List<String> Vision(String Path , String filename ) throws ServletException, IOException {
-		
+	}
+
+	protected List<String> Vision(String Path, String filename) throws ServletException, IOException {
+
 		ImageAnnotatorClient vision = ImageAnnotatorClient.create();
 
-		String fileName =  Path +"\\"+filename;
+		String fileName = Path + "\\" + filename;
 		// String fileName = "C:\\Users\\feelj\\OneDrive\\바탕
 		// 화면\\semi\\PSTM\\pstm_project\\PstmProject\\WebContent\\img\\515966_540.jpg";
 
@@ -273,7 +302,7 @@ public class DailyController extends HttpServlet {
 		for (AnnotateImageResponse res : responses) {
 			if (res.hasError()) {
 				System.out.printf("Error:%s\n", res.getError().getMessage());
-				return null;	//나중에  null 꼭찾아와~~ 까먹지마~
+				return null; // 나중에 null 꼭찾아와~~ 까먹지마~
 			}
 			for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
 
@@ -287,11 +316,11 @@ public class DailyController extends HttpServlet {
 			}
 			System.out.println(result);
 			JsonArray array = new Gson().toJsonTree(result).getAsJsonArray();
-			
-			//parse : 형식을 변화해주는것
-			//Gson : Gson 을 사용하겠다.
-			//toJsonTree : Json 객체로 변환해주는것
-			//getAsJsonArray : 객체를 Array형식으로 만들어줌
+
+			// parse : 형식을 변화해주는것
+			// Gson : Gson 을 사용하겠다.
+			// toJsonTree : Json 객체로 변환해주는것
+			// getAsJsonArray : 객체를 Array형식으로 만들어줌
 
 			// JSON.stringify();
 			// List를 JSON형식으로 만들어주는 애
@@ -304,15 +333,13 @@ public class DailyController extends HttpServlet {
 		}
 		return result;
 	}
+
 	private void dispatch(String path, HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher dispatch = request.getRequestDispatcher(path);
 		dispatch.forward(request, response);
-		
 
 	}
-	
-
 
 	private void jsResponse(String msg, String url, HttpServletResponse response) throws IOException {
 		String result = "<script> alert(\"" + msg + "\"); location.href=\"" + url + "\"; </script> ";

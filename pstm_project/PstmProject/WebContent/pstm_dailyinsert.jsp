@@ -43,7 +43,8 @@
 </script>
 <script>
 		function kcalcount(){
-			var filename = "beef.jpg"
+			var fileValue = $(".excelFile").val().split("\\");
+			var filename = fileValue[fileValue.length-1];
 			$.ajax({
 				  method: "POST",
 				  url: "daily.do?command=vision&filename="+filename,
@@ -86,8 +87,8 @@
 
 			}).done(function(msg) {
 				console.log(msg);
-				var calorie = msg.service.list[0].irdnt[0].irdnttcket[0].contInfo;
-				$("#kcalall").append("음식이름 :" +foodname+"<br> 칼로리 : "+calorie);
+				var kcal = msg.service.list[0].irdnt[0].irdnttcket[0].contInfo;
+				$("#kcalall").append("음식이름 :" +foodname+"<br> 칼로리 : "+kcal);
 				
 			})
 		}
@@ -109,17 +110,18 @@
 
 	<form method="post" enctype="multipart/form-data" id="createupload" action="daily.do">
 		<input type="hidden" name="command" value="insertres">
-		 파일 : <input type="file" name="uploadimg" id="imput_img"> 
+		 파일 : <input type="file" name="uploadimg" id="imput_img" class="excelFile">
+		 <button onclick="upload(event)">이미지 업로드</button> 
+		 음식 : <input type="text" name="result"> 
 		 먹은 시간 : <input type="text" name="timeeat">
-		 <button onclick="upload(event)">이미지 업로드</button>
+		 
+		칼로리 : <input type="text" name="kcal">
 		 
 		 
 		 
 		 
 		 <input type="submit" value="upload">
-		 		파일 : <input type="file" name="uploadimg">
-			 	먹은 시간 : <input type="text" name="timeeat">
-		<input type="submit" value="upload">
+		 		
 	</form>
 	
 	<div>
