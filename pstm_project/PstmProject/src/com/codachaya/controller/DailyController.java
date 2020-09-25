@@ -209,6 +209,8 @@ public class DailyController extends HttpServlet {
 				int res = dietdao.delete(dailyinfoid);
 				if (res > 0) {
 					jsResponse("성공", "daily.do?command=selectres", response);
+				}else {
+					jsResponse("실패", "daily.do?command=selectres", response);
 				}
 			}
 		}
