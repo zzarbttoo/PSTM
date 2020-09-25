@@ -70,7 +70,7 @@
 						<td><%=user.getUploadimg() %></td>
 						<td><%=user.getName() %></td>
 						<td align="center">
-							<input type="button" value="회원관리" onclick="location.href='pstm_normalUserManagement.jsp'"/>
+							<input type="button" value="회원관리" onclick="location.href='trainer.do?command=userlist&userid=<%=user.getUserid()%>''"/>
 							<input type="button" value="webRTC" onclick=""/>
 						</td>
 					</tr>				
