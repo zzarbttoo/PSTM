@@ -20,7 +20,7 @@
 
 <insert id="insert" parameterType="ReviewDto">
 	INSERT INTO PSTM_REVIEWINFO
-	VALUES(PSTM_REVIEWIDSEQ.NEXTVAL,#{userid},#{reviewtitle},#{reviewcontent},
+	VALUES(PSTM_REVIEWIDSEQ.NEXTVAL,1,#{reviewtitle},#{reviewcontent},
 	#{uploadimg},SYSDATE,#{trainerid},#{trainer})
 </insert>
 

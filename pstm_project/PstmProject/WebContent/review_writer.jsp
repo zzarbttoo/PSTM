@@ -98,7 +98,7 @@
 
 
 			<div class="right-container">
-				<form action="review.do" method="post">
+				<form action="review.do" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="command" value="insertres">
 					<table border="1">
 					
@@ -115,14 +115,13 @@
 						</tr>
 						
 						</table>
-						<textarea name="reviewcontent" id="summernote" class="summernote"
-							style="margin: 0;"></textarea>
-						
+						<textarea name="reviewcontent" id="summernote" class="summernote" style="margin: 0;"></textarea>
+						<input type="file" name="uploadimg" value="파일">
 					<table style="float: right;">
 						<tr>
 							<td colspan="2" align="right">
 							<input type="button" value="취소" onclick="location.href='review.do?command=review'" /> 
-							<input type="submit" value="작성" onclick="location.href='review.do?command=insertres'" /></td>
+							<input type="submit" value="작성" /></td>
 						</tr>
 					</table>
 				</form>
