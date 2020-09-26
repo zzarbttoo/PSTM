@@ -32,9 +32,9 @@
 		PSTM_USERINFO ORDER BY USERID DESC
 	</select>
 	
-<!-- https://m.blog.naver.com/PostView.nhn?blogId=cir213&logNo=221214715748&proxyReferer=https:%2F%2Fwww.google.com%2F -->
+	<!-- https://m.blog.naver.com/PostView.nhn?blogId=cir213&logNo=221214715748&proxyReferer=https:%2F%2Fwww.google.com%2F -->
 
-	<select id="selectOne" parameterType="String" resultType="UserDto">
+	<select id="selectOne" parameterType="int" resultType="UserDto">
 		SELECT
 		USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
 		USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT,
@@ -204,7 +204,4 @@
 			</when>
 		</choose>
 	</select>
-
-
-
 </mapper>
