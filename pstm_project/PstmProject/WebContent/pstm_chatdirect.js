@@ -13,7 +13,7 @@ var istrainer = null;
 var num = 1;
 
 // routing 앞 이후의 url로 들어오면, res.sendfile의 위치로 이동하겠다
-app.post('/PstmProject/trainerchating', function (req, res) {
+app.get('/PstmProject/trainerchating', function (req, res) {
   res.sendfile(__dirname + '/pstm_chatuser.html');
   trainernum = req.param('trainernum');
   trainername = req.param('trainername');

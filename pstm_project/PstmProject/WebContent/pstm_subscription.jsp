@@ -17,35 +17,30 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type = "text/javascript">
-	
+
+	var popUrl = "http://localhost:9999/PstmProject/trainerchating";
+	var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
+	var popUpPage = null;
 	//trainerUserid를 나타나게 하는 지 모르겠다
 	function gotochat(trainername, traineruserid){
-		
-		alert("에베베베베");
-		console.log("어기 오긴 했니");
-		var popUrl = "http://localhost:9999/PstmProject/trainerchating";
-		var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
-		var popUpPage = window.open("about:blank", "",popOption);
-		
-		
+	 
+		popUpPage=window.open(popUrl, "",popOption);	
+	
 		$.ajax({
 			
-			url:"http://localhost:9999/PstmProject/trainerchating",
-			method : "POST",
+			url:popUrl,
+			method : "GET",
 			data : {
 				
 				'trainername' : trainername,
-				'trainernum' : traineruserid
+				'trainernum' : traineruserid,
+				'istrainer' : 'false'
 			}
-			
-		}).done(function(){
-			
-			popUpPage.location.href = 'http://localhost:9999/PstmProject/trainerchating';
-			
 		});
 		
 		
 	}
+	
 	
 </script>
 
@@ -177,10 +172,8 @@
 				%>
 
 				<%=i%>
-
-
 				<%
-					} else {
+					} else { 
 				%>
 
 				<a href="paying.do?command=subscription&pages=<%=i%>"><%=i%></a>
