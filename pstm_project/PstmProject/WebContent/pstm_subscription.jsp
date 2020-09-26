@@ -95,6 +95,18 @@
 	
 	padding  : 10px;
 	margin : 10px;
+	width : 150px;
+	height: 40px;
+	
+}
+
+.gotoPaying{
+	
+	padding : 10px;
+	margin : 10px;
+	width  : 150px;
+	height : 40px;
+	
 }
 
 </style>
@@ -154,7 +166,7 @@
 							<div class="trainername"><%=trainerList.get(i).getName()%> 강사</div>
 							<div class = "trainercomment">강사 한마디  <%= trainerList.get(i).getMycomment()%> </div>
 							<div class = "trainercareer">강사 경력 <%=trainerList.get(i).getCareer()%></div>
-							<div><input class ="" type = "button" onclick="location.href='paying.do?command=payment&trainerUserId=<%=trainerList.get(i).getUserid()%>'" value = "강의 신청하기"></div>
+							<div><input class ="gotoPaying" type = "button" onclick="location.href='paying.do?command=payment&trainerUserId=<%=trainerList.get(i).getUserid()%>'" value = "강의 신청하기"></div>
 							<div><input class ="gotochatting" type = "button" onclick = "gotochat('<%=trainerList.get(i).getName()%>',<%=trainerList.get(i).getUserid()%>)" value = "강사와 상담하기"></div>
 						</div>
 					</div>
