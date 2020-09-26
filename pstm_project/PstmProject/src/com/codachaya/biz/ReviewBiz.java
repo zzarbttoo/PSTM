@@ -38,7 +38,8 @@ public class ReviewBiz {
 		return reviewdao.update(dto);
 	
 	}
-	public List<ReviewDto>selectReviewPaging(int offset,int count){
+	public List<ReviewDto> selectReviewPaging(int offset,int count){
+		
 		System.out.println("biz"+offset+","+count);
 		return reviewdao.selectReviewPaging(offset, count);
 	}
@@ -51,7 +52,6 @@ public class ReviewBiz {
 		return reviewdao.delete(reviewid);
 		
 	}
-
 
 	public UserDto selectNormalUserOne(int normalUserId) {
 		// TODO Auto-generated method stub

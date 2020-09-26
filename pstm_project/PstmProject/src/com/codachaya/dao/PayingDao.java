@@ -105,29 +105,6 @@ public class PayingDao extends SqlMapConfig{
 		
 	}
 	
-	public List<ReviewDto>selectReviewPaging(int offset,int count){
-		SqlSession session=null;
-		List<ReviewDto>list=new ArrayList<ReviewDto>();
-		session=getSqlSessionFactory().openSession(true);
-		
-		System.out.println("payingDao.selectReviewPaging세션확인");
-		
-		HashMap<String, Object>parameters=new HashMap<String, Object>();
-		
-		parameters.put("offset",offset);
-		parameters.put("count", count);
-		
-		try {
-			list=session.selectList(nameReview+"selectReviewPaging",parameters);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}finally {
-			session.close();
-		}
-		return list;
-		
-	}
-	
 	public List<UserDto> selectTrainerPaging(int offset, int count){
 		 
 		SqlSession session = null;

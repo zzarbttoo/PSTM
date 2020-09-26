@@ -29,27 +29,30 @@
 
 		<%@ include file="./form/pstm_header.jsp"%>
 		<%
-			//PagingUtil pagination=(PagingUtil)request.getAttribute("pagination");
 		
-		//List<ReviewDto> reviewList = (ArrayList<ReviewDto>) request.getAttribute("reviewList");
-		ReviewDao dao=new ReviewDao();
-		List<ReviewDto> reviewList=dao.selectReviewList();
-		System.out.println(reviewList.size());
-		/*
-		if(pagination !=null){
-			System.out.println(pagination);
-			System.out.println("받은 페이지 번호"+pagination.getCurrentPageNo());
-		}
-
-		if(pagination==null){
-			ReviewBiz biz=new ReviewBiz();
-			pagination=new PagingUtil(1, 3);
-			pagination.setRecordsPerPage(3);
+		//ReviewDao dao=new ReviewDao();
+		//List<ReviewDto> reviewList=dao.selectReviewList();
+		//System.out.println(reviewList.size());
+		
+		PagingUtil pagination = (PagingUtil) request.getAttribute("pagination");
+		List<ReviewDto> reviewList = (ArrayList<ReviewDto>) request.getAttribute("reviewList");
+	
+		
+		//임시로 생성 <- 페이지간 연결 후 삭제하기
+		if(pagination == null){
+			
+			ReviewBiz biz = new ReviewBiz();
+			pagination = new PagingUtil(1, 6);
+			pagination.setRecordsPerPage(6);
 			pagination.setNumberOfRecords(biz.getselectReviewCount());
+			System.out.println("selectReviewCount" + biz.getselectReviewCount());
 			pagination.makePaging();
-			reviewList=biz.selectReviewPaging(0,3);
+			reviewList = biz.selectReveiwPaging(0, 6);	
+			
 		}
-		*/
+		
+		System.out.println("ListSizejsp" + reviewList.size());
+		
 		%>
 
 		<div class="review_contents wrapper">
@@ -136,7 +139,29 @@
 						</div>
 					</div>
 				</div>
+				
+				<div class="reviewPage_navigation">
+				<%
+					for (int i = pagination.getStartPageNo(); i <= pagination.getEndPageNo(); i++) {
+					System.out.println(i);
+					System.out.println(pagination.getCurrentPageNo());
+					if (i == pagination.getCurrentPageNo()) {
+				%>
+
+				<%=i%>
+				<%
+					} else { 
+				%>
+
+				<a href="review.do?command=review&pages=<%=i%>"><%=i%></a>
+
+				<%
+					}
+				}
+				%>
 			</div>
+			</div>
+			
 		</div>
 	</div>
 	<%@ include file="./form/pstm_footer.jsp"%>

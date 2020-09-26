@@ -45,44 +45,11 @@ public class ReviewServlet extends HttpServlet {
 		
 		ReviewBiz biz = new ReviewBiz();
 
-		int normalUserNum = 0;
 		int offset = 0;
-		int count = 3;
+		int count = 6;
 		int getreviewcount = 0;
 
-		if (command.equals("subscription")) {
-			int normalUser = 0;
-
-			int currentPageNo = 1;
-
-			if (request.getParameter("pages") != null) {
-				currentPageNo = Integer.parseInt(request.getParameter("pages"));
-				System.out.println("ReviewServlet 현재 페이지" + currentPageNo);
-
-			}
-			PagingUtil pagination = new PagingUtil(currentPageNo, 3);
-			pagination.setRecordsPerPage(count);
-
-			System.out.println("ReviewServlet현재페이지" + pagination.getCurrentPageNo());
-
-			offset = (pagination.getCurrentPageNo() - 1) * pagination.getRecordsPerPage();
-			getreviewcount = biz.getselectReviewCount();
-
-			pagination.setNumberOfRecords(getreviewcount);
-			pagination.makePaging();
-
-			List<ReviewDto> reviewList = biz.selectReviewPaging(offset, count);
-
-			System.out.println(reviewList);
-			System.out.println(pagination.getCurrentPageNo());
-
-			request.setAttribute("reviewList", reviewList);
-			request.setAttribute("pagination", pagination);
-
-			request.setAttribute("normalUser", normalUser);
-			dispatch("pstm_review.jsp", request, response);
-
-		} else if (command.equals("review")) {
+		if (command.equals("review")) {
 /*
 			// db 저장
 			int reviewId = Integer.parseInt(request.getParameter("reviewId"));
@@ -96,11 +63,30 @@ public class ReviewServlet extends HttpServlet {
 			dto.setTrainer(trainer);
 			dto.setReviewcontent(reviewcontent);
 */
-			/// DB 받아오기
+			// DB 받아오기
+			int currentPageNo = 1;
 			
-			List<ReviewDto> reviewDto = biz.selectReviewList();
-			System.out.println("controller"+reviewDto.get(0).getTrainer());
-			request.setAttribute("reviewList", reviewDto);
+			if(request.getParameter("pages") != null) {
+				currentPageNo = Integer.parseInt(request.getParameter("pages"));
+				System.out.println("현재 페이지" + currentPageNo);
+			}
+			
+			PagingUtil pagination = new PagingUtil(currentPageNo, count);
+			//pagination.setRecordsPerPage(count);
+			
+			offset = (pagination.getCurrentPageNo() -1) * pagination.getRecordsPerPage();
+			System.out.println("offSetnumdao" + offset);
+			getreviewcount = biz.getselectReviewCount();
+			
+			pagination.setNumberOfRecords(getreviewcount);
+			pagination.makePaging();
+			
+			List<ReviewDto> reviewList = biz.selectReveiwPaging(offset, count);
+			System.out.println("reviewSize" + reviewList.size());
+			
+			request.setAttribute("reviewList", reviewList);
+			request.setAttribute("pagination", pagination);
+			
 			dispatch("review.jsp", request, response);
 			
 		}else if(command.equals("selectres")) {
