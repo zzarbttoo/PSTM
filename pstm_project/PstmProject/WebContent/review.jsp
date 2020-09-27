@@ -48,7 +48,7 @@
 			pagination.setNumberOfRecords(biz.getselectReviewCount());
 			System.out.println("selectReviewCount" + biz.getselectReviewCount());
 			pagination.makePaging();
-			reviewList = biz.selectReveiwPaging(0, 6);
+			reviewList = biz.selectReviewPaging(0, 6);
 
 		}
 
@@ -91,7 +91,7 @@
 							<%
 								for (int i = 0; i < reviewList.size(); i++) {
 							%>
-							<div class="review_item"
+							<div class="review_item"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 								onclick="location.href='review.do?command=selectres&ReviewId=<%=reviewList.get(i).getReviewid()%>'">
 								<div class="review_img">
 									<img
@@ -103,8 +103,8 @@
 									<div class="review_class"><%=reviewList.get(i).getReviewtitle()%></div>
 									<div class="review_summary"><%=reviewList.get(i).getTrainer()%></div>
 								</div>
-							</div>
-							<%
+							</div>                            
+							<%                                     
 								}
 							%>
 						</div>

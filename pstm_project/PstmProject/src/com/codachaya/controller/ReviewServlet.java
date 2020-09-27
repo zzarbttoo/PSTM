@@ -102,12 +102,13 @@ public class ReviewServlet extends HttpServlet {
 					
 					offset = (pagination.getCurrentPageNo() -1) * pagination.getRecordsPerPage();
 					System.out.println("offSetnumdao" + offset);
+					
 					getreviewcount = biz.getselectReviewCount();
 					
 					pagination.setNumberOfRecords(getreviewcount);
 					pagination.makePaging();
 					
-					List<ReviewDto> reviewList = biz.selectReveiwPaging(offset, count);
+					List<ReviewDto> reviewList = biz.selectReviewPaging(offset, count);
 					System.out.println("reviewSize" + reviewList.size());
 					
 					request.setAttribute("reviewList", reviewList);
@@ -123,15 +124,40 @@ public class ReviewServlet extends HttpServlet {
 			}
 
 			else if (command.equals("reviewsuch")) {
+				
 				String reviewtitle=request.getParameter("reviewtitle"); 
+				ReviewDto dto= new ReviewDto();
+				dto.setReviewtitle(reviewtitle);
+				
+				//페이징처리
+				int currentSearchPageNo = 1;
+				
+				if(request.getParameter("pages") != null) {
+					currentSearchPageNo = Integer.parseInt(request.getParameter("pages"));
+					System.out.println("현재 페이지" + currentSearchPageNo);
+				}
+				
+				PagingUtil pagination = new PagingUtil(currentSearchPageNo, count);
+				//pagination.setRecordsPerPage(count);
+				
+				offset = (pagination.getCurrentPageNo() -1) * pagination.getRecordsPerPage();
+				System.out.println("offSetnumdao" + offset);
+				//현재 페이지 컨텐츠 갯수 
+				getreviewcount = biz.getselectSearchCount(dto);
+				System.out.println(getreviewcount);
+				
+				pagination.setNumberOfRecords(getreviewcount);
+				pagination.makePaging();
 				
 				System.out.println("reviewtitle"+ reviewtitle);
 				
-				ReviewDto dto=new ReviewDto();
-				dto.setReviewtitle(reviewtitle);
-				List<ReviewDto> reviewDto=biz.reviewsuch(dto);
+			
+				List<ReviewDto> SearchDtoList=biz.selectSearchReviewPaging(dto, offset, count);
 				
-				request.setAttribute("suchList",reviewDto);
+				request.setAttribute("suchList",SearchDtoList);
+				request.setAttribute("reviewtitle", reviewtitle);
+				request.setAttribute("pagination", pagination);
+				
 				dispatch("review_such.jsp", request, response);
 				
 				

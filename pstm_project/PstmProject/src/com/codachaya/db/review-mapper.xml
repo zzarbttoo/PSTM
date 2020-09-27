@@ -24,7 +24,8 @@
 		SELECT REVIEWID, USERID, REVIEWTITLE,
 		REVIEWCONTENT,UPLOADIMG,REGDATE,TRAINER
 		FROM PSTM_REVIEWINFO
-		WHERE REVIEWID=#{reviewid}
+		WHERE
+		REVIEWID=#{reviewid}
 	</select>
 
 	<select id="reviewsuch" parameterType="ReviewDto"
@@ -52,13 +53,16 @@
 	</update>
 
 	<delete id="delete" parameterType="int">
-		DELETE FROM PSTM_REVIEWINFO WHERE REVIEWID=#{reviewid}
+		DELETE FROM PSTM_REVIEWINFO
+		WHERE REVIEWID=#{reviewid}
 	</delete>
 
 	<select id="selectReviewList" resultMap="ReviewDtoMap">
-		SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE,
+		SELECT REVIEWID, USERID,
+		REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE,
 		TRAINERID, TRAINER
-		FROM PSTM_REVIEWINFO
+		FROM
+		PSTM_REVIEWINFO
 	</select>
 
 	<select id="selectReviewCount" resultType="int">
@@ -67,7 +71,7 @@
 	</select>
 
 	<select id="selectReviewPaging" resultType="ReviewDto"
-		parameterType="ReviewDto">
+		parameterType="hashmap">
 	
 		  <![CDATA[ 
 			SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
@@ -78,4 +82,44 @@
 			WHERE ROWNUM <= #{count} ]]>
 
 	</select>
+
+	<select id="selectSearchCount" resultType="int"
+		parameterType="ReviewDto">
+		SELECT COUNT(*) FROM
+		PSTM_REVIEWINFO
+
+		<where>
+			<if test="reviewtitle!=null">
+				REVIEWTITLE LIKE '%' || #{reviewtitle}|| '%'
+			</if>
+			<if test="trainer!=null">
+				TRAINER LIKE '%' || #{trainer} || '%'
+			</if>
+		</where>
+
+	</select>
+
+	<select id="selectSearchReviewPaging" resultType="ReviewDto"
+		parameterType="map">
+	
+		  
+			SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
+			FROM (SELECT SEQ, REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
+			FROM (SELECT ROWNUM AS SEQ, REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
+			FROM (SELECT * FROM PSTM_REVIEWINFO 
+			<where>
+			<if test="reviewTitle!=null">
+				REVIEWTITLE LIKE '%' || #{reviewTitle}|| '%'
+			</if>
+			<if test="trainerName!=null">
+				TRAINER LIKE '%' || #{trainerName} || '%'
+			</if>
+			</where>
+			)) 
+			WHERE SEQ <![CDATA[ > ]]> #{offset})
+			WHERE ROWNUM <![CDATA[<= ]]> #{count} 
+
+	</select>
+
+
 </mapper>
