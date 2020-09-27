@@ -18,7 +18,7 @@ public class ReviewDao extends SqlMapConfig {
 	private String nameReview="reviewmapper.";
 	
 	//글 목록 가져오기(검색)
-	public List<ReviewDto>reviewsuch(ReviewDto dto){
+	public List<ReviewDto> reviewsuch(ReviewDto dto){
 		
 //		ArrayList<ReviewDto>list=new ArrayList<ReviewDto>();
 //		String opt=(String)listOpt.get("opt");//검색옵션(제목, 내용 글쓴이 등..)
@@ -26,7 +26,7 @@ public class ReviewDao extends SqlMapConfig {
 //		int start=(Integer)listOpt.get("start");//현재 페이지 번호
 //		return null;
 	
-		List<ReviewDto>reviewList=new ArrayList<ReviewDto>();
+		List<ReviewDto> reviewList=new ArrayList<ReviewDto>();
 		
 		SqlSession session=null;
 		System.out.println("dao21:"+dto.getReviewtitle());
@@ -72,6 +72,7 @@ public class ReviewDao extends SqlMapConfig {
 		
 		return dto;
 	}
+	
 	public int insert(ReviewDto dto) {
 		SqlSession session=null;
 		int res=0;
@@ -99,7 +100,7 @@ public class ReviewDao extends SqlMapConfig {
 		
 		return res;
 	}
-	public List<ReviewDto>selectReviewPaging(int offset,int count){
+	public List<ReviewDto> selectReviewPaging(int offset,int count){
 		
 		SqlSession session=null;
 		List<ReviewDto>list=new ArrayList<ReviewDto>();

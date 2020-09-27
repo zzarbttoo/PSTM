@@ -1,3 +1,4 @@
+  
 package com.codachaya.controller;
 
 import java.io.File;
@@ -145,6 +146,7 @@ public class ReviewServlet extends HttpServlet {
 			} else if (command.equals("selectres")) {
 				String id = request.getParameter("ReviewId");
 				ReviewDto reviewDto = biz.selectOne(Integer.parseInt(id));
+//비즈에서 다오가서디비가서받아서받아오는거.biz..biz.?
 				request.setAttribute("reviewDto", reviewDto);
 				dispatch("reviewselect.jsp", request, response);
 			}
