@@ -106,10 +106,11 @@ public class ReviewServlet extends HttpServlet {
 			//System.out.println(such);
 			
 			ReviewDto dto=new ReviewDto();
-			List<ReviewDto>reviewDto=biz.reviewsuch(dto);
-			System.out.println("controller"+reviewDto.get(0).getTrainer());
+			dto.setReviewtitle(reviewtitle);
+			List<ReviewDto> reviewDto= biz.reviewsuch(dto);
+			//System.out.println("controller"+reviewDto.get(0).getTrainer());
 			
-			request.setAttribute("suchList",reviewDto);
+			request.setAttribute("suchList", reviewDto);
 			dispatch("review.jsp", request, response);
 			
 		}
