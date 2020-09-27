@@ -1,4 +1,3 @@
-
 <%@page import="java.util.List"%>
 <%@page import="com.codachaya.dto.ReceiptinfoDto"%>
 <%@page import="com.codachaya.dto.UserDto"%>
@@ -28,17 +27,14 @@ response.setDateHeader("Expires", 0L); // Do not cache in proxy server
 	padding: 0;
 	margin: 0;
 }
-
 header li {
 	float: left;
 }
-
 .header_wrapper {
 	width: 1100px;
 	display: flex;
 	text-align: center;
 }
-
 .header_inner {
 	background-color: #fff;
 	display: flex;
@@ -46,47 +42,39 @@ header li {
 	justify-content: center;
 	border-bottom: 1px solid #efefef;
 }
-
 .header_top_menu {
 	list-style: none;
 	font-size: 13px;
 	padding: 12px 0;
 }
-
 .header_top_menu.member-section {
 	float: right;
 	font-size: 12px;
 	line-height: 15px;
 	margin-left: auto;
 }
-
 .header_top_menu #headerMemberLogin, .header_top_menu #headerMembersignup
 	{
 	padding: 0 11px;
 	border-right: 1px solid #c4c4c4;
 }
-
 .header_top_menu #headerMemberPage {
 	padding-left: 11px;
 }
-
 #headerbottom {
 	height: 70px;
 	border-bottom: 1px solid #efefef;
 }
-
 .header_wrapper #PSTM_Logo {
 	display: flex;
 	align-items: center;
 }
-
 #PSTM_logo>h2 {
 	margin-top : 18px;
 	width: 115px;
 	height: 25px;
 	cursor: pointer;
 }
-
 #header_bottom {
 	font-size: 14px;
 	line-height: 14px;
@@ -94,11 +82,9 @@ header li {
 	align-items: center;
 	margin-left: auto;
 }
-
 #header_bottom li {
 	margin-left: 30px;
 }
-
 .header_top_menu li {
 	cursor: pointer;
 	position: relative;

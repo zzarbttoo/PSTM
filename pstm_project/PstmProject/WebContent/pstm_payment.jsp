@@ -13,62 +13,77 @@
 	min-width: 1100px;
 	padding: 30px;
 }
+
 .container {
 	text-align: center;
 }
+
 .left-area {
 	width: 640px;
 	text-align: center;
 	display: inline-block;
 	border: 1px solid grey;
-}	
+}
+
 .right-area {
 	width: 440px;
 	display: inline-block;
 	vertical-align: top;
 	margin-left: 20px;
 }
+
 .titleofpt {
 	font-size: 20px;
 	font-weight: bold;
 	color: black;
 	margin: 0px 0px 30px;
 }
+
 .inner-right-area {
 	background-color: white;
 	border: 1px solid grey;
 	padding: 30px 30px 40px;
 }
+
 .inner-left-area {
 	padding: 30px 30px 22px;
 }
+
 .right_menu {
 	margin: 5px 0 10px;
 }
+
 .right_menu>strong {
 	font-size: 15px;
 }
+
 .optionpack {
 	margin-top: 20px;
 	border-top: 1px solid grey;
 }
+
 .payingbutton {
 	margin-top: 30px;
 }
+
 .payingbutton {
 	width: 100%;
 }
+
 .trainerimgsrc {
 	border-radius: 50%;
 }
+
 .preintro {
 	font-size: 13px;
 	padding: 5px 0 15px;
 	line-height: 18px;
 }
+
 .trainername {
 	padding: 15px;
 }
+
 .trainermap {
 	padding: 15px 0;
 }
@@ -87,6 +102,12 @@
 	});
 	
 	function correct(jsonNormalUserDto, jsonTrainerDto){
+		
+		if(jsonNormalUserDto == null){
+			
+			alert("로그인해주세요!");
+			
+		}else{
 		
 		console.log(jsonNormalUserDto);
 		console.log(jsonTrainerDto);
@@ -190,7 +211,7 @@
 			
 			alert("요구 조건들을 다시 선택해주세요");
 		}
-				
+		}
 	}
 	
 	function mapPopupOpen(jsonTrainerDto) {
@@ -211,7 +232,7 @@
 <body>
 	<%@ include file="./form/pstm_header.jsp"%>
 	<%
-	UserDto trainerDto = (UserDto) request.getAttribute("trainerDto");
+		UserDto trainerDto = (UserDto) request.getAttribute("trainerDto");
 	//UserDto normalUserDto = (UserDto) request.getAttribute("normalUserDto");
 	//JsonObject로 하면 javascript로 넘길 때 오류가 발생하므로 일단 하나하나 옮기는 것으로 진행후 성공 시 차후 수정
 	JSONObject jsonNormalUserDto = JSONObject.fromObject(JSONSerializer.toJSON(userdto));
@@ -237,8 +258,9 @@
 						<p class="preanswer"><%=trainerDto.getMycomment()%></p>
 					</div>
 					<div class="trainermap">
-						<button class="trainermapbutton" onclick='mapPopupOpen(<%=jsonTrainerDto%>)'>트레이너위치 확인하기</button>
-							
+						<button class="trainermapbutton"
+							onclick='mapPopupOpen(<%=jsonTrainerDto%>)'>트레이너위치 확인하기</button>
+
 					</div>
 				</div>
 			</div>
@@ -264,6 +286,7 @@
 						<div class="right_menu menucore" style="width: 100%">
 							<select class="monthoptionselect">
 								<option value="selectmonthoption" selected="selected">가격/개월 수 선택</option>
+									
 								<option value="3month">3개월</option>
 								<option value="6month">6개월</option>
 							</select>
@@ -276,7 +299,6 @@
 						<div class="right_menu menucore">
 							<select class="payoptionselect">
 								<option value="selectmethodoption" selected="selected">결제 옵션 선택</option>
-									
 								<option value="kakaopay">카카오페이</option>
 							</select>
 						</div>

@@ -12,26 +12,22 @@
 }
 
 .chatbot {
-
-	float:left;
-	padding:0 100px;
+	float: left;
+	padding: 0 100px;
 	width: 400px;
-	display:inline-block;
+	display: inline-block;
 }
 
 .chatbot_advice {
-	padding:100px 50px;
-	width : 400px;
-	display:inline-block;
-	text-align : center;
-	
+	padding: 100px 50px;
+	width: 400px;
+	display: inline-block;
+	text-align: center;
 }
 
-.chatbot_advice > h1{
-	
+.chatbot_advice>h1 {
 	margin-bottom: 25px;
 }
-
 </style>
 <body>
 
@@ -39,6 +35,19 @@
 
 	<div class="wrapper">
 		<div class="container">
+			<%
+				if (userdto != null && userdto.getUsertype().equals('T')) {
+			%>
+			
+				<div class = "trainerChat">
+					
+					
+				</div>
+
+
+			<%
+				} else {
+			%>
 			<div class="chatbot">
 				<iframe width="350" height="430"
 					src="https://console.dialogflow.com/api-client/demo/embedded/2a5c55e5-3134-4bdc-8e8a-90d59296c43a">
@@ -53,6 +62,9 @@
 				<p>강사님 이름을 입력하면</p>
 				<p>강사님의 채팅방으로 이동 됩니다"</p>
 			</div>
+			<%
+				}
+			%>
 		</div>
 	</div>
 
