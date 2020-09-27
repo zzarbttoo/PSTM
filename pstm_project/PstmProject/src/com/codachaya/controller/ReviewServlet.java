@@ -145,26 +145,23 @@ public class ReviewServlet extends HttpServlet {
 			} else if (command.equals("selectres")) {
 				String id = request.getParameter("ReviewId");
 				ReviewDto reviewDto = biz.selectOne(Integer.parseInt(id));
-//비즈에서 다오가서디비가서받아서받아오는거.biz..biz.?
 				request.setAttribute("reviewDto", reviewDto);
 				dispatch("reviewselect.jsp", request, response);
 			}
 
 			else if (command.equals("reviewsuch")) {
-				String reviewtitle = request.getParameter("reviewtitle");
-				// String reviewtitle=request.getParameter("reviewtitle");
-				// String trainer=request.getParameter("trainer");
-				System.out.println("res" + reviewtitle);
-				// System.out.println(trainer);
-				// System.out.println(such);
-
-				ReviewDto dto = new ReviewDto();
-				List<ReviewDto> reviewDto = biz.reviewsuch(dto);
-				System.out.println("controller" + reviewDto.get(0).getTrainer());
-
-				request.setAttribute("suchList", reviewDto);
-				dispatch("review.jsp", request, response);
-
+				String reviewtitle=request.getParameter("reviewtitle"); 
+				
+				System.out.println("reviewtitle"+ reviewtitle);
+				
+				ReviewDto dto=new ReviewDto();
+				dto.setReviewtitle(reviewtitle);
+				List<ReviewDto> reviewDto=biz.reviewsuch(dto);
+				
+				request.setAttribute("suchList",reviewDto);
+				dispatch("review_such.jsp", request, response);
+				
+				
 			} else if (command.equals("reviewinsert")) {
 				response.sendRedirect("review_writer.jsp");
 				
