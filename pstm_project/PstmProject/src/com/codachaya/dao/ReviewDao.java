@@ -123,6 +123,7 @@ public class ReviewDao extends SqlMapConfig {
 		
 		return list;
 	}
+	
 	public int getselectReviewCount() {
 		SqlSession session=null;
 		session=getSqlSessionFactory().openSession(true);
