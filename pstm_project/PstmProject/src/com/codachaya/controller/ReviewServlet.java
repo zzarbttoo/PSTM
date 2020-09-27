@@ -165,7 +165,7 @@ public class ReviewServlet extends HttpServlet {
 				request.setAttribute("suchList", reviewDto);
 				dispatch("review.jsp", request, response);
 
-			} else if (command.equals("reviewinser")) {
+			} else if (command.equals("reviewinsert")) {
 				response.sendRedirect("review_writer.jsp");
 				
 			}else if (command.equals("update")) {
@@ -218,6 +218,7 @@ public class ReviewServlet extends HttpServlet {
 				}
 			}else if (command.equals("getimg")) {
 				// Response에 결과값을 String으로 보낼 때 사용
+				// 이미지 주소값
 				ServletOutputStream imgout = response.getOutputStream();
 				String imgPath = request.getSession().getServletContext().getRealPath("imgfolder");
 				String uploadimg = request.getParameter("uploadimg"); // db에 저장된 값 가져와서 넣어주기

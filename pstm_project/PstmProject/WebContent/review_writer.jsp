@@ -114,8 +114,10 @@
 						
 						</table>
 						<textarea name="reviewcontent" id="summernote" class="summernote" style="margin: 0;"></textarea>
-						<input type="file" name="uploadimg" value="파일">
-					<table style="float: right;">
+						
+						<input type="file" name="uploadimg" id="imput_img" class="excelfile">
+						
+						<table style="float: right;">
 						<tr>
 							<td colspan="2" align="right">
 							<input type="button" value="취소" onclick="location.href='review.do?command=review'" /> 
