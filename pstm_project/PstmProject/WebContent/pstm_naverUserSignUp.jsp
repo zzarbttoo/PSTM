@@ -86,12 +86,17 @@ th {
 
 <h1>회원 가입</h1>
 
-<form action="signup.do" method="get">
+<form action="signup.do" method="post">
 	<input type="hidden" name="command" value="signupNaver"/>
 	<input type="hidden" name="id" value="<%=userid %>"/>
 	<input type="hidden" name="imgurl" value="<%=imgurl %>"/>
 		
 		<table>
+		
+				<tr>
+					<th>프로필 사진</th>
+					<td><input type="text" name="imgurl" value="<%=imgurl %>"/></td>
+				</tr>
 				<tr>
 					<th>이름</th>
 					<td><input type="text" name="name" value="<%=name %>" readonly="readonly"/></td>				

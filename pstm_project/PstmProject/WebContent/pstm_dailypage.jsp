@@ -73,7 +73,8 @@
 	
 					
 				<tr>
-					<td colspan="4"><img src="daily.do?command=getimg&uploadimg=<%=dietList.get(i).get(j).getUploadimg()%>"></td>
+					<td colspan="4">
+					<img src="daily.do?command=getimg&uploadimg=<%=dietList.get(i).get(j).getUploadimg()%>"></td>
 				</tr>
 				<tr>
 					<td>

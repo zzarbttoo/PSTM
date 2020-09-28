@@ -5,7 +5,6 @@
 	var socket = io.connect('http://localhost:9999');
 	//접속 완료
 	socket.on('connect', function(istrainer, trainername, trainernum) {
-		//socket.emit('adduser', prompt("What's your name?"));
 		socket.emit('adduser', "익명");
 			
 	});
@@ -21,26 +20,13 @@
 		$.each(rooms, function(key, value) {
 			
 			if (value == current_room) {
-				//$('#rooms').append('<div>' + value + '</div>');
 				$('#roomtitle').text( "트레이너\n" + current_room + "의 \n채팅방");
 			} 
 			
-			/*else {
-				$('#rooms').append(
-						'<div><a href="#" onclick="switchRoom(\'' + value
-								+ '\')">' + value + '</a></div>');
-			}
-			
-			*/
 		});
 	});
 
-	/*
-	function switchRoom(room) {
-		socket.emit('switchRoom', room);
-	}
 	
-	*/
 
 	// on load of page
 	$(function() {

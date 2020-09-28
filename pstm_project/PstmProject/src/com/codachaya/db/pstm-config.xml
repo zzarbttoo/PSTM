@@ -3,6 +3,10 @@
 <configuration>
 
  <properties resource ="com/codachaya/db/db.properties"></properties>
+ 
+ <settings>
+   <setting name="jdbcTypeForNull" value="NULL"/>
+ </settings>
 
 <typeAliases>
 

@@ -1,81 +1,125 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="reviewmapper">
-<resultMap type="ReviewDto" id="ReviewDto">
+	<resultMap type="ReviewDto" id="ReviewDtoMap">
 
-<result property="reviewid" column="REVIEWID"/>
-<result property="userid" column="USERID"/>
-<result property="reviewtitle" column="REVIEWTITLE"/>
-<result property="reviewcontent" column="REVEIWCONTENT"/>
-<result property="uploadimg" column="UPLOADIMG"/>
-<result property="regdate" column="REGDATE"/>
-<result property="trainerid" column="TRAINERID"/>
-<result property="trainer" column="TRAINER"/>
-</resultMap>
+		<result property="reviewid" column="REVIEWID" />
+		<result property="userid" column="USERID" />
+		<result property="reviewtitle" column="REVIEWTITLE" />
+		<result property="reviewcontent" column="REVEIWCONTENT" />
+		<result property="uploadimg" column="UPLOADIMG" />
+		<result property="regdate" column="REGDATE" />
+		<result property="trainerid" column="TRAINERID" />
+		<result property="trainer" column="TRAINER" />
+	</resultMap>
 
-<select id="selectList" resultMap="ReviewDto">
-	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
-	FROM PSTM_REVIEWINFO
-</select>
+	<insert id="insert" parameterType="ReviewDto">
+		INSERT INTO PSTM_REVIEWINFO
+		VALUES(PSTM_REVIEWIDSEQ.NEXTVAL,1,#{reviewtitle},#{reviewcontent},
+		#{uploadimg},SYSDATE,#{trainerid},#{trainer})
+	</insert>
 
-<insert id="insert" parameterType="ReviewDto">
-	INSERT INTO PSTM_REVIEWINFO
-	VALUES(PSTM_REVIEWIDSEQ.NEXTVAL,#{userid},#{reviewtitle},#{reviewcontent},
-	#{uploadimg},SYSDATE,#{trainerid},#{trainer})
-</insert>
+	<select id="selectOne" parameterType="int"
+		resultType="ReviewDto">
+		SELECT REVIEWID, USERID, REVIEWTITLE,
+		REVIEWCONTENT,UPLOADIMG,REGDATE,TRAINER
+		FROM PSTM_REVIEWINFO
+		WHERE
+		REVIEWID=#{reviewid}
+	</select>
 
-<select id="selectOne" parameterType="int" resultType="ReviewDto">
-	SELECT REVIEWID, USERID,  REVIEWTITLE, REVIEWCONTENT,UPLOADIMG,REGDATE,TRAINER
-	FROM PSTM_REVIEWINFO
-	WHERE REVIEWID=#{reviewid}
-</select>
-
-<select id="selectsuch" parameterType="ReviewDto" resultType="ReviewDto">
-	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
-	FROM PSTM_REVIEWINFO
-	<where>
-		<if test="reviewtitle!=null">
-			 REVIEWTITLE LIKE '%' || #{reviewtitle}|| '%' 
-		</if>
-		<if test="trainer!=null">
-			TRAINER LIKE '%' || #{trainer} || '%'
-		</if>
-	</where>
-</select>
-
+	<select id="reviewsuch" parameterType="ReviewDto"
+		resultMap="ReviewDtoMap">
+		SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG,
+		REGDATE, TRAINERID, TRAINER
+		FROM PSTM_REVIEWINFO
+		<where>
+			<if test="reviewtitle!=null">
+				REVIEWTITLE LIKE '%' || #{reviewtitle}|| '%'
+			</if>
+			<if test="trainer!=null">
+				TRAINER LIKE '%' || #{trainer} || '%'
+			</if>
+		</where>
 
 
+	</select>
 
-<update id="update" parameterType="ReviewDto">
-UPDATE PSTM_REVIEWINFO 
-SET REVIEWTITLE=#{reviewtitle},TRAINER=#{trainer},REVIEWCONTENT=#{reviewcontent}
-WHERE REVIEWID=#{reviewid}
-</update>
+	<update id="update" parameterType="ReviewDto">
+		UPDATE PSTM_REVIEWINFO
+		SET
+		REVIEWTITLE=#{reviewtitle},TRAINER=#{trainer},REVIEWCONTENT=#{reviewcontent}
+		WHERE REVIEWID=#{reviewid}
+	</update>
 
+	<delete id="delete" parameterType="int">
+		DELETE FROM PSTM_REVIEWINFO
+		WHERE REVIEWID=#{reviewid}
+	</delete>
 
+	<select id="selectReviewList" resultMap="ReviewDtoMap">
+		SELECT REVIEWID, USERID,
+		REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE,
+		TRAINERID, TRAINER
+		FROM
+		PSTM_REVIEWINFO
+	</select>
 
+	<select id="selectReviewCount" resultType="int">
+		SELECT COUNT(*) FROM
+		PSTM_REVIEWINFO
+	</select>
 
-<delete id="delete" parameterType="int">
-	DELETE FROM PSTM_REVIEWINFO WHERE REVIEWID=#{reviewid}
-</delete>
-<select id="selectReviewList" resultMap="ReviewDto">
-	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
-	FROM PSTM_REVIEWINFO
-</select>
-<select id="selectReviewCount" resultMap="ReviewDto">
-	SELECT COUNT(*) FROM REVIEWINFO WHERE REVIEWID
-</select>
-<select id="selectReviewPaging" resultType="ReviewDto" parameterType="ReviewDto">
-
-	SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG,REGDATE, TRAINERID, TRAINER
-	FROM(
-		SELECT SEQ, REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT,UPLOADIMG, REGDATE, TRAINERID, TRAINER	
-		FROM(SELECT ROWNUM AS SEQ, REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG,REGDATE, TRAINERID, TRAINER
-			FROM(SELECT*FROM REVIEWINFO WHERE REVIEWID ORDER BY REVIEWID DESC)
-			)
-	WHERE SEQ<![CDATA[ > ]]> #{offset}
-		)
-	WHERE ROWNUM<![CDATA[ >= ]]> #{count}
+	<select id="selectReviewPaging" resultType="ReviewDto"
+		parameterType="hashmap">
 	
-</select>
+		  <![CDATA[ 
+			SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
+			FROM (SELECT SEQ, REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
+			FROM (SELECT ROWNUM AS SEQ, REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
+			FROM (SELECT * FROM PSTM_REVIEWINFO) ) 
+			WHERE SEQ > #{offset})
+			WHERE ROWNUM <= #{count} ]]>
+
+	</select>
+
+	<select id="selectSearchCount" resultType="int"
+		parameterType="ReviewDto">
+		SELECT COUNT(*) FROM
+		PSTM_REVIEWINFO
+
+		<where>
+			<if test="reviewtitle!=null">
+				REVIEWTITLE LIKE '%' || #{reviewtitle}|| '%'
+			</if>
+			<if test="trainer!=null">
+				TRAINER LIKE '%' || #{trainer} || '%'
+			</if>
+		</where>
+
+	</select>
+
+	<select id="selectSearchReviewPaging" resultType="ReviewDto"
+		parameterType="map">
+	
+		  
+			SELECT REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
+			FROM (SELECT SEQ, REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
+			FROM (SELECT ROWNUM AS SEQ, REVIEWID, USERID, REVIEWTITLE, REVIEWCONTENT, UPLOADIMG, REGDATE, TRAINERID, TRAINER
+			FROM (SELECT * FROM PSTM_REVIEWINFO 
+			<where>
+			<if test="reviewTitle!=null">
+				REVIEWTITLE LIKE '%' || #{reviewTitle}|| '%'
+			</if>
+			<if test="trainerName!=null">
+				TRAINER LIKE '%' || #{trainerName} || '%'
+			</if>
+			</where>
+			)) 
+			WHERE SEQ <![CDATA[ > ]]> #{offset})
+			WHERE ROWNUM <![CDATA[<= ]]> #{count} 
+
+	</select>
+
+
 </mapper>

@@ -47,9 +47,7 @@
 									'Comic Sans MS', 'Courier New', ],
 							placeholder : '최대 2048자 까지 쓸 수 있습니다.'
 						});
-
 			})
-
 	function updateSummernoteImageFile(file, editor) {
 		data = new FormData();
 		data.append("file", file);
@@ -98,9 +96,10 @@
 
 
 			<div class="right-container">
-				<form action="review.do" method="post">
+				<form action="review.do" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="command" value="insertres">
 					<table border="1">
+					
 						<tr>
 							<td>제목<input type="text" name="reviewtitle" /></td>
 							<td>강사선택 <select name="trainer" id="searchYear">
@@ -108,18 +107,21 @@
 									<option value="배유진 강사님">배유진 강사님</option>
 									<option value="박준범 강사님">박준범 강사님</option>
 							</select>
+
+
 							</td>
 						</tr>
 						
 						</table>
-						<textarea name="reviewcontent" id="summernote" class="summernote"
-							style="margin: 0;"></textarea>
+						<textarea name="reviewcontent" id="summernote" class="summernote" style="margin: 0;"></textarea>
 						
-					<table style="float: right;">
+						<input type="file" name="uploadimg" id="imput_img" class="excelfile">
+						
+						<table style="float: right;">
 						<tr>
 							<td colspan="2" align="right">
 							<input type="button" value="취소" onclick="location.href='review.do?command=review'" /> 
-							<input type="submit" value="작성" onclick="location.href='review.do?command=insertres'" /></td>
+							<input type="submit" value="작성" /></td>
 						</tr>
 					</table>
 				</form>

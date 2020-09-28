@@ -94,10 +94,10 @@ public class PayingServlet extends HttpServlet {
 			// int normalUserId = Integer.parseInt(request.getParameter("normalUserId"));
 
 			// 여기에는 임시로 추가를 하며, 로그인 처리 이후 이 코드는 삭제(userid = 39)
-			int normalUserId = 39;
+			//int normalUserId = 39;
 
 			UserDto trainerDto = biz.selectTrainerOne(trainerUserId);
-			UserDto normalUserDto = biz.selectNormalUserOne(normalUserId);
+			//UserDto normalUserDto = biz.selectNormalUserOne(normalUserId);
 
 			// Dto 안에 null 처리 해주기
 			if (trainerDto.getCareer() == null) {
@@ -108,7 +108,7 @@ public class PayingServlet extends HttpServlet {
 			}
 
 			request.setAttribute("trainerDto", trainerDto);
-			request.setAttribute("normalUserDto", normalUserDto);
+			//request.setAttribute("normalUserDto", normalUserDto);
 			dispatch("pstm_payment.jsp", request, response);
 
 		} else if (command.equals("paymentres")) {
