@@ -14,11 +14,13 @@
 	String reviewtitle=request.getParameter("reviewtitle");
 	String trainer=request.getParameter("trainer");
 	String reviewcontent=request.getParameter("reviewcontent");
+	String uploadimg=request.getParameter("uploadimg");
 	
 	ReviewDto dto=new ReviewDto();
 	dto.setReviewtitle(reviewtitle);
 	dto.setTrainer(trainer);
 	dto.setReviewcontent(reviewcontent);
+	dto.setUploadimg(uploadimg);
 	
 	ReviewDao dao=new ReviewDao();
 	int res=dao.insert(dto);

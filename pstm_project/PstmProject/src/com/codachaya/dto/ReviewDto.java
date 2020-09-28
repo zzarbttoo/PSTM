@@ -42,8 +42,8 @@ public class ReviewDto {
 	public String getReviewtitle() {
 		return reviewtitle;
 	}
-	public void setReviewtitle(String revewtitle) {
-		this.reviewtitle = revewtitle;
+	public void setReviewtitle(String reviewtitle) {
+		this.reviewtitle = reviewtitle;
 	}
 	public String getReviewcontent() {
 		return reviewcontent;
