@@ -11,6 +11,11 @@
 	width: 1100px;
 }
 
+.container{
+
+	text-align : center;
+}
+
 .chatbot {
 	float: left;
 	padding: 0 100px;
@@ -18,7 +23,15 @@
 	display: inline-block;
 }
 
+
 .chatbot_advice {
+	padding: 100px 50px;
+	width: 400px;
+	display: inline-block;
+	text-align: center;
+}
+
+.trainer_advice {
 	padding: 100px 50px;
 	width: 400px;
 	display: inline-block;
@@ -29,21 +42,55 @@
 	margin-bottom: 25px;
 }
 </style>
+<script type="text/javascript"
+	src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript">
+
+	var popUrl = "http://localhost:9999/PstmProject/trainerchating";
+	var popOption = "width=500, height=700, resizable=no, scrollbars=no, status=no;"; //팝업창 옵션(option)
+	var popUpPage = null;
+	
+	//trainerUserid를 나타나게 하는 지 모르겠다
+	function gotochat(trainername, traineruserid) {
+
+		
+		
+		alert(trainername + traineruserid);
+		popUpPage = window.open(popUrl, "", popOption);
+
+		$.ajax({
+
+			url : popUrl,
+			method : "GET",
+			data : {
+
+				'trainername' : trainername,
+				'trainernum' : traineruserid,
+				'istrainer' : 'true'
+			}
+		});
+		
+	
+
+	}
+</script>
 <body>
 
 	<%@ include file="./form/pstm_header.jsp"%>
-
+	
 	<div class="wrapper">
 		<div class="container">
 			<%
-				if (userdto != null && userdto.getUsertype().equals('T')) {
+				if (userdto != null && userdto.getUsertype().equals("T")) {
+				System.out.println("나는 트레이너다");
 			%>
-			
-				<div class = "trainerChat">
-					
-					
-				</div>
 
+			<div class="trainerChat"></div>
+			<div class="trainer_advice">
+				<p>버튼을 클릭하면</p>
+				<p>강사님의 채팅방으로 이동 됩니다"</p>
+				<button onclick="gotochat('<%=userdto.getName()%>',<%=userdto.getUserid()%>)">채팅방 입장하기</button>
+			</div>
 
 			<%
 				} else {
