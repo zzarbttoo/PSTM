@@ -21,7 +21,7 @@
 		frm.method = "POST";
 		frm.enctype = "multipart/form-data";
 		var fileData = new FormData(frm);
-		
+
 		jQuery.ajax({
 			type:"POST",
 			enctype:"multipart/form-data",
@@ -33,12 +33,15 @@
 			processData:false,
 			dataType:"json",
 			success:function(msg){
+				
 				jQuery("#createupload")[0].reset();
 			},
 			fail:function(){
 				;
 			}
 		});
+		
+		
 	}
 </script>
 <script>
@@ -51,6 +54,7 @@
 				  contentType : "application/text; charset=UTF-8 ",
 				  dataType : "json",
 				  success : function(data) {
+					  
 					  //alert("성공했지비"+data)
 					 var obj = JSON.stringify(data);
 					  
@@ -92,7 +96,13 @@
 				
 			})
 		}
-		
+		function preview(){
+			var fileValue = $(".excelFile").val().split("\\");
+			var filename = fileValue[fileValue.length-1];
+			
+			$("#view").attr("src","imgfolder/"+filename);
+			alert(filename);
+		}
 		
 		
 </script>
@@ -116,14 +126,12 @@
 		 먹은 시간 : <input type="text" name="timeeat">
 		 
 		칼로리 : <input type="text" name="kcal">
-		 
-		 
-		 
-		 
+
 		 <input type="submit" value="upload">
 		 		
 	</form>
-	
+	<button onclick="preview()">미리보기</button>
+	 <img id="view">
 	<div>
 		<button onclick="kcalcount();">계산하기</button>
 	</div>
