@@ -113,7 +113,7 @@
 		console.log(jsonTrainerDto);
 		
 		var obj = new Object();
-		var isright;
+		var isright = null;
 		var jsonData;
 		var selectedamount = $(".monthoptionselect option:selected").text();
 		var selectedpg = $(".payoptionselect option:selected").text(); 
@@ -169,37 +169,41 @@
 							alert('결제가 완료되었습니다');
 						}
 						isright = data;
+						alert("isRight" + isright);
+						console.log(isright);
+						
+						obj.normalUserId  = jsonNormalUserDto["userid"];
+						obj.trainerUserId = jsonTrainerDto["userid"];
+						obj.imp_uid = rsp.imp_uid;
+						obj.duration = duration;
+						obj.purchaseType =selectedpg;
+						obj.price = userpay;
+						obj.isRight = isright;
+						
+						jsonData = JSON.stringify(obj);
+						alert("objisRight" + obj.isRight);
+						
+						alert(jsonData);
+						
+						$.ajax({
+							url : "paying.do",
+							method : "POST",
+							data :{
+								"command" : "paymentres",
+								"jsonData" : jsonData
+							}
+							
+						}).done(function(data){
+							
+							alert(msg);
+							//리다이렉트 조건 넣기
+							
+						});
 						
 					});
 					
 					
-					obj.normalUserId  = jsonNormalUserDto["userid"];
-					obj.trainerUserId = jsonTrainerDto["userid"];
-					obj.imp_uid = rsp.imp_uid;
-					obj.duration = duration;
-					obj.purchaseType =selectedpg;
-					obj.price = userpay;
-					obj.isRight = isright;
-					
-					jsonData = JSON.stringify(obj);
-					
-					alert(jsonData);
-					
-					$.ajax({
-						url : "paying.do",
-						method : "POST",
-						data :{
-							"command" : "paymentres",
-							"jsonData" : jsonData
-						}
-						
-					}).done(function(data){
-						
-						alert(msg);
-						//리다이렉트 조건 넣기
-						
-					});
-					
+			
 				} else {
 					
 					var msg = "결제에 실패하였습니다";
