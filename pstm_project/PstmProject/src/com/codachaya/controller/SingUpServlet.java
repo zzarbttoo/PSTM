@@ -46,7 +46,8 @@ public class SingUpServlet extends HttpServlet {
 			String mycomment = request.getParameter("mycomment");
 			String signout = request.getParameter("signout");
 			
-			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, 0, null, career, mycomment, null, signout);
+			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, 0, null,
+					career, mycomment, null, signout);
 			
 			int res = dao.insertTrainer(dto);
 			
@@ -82,7 +83,8 @@ public class SingUpServlet extends HttpServlet {
 			int height = Integer.parseInt(request.getParameter("height"));
 			String signout = "N";
 			
-			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, null, null, null, null, signout);
+			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, 
+					null, null, null, null, signout);
 					
 			int res = dao.insertNormalUser(dto);
 			

@@ -168,6 +168,9 @@ public class LoginServlet extends HttpServlet {
 						String profile_image = (String) resObj.get("profile_image");
 						String gender = (String) resObj.get("gender");
 						String name = (String) resObj.get("name");
+						System.out.println("profile:" + profile_image);
+						System.out.println("gender:" + gender);
+						System.out.println("name:" + name);
 
 						request.setAttribute("userid", id);
 						request.setAttribute("name", name);

@@ -123,6 +123,7 @@ header li {
 					if(userdto != null){
 						
 				%>		
+						<li><img src="<%=userdto.getUploadimg() %> "  style="width:50px;height:30px;"/>&nbsp;</li>
 						<li><%=userdto.getName() %></li>
 						<li id="headerMemberLogin"><a href="Login.do?command=logout">로그아웃</a></li>
 				<%

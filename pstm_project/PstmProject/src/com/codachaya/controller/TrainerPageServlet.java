@@ -32,7 +32,7 @@ public class TrainerPageServlet extends HttpServlet {
 			int trainerid = Integer.parseInt(request.getParameter("trainerid"));
 			System.out.println("trainerid:" +trainerid);
 			List<UserDto> userlist = dao.selectPayingUserList(trainerid);
-
+			System.out.println("userlist"+userlist);
 			request.setAttribute("userlist", userlist);
 			dispatch("pstm_trainerMyPage.jsp", request, response);
 

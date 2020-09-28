@@ -1,3 +1,4 @@
+<%@page import="java.util.ArrayList"%>
 <%@page import="com.codachaya.dto.LessonDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
@@ -12,7 +13,7 @@
 <style type="text/css">
 	input {
 	
-		width:90px;height:50px;
+		width:100px;height:50px;
 	
 	}
 
@@ -30,7 +31,9 @@
 %>
 
 <%
-	List<UserDto> List = (List<UserDto>) request.getAttribute("userlist");
+	List<UserDto> userlist = (ArrayList<UserDto>) request.getAttribute("userlist");
+
+	System.out.print(userlist);
 %>
 
 
@@ -55,7 +58,7 @@
 				</tr>
 				
 				<%
-					if (List.size() == 0) {
+					if (userlist.size() == 0) {
 				%>
 				<tr>
 					<td colspan="3">------작성된 글이 존재하지 않습니다.------</td>
@@ -64,15 +67,15 @@
 				<%				
 					}else{
 						
-					for( UserDto user : List){
+					for( UserDto user : userlist){
 				%>
 					<tr>
-						<td><%=user.getUploadimg() %></td>
-						<td><%=user.getName() %></td>
-						<td align="center">
-							<input type="button" value="회원관리" onclick="location.href='pstm_normalUserManagement.jsp'"/>
-							<input type="button" value="webRTC" onclick=""/>
-						</td>
+						<td><img alt="profile_image" src="<%=user.getUploadimg() %>" style="width:150px; height:100px;"></td>
+						<td>이름:<%=user.getName() %> 
+							<p>성별:<%=user.getGender() %></p>
+							<p>키:<%=user.getHeight() %></p></td>
+						<td><input type="button" value="회원관리" onclick="location.href='pstm_normalUserManagement.jsp'"/>
+							<input type="button" value="webRTC" onclick=""/></td>						
 					</tr>				
 				<%
 						}
