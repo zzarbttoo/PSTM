@@ -8,7 +8,7 @@
 		<result property="id" column="ID" />
 		<result property="password" column="PASSWORD" />
 		<result property="password_key" column="PASSWORD_KEY" />
-		<result property="name" column="NAME" />
+		<result property="name" column="NAME" />	
 		<result property="phone" column="PHONE" />
 		<result property="addr" column="ADDR" />
 		<result property="detailaddr" column="DETAILADDR" />
@@ -31,9 +31,9 @@
 		PSTM_USERINFO ORDER BY USERID DESC
 	</select>
 	
-<!-- https://m.blog.naver.com/PostView.nhn?blogId=cir213&logNo=221214715748&proxyReferer=https:%2F%2Fwww.google.com%2F -->
+	<!-- https://m.blog.naver.com/PostView.nhn?blogId=cir213&logNo=221214715748&proxyReferer=https:%2F%2Fwww.google.com%2F -->
 
-	<select id="selectOne" parameterType="String" resultType="UserDto">
+	<select id="selectOne" parameterType="int" resultType="UserDto">
 		SELECT
 		USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
 		USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER, MYCOMMENT,
@@ -152,11 +152,7 @@
 		UPLOADIMG, CAREER,
 		MYCOMMENT,ADMIT, SIGNOUT
 		FROM PSTM_USERINFO
-		WHERE ID = #{id}
-		<if test='usertype == "S"'>
-			AND PASSWORD = #{password}
-		</if>
-		AND USERTYPE = #{usertype} AND SIGNOUT = 'N'
+		WHERE ID = #{id} AND SIGNOUT = 'N'
 	</select>
 	
 	<insert id="insertNormalUser" parameterType="UserDto">
@@ -174,7 +170,7 @@
 		VALUES(PSTM_USERSEQ.NEXTVAL, #{id}, #{password},
 		#{password_key}, #{name},
 		#{phone},#{addr}, #{detailaddr}, 'T',
-		#{gender}, 0, NULL, NULL,#{career}, #{mycomment},NULL, 'N')
+		#{gender}, 0, NULL,#{career}, #{mycomment},NULL, 'N')
 
 	</insert>
 
@@ -197,7 +193,7 @@
 		USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER,
 		MYCOMMENT,
 		ADMIT, SIGNOUT
-		FROM PSTM_USERINFO
+		FROM PSTM_USERINFOs
 		WHERE USERID IN
 		<choose>
 			<when test="keyIntList.size gt 0">
@@ -208,7 +204,6 @@
 			</when>
 		</choose>
 	</select>
-
-
-
+	
+	
 </mapper>

@@ -177,7 +177,6 @@
 						alert(msg);
 						//리다이렉트 조건 넣기
 						
-						
 					});
 					
 				} else {
@@ -213,9 +212,9 @@
 	<%@ include file="./form/pstm_header.jsp"%>
 	<%
 	UserDto trainerDto = (UserDto) request.getAttribute("trainerDto");
-	UserDto normalUserDto = (UserDto) request.getAttribute("normalUserDto");
+	//UserDto normalUserDto = (UserDto) request.getAttribute("normalUserDto");
 	//JsonObject로 하면 javascript로 넘길 때 오류가 발생하므로 일단 하나하나 옮기는 것으로 진행후 성공 시 차후 수정
-	JSONObject jsonNormalUserDto = JSONObject.fromObject(JSONSerializer.toJSON(normalUserDto));
+	JSONObject jsonNormalUserDto = JSONObject.fromObject(JSONSerializer.toJSON(userdto));
 	JSONObject jsonTrainerDto = JSONObject.fromObject(JSONSerializer.toJSON(trainerDto));
 	System.out.println(jsonTrainerDto);
 	%>
