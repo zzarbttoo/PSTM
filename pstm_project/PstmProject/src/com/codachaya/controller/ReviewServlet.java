@@ -1,4 +1,4 @@
-  
+
 package com.codachaya.controller;
 
 import java.io.File;
@@ -179,12 +179,14 @@ public class ReviewServlet extends HttpServlet {
             String reviewtitle = request.getParameter("reviewtitle");
             String trainer = request.getParameter("trainer");
             String reviewcontent = request.getParameter("reviewcontent");
+            String uploadimg=request.getParameter("uploadimg");
 
             ReviewDto dto = new ReviewDto();
             dto.setReviewid(reviewid);
             dto.setReviewtitle(reviewtitle);
             dto.setTrainer(trainer);
             dto.setReviewcontent(reviewcontent);
+            dto.setUploadimg(uploadimg);
 
             // ReviewDto dto = biz.update(dto);
 
