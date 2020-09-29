@@ -22,13 +22,9 @@
 <style type="text/css">
 @import url("css/review.css");
 </style>
-<style type="text/css">
-</style>
 </head>
 
 <body>
-
-	<div class="content" id="app" style="">
 
 		<%@ include file="./form/pstm_header.jsp"%>
 		<%
@@ -38,7 +34,6 @@
 
 		PagingUtil pagination = (PagingUtil) request.getAttribute("pagination");
 		List<ReviewDto> reviewList = (ArrayList<ReviewDto>) request.getAttribute("reviewList");
-
 		//임시로 생성 <- 페이지간 연결 후 삭제하기
 		if (pagination == null) {
 
@@ -59,8 +54,9 @@
 			<div class="member_header">
 				<div class="title">수강후기</div>
 				<div class="sub_title">
-					<span class="content">수강후기</span> <img class="right_arrow"
-						alt="다음버튼" src=""> <span class="color">전체보기</span>
+					<span class="content">수강후기</span> 
+					<img class="right_arrow" alt="다음버튼" src="img/right.png"> 
+					<span class="color">전체보기</span>
 				</div>
 			</div>
 			<div class="left-container">
@@ -91,12 +87,13 @@
 							<%
 								for (int i = 0; i < reviewList.size(); i++) {
 							%>
-							<div class="review_item"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
-								onclick="location.href='review.do?command=selectres&ReviewId=<%=reviewList.get(i).getReviewid()%>'">
-								<div class="review_img">
-									<img
+
+							<div class="review_item" onclick="location.href='review.do?command=selectres&ReviewId=<%=reviewList.get(i).getReviewid()%>'">
+								<div class="review_img" style="width:220px; background-position: 50%; background-size: cover;">
+									<img alt="<%=reviewList.get(i).getUploadimg()%>"
 										src="http://localhost:8787/PstmProject/imgfolder/<%=reviewList.get(i).getUploadimg()%>"
-										style="width: 150px; height: 150px;">
+										style="height: 220px; width:220px; background-position: 50%;  background-size: cover;">
+
 									<!-- 					이미지주소&이미지 이름				 -->
 								</div>
 								<div class="review_text">
@@ -134,7 +131,6 @@
 				</div>
 			</div>
 		</div>
-	</div>
 	<%@ include file="./form/pstm_footer.jsp"%>
 
 </body>

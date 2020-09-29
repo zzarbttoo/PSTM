@@ -62,10 +62,6 @@
 
 </head>
 <body>
-
-	<%@ include file="./form/pstm_header.jsp"%>
-	<form action="review.do" method="post" enctype="multipart/form-data">
-	<input type="hidden" name="command" value="insertres">
 	<div id="root">
 		<div class="styled__Content-sc-12ma6qu-1 ggiCSo">
 			<div class="styled__Wrap-sc-1p6u4xc-0 jtRefx">
@@ -74,10 +70,11 @@
 			</div>
 			<ul class="styled__DescWrap-sc-1etgh1k-0 eKCsrg">
 				<li>
-					<p>글만 등록할 수 있습니다.</p>"예시 게시물을 보고싶을 경우" 
-						<span>“리뷰 예시”</span> "를 이용해주세요.
+					<p>글만 등록할 수 있습니다.</p>
+						"예시 게시물을 보고싶을 경우" <span>“리뷰 예시”</span> "를 이용해주세요.
 						&nbsp;" <a href="https://hub.dabangapp.com" target="_blank"
 							rel="noopener noreferrer">예시 바로가기</a>
+					
 				</li>
 				<li>"기입내용을 전부 입력해주셔야 리뷰 등록이 가능합니다."</li>
 			</ul>
@@ -91,46 +88,45 @@
 					<tbody>
 						<tr>
 							<th>강사선택</th>
-							<td class="styled__Td-loqpne-0 fNOtpc" name="trainer">
-							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH"
-									>
-									<input type="radio" name="trainer" value="김선아 강사님" checked>
+							<td class="styled__Td-loqpne-0 fNOtpc">
+							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
+									<input type="radio" name="room_type" checked>
 									<p>김선아 강사님</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="trainer" value="김지훈 강사님">
+									<input type="radio" name="room_type">
 									<p>김지훈 강사님</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="trainer" value="박준범 강사님">
+									<input type="radio" name="room_type">
 									<p>박준범 강사님</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="trainer" value="배유진 강사님">
+									<input type="radio" name="room_type">
 									<p>배유진 강사님</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="trainer" value="조용승 강사님">
+									<input type="radio" name="room_type">
 									<p>조용승 강사님</p>
 							</label></td>
 						</tr>
 						<tr>
 							<th>수강 내용</th>
-							<td class="styled__Td-loqpne-0 fNOtpc" name="reviewtitle">
+							<td class="styled__Td-loqpne-0 fNOtpc">
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="building_type" value="김선아 강사님"  checked>
+									<input type="radio" name="building_type" checked>
 									<p>체중감량</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="building_type" value="김선아 강사님">
+									<input type="radio" name="building_type">
 									<p>근육 증강</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="building_type" value="김선아 강사님">
+									<input type="radio" name="building_type">
 									<p>식단 조절</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="building_type" value="김선아 강사님">
+									<input type="radio" name="building_type">
 									<p>유연성 증가</p>
 							</label>
 							</td>
@@ -149,7 +145,7 @@
 						<tr>
 							<th>수강 후기</th>
 							<td class="styled__Td-sc-1wmqs5y-0 dZxpBV">
-								<textarea name="reviewcontent" id="summernote" class="summernote1" style="margin: 0;"></textarea>
+								<textarea name="smcontent" id="summernote" class="summernote1" style="margin: 0;"></textarea>
 							</td>
 						</tr>
 						<tr>
@@ -222,15 +218,15 @@
 					class="CheckBox"></span> <span
 					class="styled__AgreeText-sc-1etgh1k-3 eUWDCR">리뷰를 작성해주셔서 감사합니다 빠진 내용이 없는지 다시한번 확인해주세요</span>
 				</label>
-				<button class="styled__CancelBtn-sc-1etgh1k-4 kcMULl" type="button" onclick="location.href='review.do?command=review'">취소</button>
-				<button class="styled__AddBtn-sc-1etgh1k-5 gsLmxa" type="submit">리뷰등록</button>
+				<button class="styled__CancelBtn-sc-1etgh1k-4 kcMULl">취소</button>
+				<button class="styled__AddBtn-sc-1etgh1k-5 gsLmxa">리뷰등록</button>
 			</div>
 		</div>
 		
 	</div>
 
-</form>
-<%@ include file="./form/pstm_footer.jsp"%>
+
+
 
 
 

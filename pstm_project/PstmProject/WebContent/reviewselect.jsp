@@ -42,20 +42,36 @@
 <script src="css/summernote/summernote-lite.js"></script>
 <script src="css/summernote/lang/summernote-ko-KR.js"></script>
 <script>
-	$(document).ready(
-			function() {
-				$('#summernote').summernote(
-						{
-							lang : 'ko-KR',
-							height : 300,
-							minHeight : null,
-							maxHeight : null,
-							focus : true,
-							fontNames : [ 'fontA', 'Arial', 'Arial Black',
-									'Comic Sans MS', 'Courier New', ],
-							fontNamesIgnoreCheck : [ 'fontA' ]
-						});
-			});
+$(document).ready(
+		function() {
+			$('#summernote').summernote(
+					{
+						lang : 'ko-KR',
+						height : 600,
+						minHeight : null,
+						maxHeight : null,
+						focus : true,
+						fontNames : [ '맑은고딕', 'Arial', 'Arial Black',
+								'Comic Sans MS', 'Courier New', ],
+						placeholder : '최대 2048자 까지 쓸 수 있습니다.'
+					});
+
+		})
+
+function updateSummernoteImageFile(file, editor) {
+	data = new FormData();
+	data.append("file", file);
+	$.ajax({
+		data : data,
+		type : "POST",
+		url : "/uploadSummernoteImageFile",
+		processData : false,
+		contentType : false,
+		success : function(data) {
+			$(editor).summernote('insertImage', data.url);
+		}
+	});
+}
 </script>
 </head>
 <%
@@ -103,9 +119,9 @@ ReviewDto dto = dao.selectOne(reviewid);
 
 				<table border="1">
 
-						<img
-							src="http://localhost:8787/PstmProject/imgfolder/<%=dto.getUploadimg()%>" style="width: 150px; height: 150px;">
-					<td><%=dto.getReviewcontent()%></td>
+						<img src="http://localhost:8787/PstmProject/imgfolder/<%=dto.getUploadimg()%>" style="width: 150px; height: 150px;">
+					<textarea name="reviewcontent" id="summernote" class="summernote" style="margin: 0;"readonly="readonly"><%=dto.getReviewcontent() %></textarea>
+
 				</table>
 				<table style="float: right;">
 					<tr>

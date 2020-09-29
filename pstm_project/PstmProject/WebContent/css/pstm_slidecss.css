@@ -1,0 +1,43 @@
+@charset "UTF-8";
+
+body ,img {
+	margin: 0;
+	padding: 0;
+	
+}
+.main{
+	position: relative;
+}
+
+.slide_one > .slide_two > div > img {
+	width: 100%;
+	height: 480px;
+	position: absolute;
+	left: 0;
+	}	
+
+
+#prebutton , #nextbutton{
+	position: absolute;
+	top: 440px;
+	
+}
+#prebutton{
+	left: 22%;
+}
+#nextbutton{
+	left: 25%;
+}
+#coatchimg{
+	position: absolute;
+	height: 480px;
+	width:100%;
+	top: 700px;
+}
+#hugi{
+	position: absolute;
+	height: 480px;
+	width:100%;
+	top: 1380px;
+}
+
