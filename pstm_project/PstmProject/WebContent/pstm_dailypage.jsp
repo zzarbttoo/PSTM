@@ -32,6 +32,11 @@
 	
 	
 %>
+<style type="text/css">
+	table{
+		margin: auto;
+	}
+</style>
 </head>
 <body>
 <%
@@ -64,6 +69,7 @@
 	<%
 	for(int i = 0; i < dailyList.size(); i++){
 		for(int j = 0; j < dietList.get(i).size(); j++){
+			System.out.println("이미지 : " + dietList.get(i).get(j).getUploadimg());
 	%>
 	<section class="main_text">
 	<p>날짜 : <%=dailyList.get(i).getRegdate() %></p>
