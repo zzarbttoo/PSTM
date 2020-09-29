@@ -116,21 +116,21 @@
 						</tr>
 						<tr>
 							<th>수강 내용</th>
-							<td class="styled__Td-loqpne-0 fNOtpc" name="reviewtitle">
+							<td class="styled__Td-loqpne-0 fNOtpc">
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="building_type" value="김선아 강사님"  checked>
+									<input type="radio"  name="reviewtitle" value="체중감량"  checked>
 									<p>체중감량</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="building_type" value="김선아 강사님">
+									<input type="radio"  name="reviewtitle" value="근육 증강">
 									<p>근육 증강</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="building_type" value="김선아 강사님">
+									<input type="radio"  name="reviewtitle" value="식단 조절">
 									<p>식단 조절</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="building_type" value="김선아 강사님">
+									<input type="radio" name="reviewtitle" value="유연성 증가">
 									<p>유연성 증가</p>
 							</label>
 							</td>
@@ -156,23 +156,23 @@
 							<th>만족도</th>
 							<td class="styled__Td-sc-1wmqs5y-0 dZxpBV">
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="room_type" checked>
+									<input type="radio" name="reviewstar" value="★ "  checked>
 									<p>★</p>
 							</label> 							
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="room_type">
+									<input type="radio" name="reviewstar" value="★★ ">
 									<p>★★</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="room_type">
+									<input type="radio" name="reviewstar" value="★★★ ">
 									<p>★★★</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="room_type">
+									<input type="radio" name="reviewstar" value="★★★★ ">
 									<p>★★★★</p>
 							</label> 
 							<label class="styled__RadioBtn-j1kyvo-0 styled__Radio-loqpne-1 dqavRH">
-									<input type="radio" name="room_type">
+									<input type="radio" name="reviewstar" value="★★★★★">
 									<p>★★★★★</p>
 							</label> 
 							</td>
@@ -200,16 +200,19 @@
 						</div>
 						<div class="styled__UploadWrap-sc-1tford7-6 diOUAM"
 							style="position: relative;">
+							
 							<button id="uploadPhoto"
 								class="styled__UploadBtn-sc-1tford7-7 biNQFM"
 								style="position: relative; z-index: 1;">사진 추가하기</button>
+							
 							<div id="html5_1eiba14p9c1115nkhln1hau1jd04_container"
 								class="moxie-shim moxie-shim-html5"
 								style="position: absolute; top: 10px; left: 10px; width: 204px; height: 145px; overflow: hidden; z-index: 0;">
-								<input id="html5_1eiba14p9c1115nkhln1hau1jd04" type="file"
+								<input id="html5_1eiba14p9c111d5nkhln1hau1jd04" type="file"
 									style="font-size: 999px; opacity: 0; position: absolute; top: 0px; left: 0px; width: 100%; height: 100%;"
 									multiple accept=".jpg,.jpeg,.png" tabindex="-1">
 							</div>
+							
 						</div>
 					</div>
 
@@ -217,10 +220,7 @@
 			</div>
 			<div class="styled__AgreeWrap-sc-1etgh1k-2 gfvOAV">
 				<label class="Checkbox__Label-ifp1yz-0 kAqGVi clearfix" size="22">
-					<input name="isAgree" type="checkbox"
-					class="Checkbox__CheckboxStd-ifp1yz-1 PcMeW" value> <span
-					class="CheckBox"></span> <span
-					class="styled__AgreeText-sc-1etgh1k-3 eUWDCR">리뷰를 작성해주셔서 감사합니다 빠진 내용이 없는지 다시한번 확인해주세요</span>
+					<span class="styled__AgreeText-sc-1etgh1k-3 eUWDCR">리뷰를 작성해주셔서 감사합니다 빠진 내용이 없는지 다시한번 확인해주세요</span>
 				</label>
 				<button class="styled__CancelBtn-sc-1etgh1k-4 kcMULl" type="button" onclick="location.href='review.do?command=review'">취소</button>
 				<button class="styled__AddBtn-sc-1etgh1k-5 gsLmxa" type="submit">리뷰등록</button>

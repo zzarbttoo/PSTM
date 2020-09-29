@@ -61,6 +61,9 @@ public class ReviewServlet extends HttpServlet {
                String trainer = multi.getParameter("trainer");
                String reviewcontent = multi.getParameter("reviewcontent");
                String uploadimg = multi.getParameter("uploadimg");
+               String reviewstar = multi.getParameter("reviewstar");
+System.out.println(reviewtitle);
+System.out.println(trainer);
 
                Enumeration files = multi.getFileNames();
                String str = (String) files.nextElement();
@@ -72,6 +75,7 @@ public class ReviewServlet extends HttpServlet {
                dto.setTrainer(trainer);
                dto.setReviewcontent(reviewcontent);
                dto.setUploadimg(uploadimg);
+               dto.setReviewstar(reviewstar);
 
                int reviewres = dao.insert(dto);
                if (reviewres > 0) {
@@ -180,6 +184,7 @@ public class ReviewServlet extends HttpServlet {
             String trainer = request.getParameter("trainer");
             String reviewcontent = request.getParameter("reviewcontent");
             String uploadimg=request.getParameter("uploadimg");
+            String reviewstar = request.getParameter("reviewstar");
 
             ReviewDto dto = new ReviewDto();
             dto.setReviewid(reviewid);
@@ -187,6 +192,7 @@ public class ReviewServlet extends HttpServlet {
             dto.setTrainer(trainer);
             dto.setReviewcontent(reviewcontent);
             dto.setUploadimg(uploadimg);
+            dto.setReviewstar(reviewstar);
 
             // ReviewDto dto = biz.update(dto);
 

@@ -125,9 +125,6 @@
 					</table>
 					
 						
-						<textarea name="reviewcontent" id="summernote" class="summernote" style="margin: 0;"></textarea>
-						
-						<input type="file" name="uploadimg" id="imput_img" class="excelfile">
 						
 						<table style="float: right;">
 						<tr>
