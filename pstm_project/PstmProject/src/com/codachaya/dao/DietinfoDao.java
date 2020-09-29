@@ -4,10 +4,13 @@ import java.util.ArrayList;
 
 
 
+
 import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import com.codachaya.dto.DietinfoDto;
 import com.codachaya.dto.NctinfoDto;
+
+import com.codachaya.dto.DietinfoDto;
 import com.codachaya.dto.UserDto;
 
 public class DietinfoDao extends SqlMapConfig{

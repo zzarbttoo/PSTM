@@ -10,9 +10,7 @@
 <%
 	response.setCharacterEncoding("UTF-8");
 %>
-<%
-	//response.setContentType("text/html; charset=UTF-8");
-%>
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -67,7 +65,7 @@
 					<div class="title">수강후기</div>
 					<ul class="class_category_list">
 						<li class="navi-item on"><a href="review.do?command=review">전체보기</a></li>
-						<li class="navi-item"><a href="review_writer.jsp">후기쓰기</a></li>
+						<li class="navi-item"><a href="review.do?command=reviewinsert">후기쓰기</a></li>
 					</ul>
 				</div>
 			</div>
@@ -95,6 +93,7 @@
 								System.out.println(reviewList.get(i).getReviewid());
 								System.out.println(reviewList.get(i).getReviewtitle());
 								System.out.println(reviewList.get(i).getTrainer());
+								System.out.println("upload"+reviewList.get(i).getUploadimg());
 							%>
 							<div class="review_item"
 								onclick="location.href='review.do?command=selectres&ReviewId=<%=reviewList.get(i).getReviewid()%>'">
@@ -102,6 +101,8 @@
 									<img alt="후기사진"
 										src="<%=reviewList.get(i).getUploadimg()%>"
 										style="width: 150px; height: 150px;">
+								<div class="review_img">
+									<img src="review.do?command=getimg&uploadimg=<%=reviewList.get(i).getUploadimg() %>" style="width: 150px; height: 150px;">
 								</div>
 								<div class="review_text">
 									<div class="review_class"><%=reviewList.get(i).getReviewtitle()%></div>

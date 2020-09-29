@@ -45,8 +45,8 @@
 	
 	.footer_logo{
 		
-		padding-top : 25px;
-		padding-left : 180px;
+		padding-top : 18px;
+		padding-left : 5%;
 		width : 250px;
 		height : 25px;
 		font-size : 30px;
@@ -69,6 +69,16 @@
 		
 	}
 	
+#footerlogo{
+text-decoration: none;
+list-style: none;
+}
+
+
+#footerlogo:visited{
+color : #8f8f8f;
+}
+	
 </style> 
 	<footer>
 		<section>
@@ -78,7 +88,7 @@
 				<tbody>
 					<tr>
 						<td class = "footer_bottom_td" style = "width:17%; text-align:left;">
-							<h1 class = "footer_logo">PSTM</h1>
+							<h1 class = "footer_logo"><a href="pstm_mainpage.jsp" id="footerlogo">PSTM</a></h1>
 						</td>	
 						<td style ="width:70% text-align : left" >	
 							<p class="copyright">

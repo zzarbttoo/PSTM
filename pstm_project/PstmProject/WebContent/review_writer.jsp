@@ -100,8 +100,8 @@
 			<div class="right-container">
 				<form action="review.do" method="post" enctype="multipart/form-data">
 				<input type="hidden" name="command" value="reinsert">
+				<input type="hidden" name="command" value="insertres">
 					<table border="1">
-					
 						<tr>
 							<td>제목<input type="text" name="reviewtitle" /></td>
 							<td>강사선택 <select name="trainer" id="searchYear">
@@ -109,8 +109,6 @@
 									<option value="배유진 강사님">배유진 강사님</option>
 									<option value="박준범 강사님">박준범 강사님</option>
 							</select>
-
-
 							</td>
 						</tr>
 						
@@ -126,11 +124,13 @@
 					</table>
 					
 						
+						<textarea name="reviewcontent" id="summernote" class="summernote" style="margin: 0;"></textarea>
+						<input type="file" name="uploadimg" value="파일">
 					<table style="float: right;">
 						<tr>
 							<td colspan="2" align="right">
 							<input type="button" value="취소" onclick="location.href='review.do?command=review'" /> 
-							<input type="submit" value="작성" onclick="location.href='review.do?command=insertres'" /></td>
+							<input type="submit" value="작성" /></td>
 						</tr>
 					</table>
 					
