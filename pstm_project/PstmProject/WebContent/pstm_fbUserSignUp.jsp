@@ -92,6 +92,12 @@ th {
 	<input type="hidden" name="imgurl" value="<%=imgurl %>"/>
 		
 		<table>
+		
+				<tr>
+					<th>프로필 사진</th>
+					<td><input type="text" name="imgurl" value="<%=imgurl %>" readonly="readonly"/></td>
+				</tr>
+				
 				<tr>
 					<th>이름</th>
 					<td><input type="text" name="name" value="<%=name %>" disabled="disabled"/></td>				

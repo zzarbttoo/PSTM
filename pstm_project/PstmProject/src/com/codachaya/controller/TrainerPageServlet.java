@@ -13,7 +13,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.codachaya.dao.UserDao;
 import com.codachaya.dto.UserDto;
 
-@WebServlet("/TrainerPageServelt")
+@WebServlet("/trainer.do")
 public class TrainerPageServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
@@ -32,10 +32,14 @@ public class TrainerPageServlet extends HttpServlet {
 			int trainerid = Integer.parseInt(request.getParameter("trainerid"));
 			System.out.println("trainerid:" +trainerid);
 			List<UserDto> userlist = dao.selectPayingUserList(trainerid);
-
+			System.out.println("userlist"+userlist);
 			request.setAttribute("userlist", userlist);
 			dispatch("pstm_trainerMyPage.jsp", request, response);
 
+		}else if(command.equals("userlist")) {
+			int userid = Integer.parseInt(request.getParameter("userid"));
+			List<UserDto> userlist = dao.selectPayingUserList(userid);
+			
 		}
 
 	}

@@ -48,7 +48,8 @@ public class SingUpServlet extends HttpServlet {
 			
 			String[] encryptedPassword = PasswordUtil.encrypt(password);
 			
-			UserDto dto = new UserDto(0, id, encryptedPassword[0], encryptedPassword[1], name, phone, addr, detailaddr, usertype, gender, 0, null, career, mycomment, null, signout);
+			UserDto dto = new UserDto(0, id, encryptedPassword[0], encryptedPassword[1], name, phone, addr, detailaddr, usertype, gender, 0, null,
+			 career, mycomment, null, signout);
 			
 			int res = dao.insertTrainer(dto);
 			
@@ -85,7 +86,8 @@ public class SingUpServlet extends HttpServlet {
 
 			String[] encryptedPassword = PasswordUtil.encrypt(password);
 			
-			UserDto dto = new UserDto(0, id, encryptedPassword[0], encryptedPassword[1], name, phone, addr, detailaddr, usertype, gender, height, null, null, null, null, signout);
+			UserDto dto = new UserDto(0, id, encryptedPassword[0], encryptedPassword[1], name, phone, addr, detailaddr, usertype, gender, height, 
+			null, null, null, null, signout);
 					
 			int res = dao.insertNormalUser(dto);
 			

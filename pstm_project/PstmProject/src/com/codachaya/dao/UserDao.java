@@ -1,6 +1,5 @@
 package com.codachaya.dao;
 
-
 import java.util.ArrayList;
 
 import java.util.HashMap;
@@ -119,30 +118,28 @@ public class UserDao extends SqlMapConfig {
 	public List<UserDto> selectPayingUserList(int trainerid) {
 
 		SqlSession session = null;
-		List<UserDto> payingUserList = new ArrayList<UserDto>();	
+		List<UserDto> payingUserList = new ArrayList<UserDto>();
 		LessonDto trainerLessonDto = new LessonDto();
 		String jsonUserdata = null;
 		ArrayList<Integer> keyIntList = new ArrayList<Integer>();
 		Map<String, Object> param = new HashMap<String, Object>();
-		
-		
 
 		try {
 			// 신청한 user을 jsonString 형태로 받아옴
 			session = getSqlSessionFactory().openSession(true);
-			
+
 			trainerLessonDto = session.selectOne(namespaceLesson + "selectOne", trainerid);
-			System.out.println(trainerLessonDto);
+
 			jsonUserdata = trainerLessonDto.getStudentid();
-			
+			System.out.println("jsonUserdata:" + jsonUserdata);
 		} catch (Exception e) {
 			System.out.println("ERROR");
 			e.printStackTrace();
-		}
+		} 
 
 		// biz단에서 실행해야 하나 biz가 없으므로 여기에 작성
 		// jsonObject 생성
-		
+
 		JsonElement element = JsonParser.parseString(jsonUserdata);
 		JsonObject userJsonObject = element.getAsJsonObject();
 
@@ -151,17 +148,23 @@ public class UserDao extends SqlMapConfig {
 
 		while (useridkeyiter.hasNext()) {
 			String key = useridkeyiter.next().toString();
+			System.out.println("key:" + key);
 			keyIntList.add(Integer.parseInt(key));
+			System.out.println("keyIntList"+keyIntList);
 		}
-		System.out.println("리스트 사이즈" + keyIntList.size());
+		System.out.println("리스트 사이즈:" + keyIntList.size());
 
 		try {
 			// Usermapper에서 해당 usernum을 가진 userdto만 꺼내온다
-			
-			param.put("keyIntList:", keyIntList);
+			// System.out.println("param1:" +param);
+			param.put("keyIntList", keyIntList);
+			 System.out.println("param2:" +param);
 			payingUserList = session.selectList(namespace + "keylistuser", param);
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			session.close();
+			System.out.println("5. DB 종료");
 		}
 
 		return payingUserList;

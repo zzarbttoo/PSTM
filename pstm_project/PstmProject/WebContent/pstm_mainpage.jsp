@@ -110,6 +110,7 @@
 			<img src="imgfolder/trainer3.jpg" style="width: 100%; height: 480px;">
 		</div>
 	</div>
+	<br>
 	<div style="text-align: center">
 		<span class="dote"></span> <span class="dote"></span> <span
 			class="dote"></span>

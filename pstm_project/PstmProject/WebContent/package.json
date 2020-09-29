@@ -7,7 +7,8 @@
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
     "express": "",
-    "socket.io": ""
+    "socket.io": "",
+    "ws": "^7.3.1"
   },
   "main": "paymentcheck.js",
   "devDependencies": {},
