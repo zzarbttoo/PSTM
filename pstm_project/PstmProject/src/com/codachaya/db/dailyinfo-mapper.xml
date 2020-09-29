@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="dailyinfomapper">
   
-  
-  
-  
-  
   <resultMap type="DailyinfoDto" id="DailyinfoDto">
   
     <result property="dailyinfoid" column="DAILYINFOID"/>
@@ -17,10 +13,6 @@
   	
   </resultMap>
   
-  
-	
-	
-
    
   <select id="selectList" resultMap="DailyinfoDto">
   	SELECT DAILYINFOID, USERID, REGDATE, EXERCISE, CONSUMEKCAL, FEEDBACK
@@ -48,5 +40,7 @@
   	DELETE FROM PSTM_DAILYINFO WHERE DAILYINFOID = #{dailyinfoid}
   </delete>
   
-
+  
+  
+  
 </mapper>

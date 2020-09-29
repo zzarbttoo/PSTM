@@ -72,8 +72,10 @@
 								onclick="location.href='review.do?command=selectres&ReviewId=<%=reviewsuch.get(i).getReviewid()%>'">
 								<div class="review_img">
 									<img alt="<%=reviewsuch.get(i).getUploadimg()%>"
-										src="review.do?command=getimg&uploadimg=<%=reviewsuch.get(i).getUploadimg()%>"
-										style="width: 150px; height: 150px;">
+										src="http://localhost:8787/PstmProject/imgfolder/<%=reviewsuch.get(i).getUploadimg()%>"
+										style="height: 220px;
+   												 background-position: 50%;
+   												 background-size: cover;">
 									<!-- 					이미지주소&이미지 이름				 -->
 								</div>
 								<div class="review_text">

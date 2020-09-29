@@ -32,6 +32,11 @@
 	
 	
 %>
+<style type="text/css">
+	table{
+		margin: auto;
+	}
+</style>
 </head>
 <body>
 <%
@@ -50,7 +55,7 @@
 			<li><a class="menulink" href="#">인바디</a></li>
 			<li><a class="menulink" href="#">강좌</a></li>
 			<li><a class="menulink" href="#">정보변경</a></li>
-			<li><a class="menulink" href="pstm_dailypage.jsp">식단/운동기록</a></li>
+			<li><a class="menulink" href="daily.do?command=selectres">식단/운동기록</a></li>
 		</ul>
 	</nav>
 	<aside class="profile">
@@ -64,6 +69,7 @@
 	<%
 	for(int i = 0; i < dailyList.size(); i++){
 		for(int j = 0; j < dietList.get(i).size(); j++){
+			System.out.println("이미지 : " + dietList.get(i).get(j).getUploadimg());
 	%>
 	<section class="main_text">
 	<p>날짜 : <%=dailyList.get(i).getRegdate() %></p>
@@ -104,8 +110,6 @@
 	
 
 	<%@include file="./form/pstm_footer.jsp"%>
-
-
 
 </body>
 </html>
