@@ -87,6 +87,7 @@
 					<p>음식이름 : <%=dietList.get(i).get(j).getResult() %></p>
 					<p>먹은시간 : <%=dietList.get(i).get(j).getTimeeat() %></p>
 					<p>칼로리 : <%=dietList.get(i).get(j).getKcal() %></p>
+					<p>피드백 : <%=dailyList.get(i).getFeedback() %></p>
 					</td>
 					
 				</tr>

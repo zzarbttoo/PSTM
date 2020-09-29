@@ -56,5 +56,15 @@ public class DailyinfoDao extends SqlMapConfig{
 		
 		return res;
 	}
+	public int feedbackinsert(DailyinfoDto dto) {
+		SqlSession session = null;
+		int res = 0;
+		
+		session = getSqlSessionFactory().openSession(true);
+		res = session.insert(namespace + "insert", dto);
+		session.close();
+		
+		return res;
+	}
 	
 }
