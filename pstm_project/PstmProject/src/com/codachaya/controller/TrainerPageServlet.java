@@ -61,9 +61,28 @@ public class TrainerPageServlet extends HttpServlet {
 					System.out.println(lists.get(i).get(j).getDietid());
 				}
 			}
+			System.out.println("list : " + list);
+			System.out.println("lists : " + lists);
 			request.setAttribute("list", list);
 			request.setAttribute("dietList", lists);
 			dispatch("pstm_nomalUserManagement.jsp", request, response);
+			
+			
+		}else if(command.equals("fbinsert")) {
+			
+			String feedback = request.getParameter("feedback");
+			
+			DailyinfoDto dailydto = new DailyinfoDto();
+			dailydto.setFeedback(feedback);
+			
+			int res = dailydao.feedbackinsert(dailydto);
+			if(res > 0) {
+				jsResponse("성공", "trainer.do?command=list", response);
+			}else {
+				jsResponse("실패", "trainer.do?command=studentlist", response);
+			}
+			
+			
 			
 			
 		}
@@ -83,6 +102,10 @@ public class TrainerPageServlet extends HttpServlet {
 		RequestDispatcher dispatch = request.getRequestDispatcher(path);
 		dispatch.forward(request, response);
 
+	}
+	private void jsResponse(String msg, String url, HttpServletResponse response) throws IOException {
+		String result = "<script> alert(\"" + msg + "\"); location.href=\"" + url + "\"; </script> ";
+		response.getWriter().append(result);
 	}
 
 }

@@ -31,7 +31,8 @@
 
 
 
-	<form action="">
+	<form action="trainer.do" method="post">
+	<input type="hidden" name="command" value="fbinsert">
 <%
 for(int i = 0; i < dailyList.size(); i++){
 	for(int j = 0; j < dietList.get(i).size(); j++){
@@ -59,7 +60,7 @@ for(int i = 0; i < dailyList.size(); i++){
 
 		</table>
 		<%
-	}
+		}
 	}
 		%>
 	</form>

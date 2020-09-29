@@ -31,6 +31,11 @@
   	VALUES(DAILYINFOIDSEQ.NEXTVAL,1, SYSDATE, '스쿼트', 150, 'ㅎㅎ')
   </insert>
   
+  <insert id="feedbackinsert" parameterType="DailyinfoDto">
+  	INSERT INTO PSTM_DAILYINFO
+  	VALUES(DAILYINFOIDSEQ.NEXTVAL, 1, SYSDATE, 'TEST',150,#{feedback})
+  </insert>
+  
   <update id="update" parameterType="DailyinfoDto">
   	UPDATE PSTM_DAILYINFO SET
   	EXERCISE = #{exercise}, CONSUMEKCAL = #{consumekcal}, FEEDBACK = #{feedback}
