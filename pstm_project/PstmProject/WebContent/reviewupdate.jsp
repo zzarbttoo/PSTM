@@ -96,6 +96,7 @@
 							</td>
 						</tr>
 					</table>
+					
 					<textarea name="reviewcontent" id="summernote" class="summernote" style="margin: 0;"><%=dto.getReviewcontent() %>
 				
 					</textarea>
@@ -107,7 +108,8 @@
 					});
 					</script>
 					
-					<input type="file" name="uploadimg" id="imput_img" class="excelfile" >
+					<input type="file" name="uploadimg" id="imput_img" class="excelfile" 
+					>
 					
 					
 					<table style="float: right;">
