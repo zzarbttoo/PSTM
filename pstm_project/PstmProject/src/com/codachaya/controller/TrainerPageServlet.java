@@ -1,6 +1,7 @@
 package com.codachaya.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.servlet.RequestDispatcher;
@@ -10,7 +11,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.codachaya.dao.DailyinfoDao;
+import com.codachaya.dao.DietinfoDao;
 import com.codachaya.dao.UserDao;
+import com.codachaya.dto.DailyinfoDto;
+import com.codachaya.dto.DietinfoDto;
 import com.codachaya.dto.UserDto;
 
 @WebServlet("/trainer.do")
@@ -22,6 +27,9 @@ public class TrainerPageServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		DietinfoDao dietdao = new DietinfoDao();
+		DailyinfoDao dailydao = new DailyinfoDao();
+		
 		String command = request.getParameter("command");
 		System.out.printf("[%s]\n", command);
 
@@ -32,13 +40,31 @@ public class TrainerPageServlet extends HttpServlet {
 			int trainerid = Integer.parseInt(request.getParameter("trainerid"));
 			System.out.println("trainerid:" +trainerid);
 			List<UserDto> userlist = dao.selectPayingUserList(trainerid);
-
+			System.out.println("userlist"+userlist);
 			request.setAttribute("userlist", userlist);
 			dispatch("pstm_trainerMyPage.jsp", request, response);
 
 		}else if(command.equals("userlist")) {
 			int userid = Integer.parseInt(request.getParameter("userid"));
 			List<UserDto> userlist = dao.selectPayingUserList(userid);
+			
+		}else if(command.equals("studentlist")) {
+			String userid = request.getParameter("userid");
+			List<DailyinfoDto> list = dailydao.selectList();
+
+			List<List<DietinfoDto>> lists = new ArrayList<List<DietinfoDto>>();
+
+			for (int i = 0; i < list.size(); i++) {
+				lists.add(dietdao.selectList(list.get(i).getDailyinfoid()));
+				
+				for(int j = 0; j < lists.get(i).size(); j++) {
+					System.out.println(lists.get(i).get(j).getDietid());
+				}
+			}
+			request.setAttribute("list", list);
+			request.setAttribute("dietList", lists);
+			dispatch("pstm_nomalUserManagement.jsp", request, response);
+			
 			
 		}
 

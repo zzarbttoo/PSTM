@@ -1,3 +1,4 @@
+
 <%@page import="com.codachaya.dao.ReviewDao"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
@@ -10,7 +11,9 @@
 <%
 	response.setCharacterEncoding("UTF-8");
 %>
-
+<%
+	//response.setContentType("text/html; charset=UTF-8");
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,27 +32,27 @@
 
 		<%@ include file="./form/pstm_header.jsp"%>
 		<%
-			//PagingUtil pagination=(PagingUtil)request.getAttribute("pagination");
-		
-		//List<ReviewDto> reviewList = (ArrayList<ReviewDto>) request.getAttribute("reviewList");
-		ReviewDao dao=new ReviewDao();
-		List<ReviewDto> reviewList=dao.selectReviewList();
-		System.out.println(reviewList.size());
-		/*
-		if(pagination !=null){
-			System.out.println(pagination);
-			System.out.println("받은 페이지 번호"+pagination.getCurrentPageNo());
+			//ReviewDao dao=new ReviewDao();
+		//List<ReviewDto> reviewList=dao.selectReviewList();
+		//System.out.println(reviewList.size());
+
+		PagingUtil pagination = (PagingUtil) request.getAttribute("pagination");
+		List<ReviewDto> reviewList = (ArrayList<ReviewDto>) request.getAttribute("reviewList");
+
+		//임시로 생성 <- 페이지간 연결 후 삭제하기
+		if (pagination == null) {
+
+			ReviewBiz biz = new ReviewBiz();
+			pagination = new PagingUtil(1, 6);
+			pagination.setRecordsPerPage(6);
+			pagination.setNumberOfRecords(biz.getselectReviewCount());
+			System.out.println("selectReviewCount" + biz.getselectReviewCount());
+			pagination.makePaging();
+			reviewList = biz.selectReviewPaging(0, 6);
+
 		}
 
-		if(pagination==null){
-			ReviewBiz biz=new ReviewBiz();
-			pagination=new PagingUtil(1, 3);
-			pagination.setRecordsPerPage(3);
-			pagination.setNumberOfRecords(biz.getselectReviewCount());
-			pagination.makePaging();
-			reviewList=biz.selectReviewPaging(0,3);
-		}
-		*/
+		System.out.println("ListSizejsp" + reviewList.size());
 		%>
 
 		<div class="review_contents wrapper">
@@ -65,7 +68,8 @@
 					<div class="title">수강후기</div>
 					<ul class="class_category_list">
 						<li class="navi-item on"><a href="review.do?command=review">전체보기</a></li>
-						<li class="navi-item"><a href="review.do?command=reviewinsert">후기쓰기</a></li>
+						<li class="navi-item"><a
+							href="review.do?command=reviewinsert">후기쓰기</a></li>
 					</ul>
 				</div>
 			</div>
@@ -74,68 +78,61 @@
 					<div class="review_wrapper">
 						<div class="title">전체후기</div>
 						<form action="review.do" method="post">
-							
-								<input type="hidden" name="command" value="reviewsuch" />
-								<select name="such" >
-									<option value="reviewtitle">제목</option>
-									<option value="trainer">트레이너</option>
-								</select>
-								<input type="text" name="reviewtitle">
-								<input type="submit" value="검색">
+
+							<input type="hidden" name="command" value="reviewsuch" /> <select
+								name="such">
+								<option value="reviewtitle">제목</option>
+								<option value="trainer">트레이너</option>
+							</select> <input type="text" name="reviewtitle"> <input
+								type="submit" value="검색">
 
 						</form>
 						<div class="body-wrapper">
 							<%
 								for (int i = 0; i < reviewList.size(); i++) {
-
-								System.out.println(i);
-								System.out.println(reviewList.get(i));
-								System.out.println(reviewList.get(i).getReviewid());
-								System.out.println(reviewList.get(i).getReviewtitle());
-								System.out.println(reviewList.get(i).getTrainer());
-								System.out.println("upload"+reviewList.get(i).getUploadimg());
 							%>
-							<div class="review_item"
+							<div class="review_item"                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 
 								onclick="location.href='review.do?command=selectres&ReviewId=<%=reviewList.get(i).getReviewid()%>'">
 								<div class="review_img" style="background-color: green;">
 									<img alt="후기사진"
 										src="<%=reviewList.get(i).getUploadimg()%>"
 										style="width: 150px; height: 150px;">
 								<div class="review_img">
-									<img src="review.do?command=getimg&uploadimg=<%=reviewList.get(i).getUploadimg() %>" style="width: 150px; height: 150px;">
+									<img
+										src="http://localhost:8787/PstmProject/imgfolder/<%=reviewList.get(i).getUploadimg()%>"
+										style="width: 150px; height: 150px;">
+									<!-- 					이미지주소&이미지 이름				 -->
 								</div>
 								<div class="review_text">
 									<div class="review_class"><%=reviewList.get(i).getReviewtitle()%></div>
 									<div class="review_summary"><%=reviewList.get(i).getTrainer()%></div>
 								</div>
-							</div>
-							<%
+							</div>                            
+							<%                                     
 								}
 							%>
 						</div>
 
-						<div class="subscription_navigation">
-							<%-->	<%
-					for (int i = pagination.getStartPageNo(); i <= pagination.getEndPageNo(); i++) {
+						<div class="subscription_navigation"></div>
+						<div class="reviewPage_navigation">
+							<%
+								for (int i = pagination.getStartPageNo(); i <= pagination.getEndPageNo(); i++) {
+								System.out.println(i);
+								System.out.println(pagination.getCurrentPageNo());
+								if (i == pagination.getCurrentPageNo()) {
+							%>
 
-					System.out.println(i);
-					System.out.println(pagination.getCurrentPageNo());
-					if (i == pagination.getCurrentPageNo()) {*/
-				%> -->
+							<%=i%>
+							<%
+								} else {
+							%>
 
-				<%=i%>
+							<a href="review.do?command=review&pages=<%=i%>"><%=i%></a>
 
-
-				<%
-					//} else {
-				%>
-
-				<a href="review.do?command=review&reviewid=<%=i%>"><%=i%></a>
-
-				<%
-					//}
-				//}
-				%>   --%>
+							<%
+								}
+							}
+							%>
 						</div>
 					</div>
 				</div>

@@ -145,9 +145,6 @@ public class DailyController extends HttpServlet {
 					for(int j = 0; j < lists.get(i).size(); j++) {
 						System.out.println(lists.get(i).get(j).getDietid());
 					}
-					// list.get(i); - DailyInfo 
-					// lists.get(i); - DietInfoList
-					// lists.get(0).get(0); // 
 				}
 				
 				request.setAttribute("list", list);
