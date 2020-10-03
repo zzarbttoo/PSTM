@@ -75,7 +75,7 @@
                      <p>성별:<%=user.getGender() %></p>
                      <p>키:<%=user.getHeight() %></p>
                   </td>
-                  <td><input type="button" value="회원관리" onclick="trainer.do?command=studentlist<%=user.getUserid()%>"/>
+                  <td><input type="button" value="회원관리" onclick="location.href='yana.do?command=studentlist&userid=<%=user.getUserid()%>'"/>
                      <input type="button" value="webRTC" onclick=""/></td>               
 
                </tr>            
@@ -89,7 +89,6 @@
       
             
       </table>
->>>>>>> e229012248a6383ff3aeabf164f3c2ec7d0b10a4
 
 
 <%@ include file="./form/pstm_footer.jsp"%>

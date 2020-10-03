@@ -128,18 +128,19 @@
 	<div>
 		<h1>후기 게시판</h1>
 	</div>
-	<div>
+ 	
+ 	<div>
 	<%
 	ReviewDao dao = new ReviewDao();
-	ReviewDto dto = dao.selectOne(36);
+	ReviewDto dto = dao.selectOne(18);
 	 String firstimg = dto.getUploadimg();
 	 String firsttitle = dto.getReviewtitle();
 	 System.out.println(firstimg);
 	 System.out.println(firsttitle);
-	 ReviewDto dtto = dao.selectOne(37);
+	 ReviewDto dtto = dao.selectOne(2);
 	 String twoimg = dtto.getUploadimg();
 	 String twotitle = dtto.getReviewtitle();
-	 ReviewDto ddto = dao.selectOne(38);
+	 ReviewDto ddto = dao.selectOne(1);
 	 String threeimg = ddto.getUploadimg();
 	 String threetitle = ddto.getReviewtitle();
 	%>
@@ -152,7 +153,6 @@
 		<img src="<%= threeimg%>">
 		<p><%= threetitle %></p>
 	</div>
-
 
 
 	<%@ include file="./form/pstm_footer.jsp"%>

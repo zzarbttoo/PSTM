@@ -105,7 +105,7 @@ public class TrainerPageServlet extends HttpServlet {
 			System.out.println("lists : " + lists);
 			request.setAttribute("list", list);
 			request.setAttribute("dietList", lists);
-			dispatch("pstm_nomalUserManagement.jsp", request, response);
+			dispatch("pstm_normalUserManagement.jsp", request, response);
 
 		} else if (command.equals("fbinsert")) {
 
