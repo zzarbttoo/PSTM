@@ -20,6 +20,9 @@ import com.codachaya.dto.DailyinfoDto;
 import com.codachaya.dto.DietinfoDto;
 import com.codachaya.dto.LessonDto;
 import com.codachaya.dto.ReceiptinfoDto;
+import com.codachaya.dao.DailyinfoDao;
+import com.codachaya.dao.DietinfoDao;
+
 import com.codachaya.dto.UserDto;
 
 @WebServlet("/trainer.do")
@@ -31,6 +34,9 @@ public class TrainerPageServlet extends HttpServlet {
 
 		request.setCharacterEncoding("UTF-8");
 		response.setContentType("text/html; charset=UTF-8");
+		DietinfoDao dietdao = new DietinfoDao();
+		DailyinfoDao dailydao = new DailyinfoDao();
+
 		String command = request.getParameter("command");
 		System.out.printf("[%s]\n", command);
 
@@ -72,8 +78,8 @@ public class TrainerPageServlet extends HttpServlet {
 
 			List<LessonDto> lessonList = biz.selectClassContent(idList);
 			System.out.println("lessonList:" + lessonList);
-			
-			for(LessonDto less : lessonList) {
+
+			for (LessonDto less : lessonList) {
 				less.getClasscontent();
 				System.out.println("less.getClasscontent():" + less.getClasscontent());
 			}
@@ -82,9 +88,7 @@ public class TrainerPageServlet extends HttpServlet {
 			request.setAttribute("lessonList", lessonList);
 			dispatch("pstm_studentmypage.jsp", request, response);
 
-		}
-		
-		else if(command.equals("studentlist")) {
+		} else if (command.equals("studentlist")) {
 			String userid = request.getParameter("userid");
 			List<DailyinfoDto> list = dailydao.selectList();
 
@@ -92,8 +96,8 @@ public class TrainerPageServlet extends HttpServlet {
 
 			for (int i = 0; i < list.size(); i++) {
 				lists.add(dietdao.selectList(list.get(i).getDailyinfoid()));
-				
-				for(int j = 0; j < lists.get(i).size(); j++) {
+
+				for (int j = 0; j < lists.get(i).size(); j++) {
 					System.out.println(lists.get(i).get(j).getDietid());
 				}
 			}
@@ -102,27 +106,22 @@ public class TrainerPageServlet extends HttpServlet {
 			request.setAttribute("list", list);
 			request.setAttribute("dietList", lists);
 			dispatch("pstm_nomalUserManagement.jsp", request, response);
-			
-			
-		}else if(command.equals("fbinsert")) {
-			
+
+		} else if (command.equals("fbinsert")) {
+
 			String feedback = request.getParameter("feedback");
-			
+
 			DailyinfoDto dailydto = new DailyinfoDto();
 			dailydto.setFeedback(feedback);
-			
+
 			int res = dailydao.feedbackinsert(dailydto);
-			if(res > 0) {
+			if (res > 0) {
 				jsResponse("성공", "trainer.do?command=list", response);
-			}else {
+			} else {
 				jsResponse("실패", "trainer.do?command=studentlist", response);
 			}
-			
-			
-			
-			
+
 		}
-		
 
 	}
 
@@ -140,7 +139,7 @@ public class TrainerPageServlet extends HttpServlet {
 		dispatch.forward(request, response);
 
 	}
-	
+
 	private void jsResponse(String msg, String url, HttpServletResponse response) throws IOException {
 		String result = "<script> alert(\"" + msg + "\"); location.href=\"" + url + "\"; </script> ";
 		response.getWriter().append(result);

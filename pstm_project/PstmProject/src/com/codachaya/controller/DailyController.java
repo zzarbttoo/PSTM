@@ -145,9 +145,6 @@ public class DailyController extends HttpServlet {
 					for(int j = 0; j < lists.get(i).size(); j++) {
 						System.out.println(lists.get(i).get(j).getDietid());
 					}
-					// list.get(i); - DailyInfo 
-					// lists.get(i); - DietInfoList
-					// lists.get(0).get(0); // 
 				}
 				
 				request.setAttribute("list", list);
@@ -270,27 +267,22 @@ public class DailyController extends HttpServlet {
 	protected List<String> Vision(String Path, String filename) throws ServletException, IOException {
 
 		ImageAnnotatorClient vision = ImageAnnotatorClient.create();
+		// ImageAnnotatorClient : 이미지에서 감지된 엔티티를 반환한다.
 
 		String fileName = Path + "\\" + filename;
-		// String fileName = "C:\\Users\\feelj\\OneDrive\\바탕
-		// 화면\\semi\\PSTM\\pstm_project\\PstmProject\\WebContent\\img\\515966_540.jpg";
-
-		// Path : 파일을 찾는 개체, 파일 경로를 나타냄
+		// 파일 경로와 파일 이름
+		
 		Path path = Paths.get(fileName);
-
-		// 파일 경로 콘솔에 출력
+		// Path : 파일을 찾는데 사용할 수 있는 개체
 		System.out.println(path.toAbsolutePath());
 
-		// readAllBytes : 파일의 모든 byte를 읽는다 파일에 오류가 나면 파일이 닫힘
 		byte[] data = Files.readAllBytes(path);
-		// ByteString : 바이트 스트림으로 표시되는 이미지 콘텐츠
-		// copyFrom : 주어진 바이트를 ByteString에 복사
+		// readAllBytes : 파일에 모든 바이트를 읽어온다
 		ByteString imgBytes = ByteString.copyFrom(data);
+		// ByteString : 바이트 시퀀스의 집합
 
-		// AnnotateImageRequest : 이미지, 사용자 요청 기능 및 컨텍스트 정보
 		List<AnnotateImageRequest> requests = new ArrayList<AnnotateImageRequest>();
-		// Image : Google Cloud Vision API 작업을 수행 할 클라이언트 이미지
-		// setContent : 바이트로 표시되는 이미지
+		// AnnotateImageRequest : 구글 비전에 사용할 이미지의 정보
 		Image img = Image.newBuilder().setContent(imgBytes).build();
 		Feature feat = Feature.newBuilder().setType(Type.LABEL_DETECTION).build();
 		AnnotateImageRequest requestres = AnnotateImageRequest.newBuilder().addFeatures(feat).setImage(img).build();
@@ -298,11 +290,12 @@ public class DailyController extends HttpServlet {
 
 		BatchAnnotateImagesResponse responseres = vision.batchAnnotateImages(requests);
 		List<AnnotateImageResponse> responses = responseres.getResponsesList();
+		// AnnotateImageResponse : 이미지요청에 대한 응답
 		List<String> result = new ArrayList<String>();
 		for (AnnotateImageResponse res : responses) {
 			if (res.hasError()) {
 				System.out.printf("Error:%s\n", res.getError().getMessage());
-				return null; // 나중에 null 꼭찾아와~~ 까먹지마~
+				return null; 
 			}
 			for (EntityAnnotation annotation : res.getLabelAnnotationsList()) {
 
@@ -316,20 +309,7 @@ public class DailyController extends HttpServlet {
 			}
 			System.out.println(result);
 			JsonArray array = new Gson().toJsonTree(result).getAsJsonArray();
-
-			// parse : 형식을 변화해주는것
-			// Gson : Gson 을 사용하겠다.
-			// toJsonTree : Json 객체로 변환해주는것
-			// getAsJsonArray : 객체를 Array형식으로 만들어줌
-
-			// JSON.stringify();
-			// List를 JSON형식으로 만들어주는 애
-			/*
-			 * PrintWriter writer = resp.getWriter();
-			 * 
-			 * String jsonTxt = "{\"code\":\"200\", \"msg\":\"success\"}";
-			 * writer.print(jsonTxt);
-			 */
+		
 		}
 		return result;
 	}

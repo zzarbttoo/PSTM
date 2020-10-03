@@ -10,6 +10,7 @@ public class ReviewDto {
 	private String reviewtitle;
 	private String reviewcontent;
 	private String uploadimg;
+	private String reviewstar;
 	private Date regdate;
 	private int trainerid;
 	private String trainer;
@@ -17,12 +18,13 @@ public class ReviewDto {
 	public ReviewDto() {
 		
 	}
-	public ReviewDto(int reviewid, int userid, String reviewtitle, String reviewcontent, String uploadimg,Date regdate, int trainerid, String trainer) {
+	public ReviewDto(int reviewid, int userid, String reviewtitle, String reviewcontent, String uploadimg,String reviewstar, Date regdate, int trainerid, String trainer) {
 		this.reviewid=reviewid;
 		this.userid=userid;
 		this.reviewtitle=reviewtitle;
 		this.reviewcontent=reviewcontent;
 		this.uploadimg=uploadimg;
+		this.reviewstar=reviewstar;
 		this.regdate=regdate;
 		this.trainerid=trainerid;
 		this.trainer=trainer;
@@ -56,6 +58,12 @@ public class ReviewDto {
 	}
 	public void setUploadimg(String uploadimg) {
 		this.uploadimg = uploadimg;
+	}
+	public String getReviewstar() {
+		return reviewstar;
+	}
+	public void setReviewstar(String reviewstar) {
+		this.reviewstar=reviewstar;
 	}
 	public Date getRegdate() {
 		return regdate;

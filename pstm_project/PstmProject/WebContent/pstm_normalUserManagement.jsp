@@ -15,8 +15,6 @@
 	List<List<DietinfoDto>> dietList = (ArrayList<List<DietinfoDto>>)request.getAttribute("dietList");
 %>
 
-
-
 <%
 	if(session.getAttribute("login") ==null){
 		String result = "<script> alert('로그인을 먼저 해주세요!'); location.href='pstm_login.jsp'; </script> ";
@@ -34,7 +32,10 @@
 
 
 
-<form action="trainer.do" method="post">
+
+
+	<form action="trainer.do" method="post">
+
 	<input type="hidden" name="command" value="fbinsert">
 <%
 for(int i = 0; i < dailyList.size(); i++){
