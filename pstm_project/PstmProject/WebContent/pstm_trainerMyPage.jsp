@@ -76,7 +76,13 @@
                      <p>키:<%=user.getHeight() %></p>
                   </td>
                   <td><input type="button" value="회원관리" onclick="location.href='yana.do?command=studentlist&userid=<%=user.getUserid()%>'"/>
-                     <input type="button" value="webRTC" onclick=""/></td>               
+                     <form action="https://pstm-webrtc.ml:3290" method="get">
+                     	<input type="hidden" name="id" value="<%=userdto.getUserid() %>" />
+                     	<input type="hidden" name="opid" value="<%=user.getUserid() %>" />
+                     	<input type="hidden" name="name" value="<%=userdto.getName() %>" />
+                    	<input type="submit" value="webRTC"/>
+                     </form>
+                  </td> 
 
                </tr>            
             <%
