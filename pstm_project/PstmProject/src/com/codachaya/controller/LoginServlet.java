@@ -53,7 +53,7 @@ public class LoginServlet extends HttpServlet {
 			UserDto dto = dao.login(id);
 
 			if (dto != null) {
-				if(dto.getUsertype().equals("S") || dto.getUsertype().equals("T") && dto.getPassword().equals(password)) {
+				if((dto.getUsertype().equals("S") || dto.getUsertype().equals("T")) && dto.getPassword().equals(password)) {
 					HttpSession session = request.getSession();
 					session.setAttribute("login", dto);
 

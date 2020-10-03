@@ -8,7 +8,7 @@
 		<result property="id" column="ID" />
 		<result property="password" column="PASSWORD" />
 		<result property="password_key" column="PASSWORD_KEY" />
-		<result property="name" column="NAME" />	
+		<result property="name" column="NAME" />
 		<result property="phone" column="PHONE" />
 		<result property="addr" column="ADDR" />
 		<result property="detailaddr" column="DETAILADDR" />
@@ -31,15 +31,14 @@
 		PSTM_USERINFO ORDER BY
 		USERID DESC
 	</select>
-<<<<<<< HEAD
+
 
 	<!-- https://m.blog.naver.com/PostView.nhn?blogId=cir213&logNo=221214715748&proxyReferer=https:%2F%2Fwww.google.com%2F -->
 
-=======
-	
-	<!-- https://m.blog.naver.com/PostView.nhn?blogId=cir213&logNo=221214715748&proxyReferer=https:%2F%2Fwww.google.com%2F -->
 
->>>>>>> 37c5dde065256b676dac8fa76489600feccd216e
+
+
+
 	<select id="selectOne" parameterType="int" resultType="UserDto">
 		SELECT
 		USERID, ID, PASSWORD, PASSWORD_KEY, NAME, PHONE, ADDR, DETAILADDR,
@@ -60,10 +59,7 @@
 		#{admit}, #{signout})
 	</insert>
 
-<<<<<<< HEAD
-=======
-	
->>>>>>> 37c5dde065256b676dac8fa76489600feccd216e
+
 	<insert id="insertSNS" parameterType="UserDto">
 		INSERT INTO PSTM_USERINFO
 		VALUES(
@@ -209,7 +205,7 @@
 		USERTYPE, GENDER, HEIGHT, UPLOADIMG, CAREER,
 		MYCOMMENT,
 		ADMIT, SIGNOUT
-		FROM PSTM_USERINFOs
+		FROM PSTM_USERINFO
 		WHERE USERID IN
 		<choose>
 			<when test="keyIntList != null">
@@ -222,4 +218,7 @@
 	</select>
 	
 	
+	
+
+
 </mapper>

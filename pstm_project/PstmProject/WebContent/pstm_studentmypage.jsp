@@ -1,3 +1,4 @@
+<%@page import="com.codachaya.dto.LessonDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%request.setCharacterEncoding("UTF-8");%>
@@ -76,6 +77,8 @@
 	</nav>
 	
 	
+	
+	
 	<table border="1">
 	<col width="100">
 	<col width="100">
@@ -131,30 +134,59 @@
 		</tr>
 	</table>
 	
+	<%
+	
+	  List<ReceiptinfoDto> receiptList = (List<ReceiptinfoDto>) request.getAttribute("receiptList");
+	  List<LessonDto> lessonList = (List<LessonDto>) request.getAttribute("lessonList");
+	%>
+	
 	<h1>구매정보</h1>
 		<table border="1">
-		<col width="100">
-		<col width="100">
-		<col width="100">
-		<col width="100">
-		<col width="100">
-		<col width="100">
+		<col width="120">
+		<col width="120">
+		<col width="120">
+		<col width="120">
+		<col width="120">
 			<tr>
-				<th>결제일</th>
 				<th>구매상품</th>
-				<th>결재금액</th>
-				<th>종강일</th>
-				<th>상태</th>
-				<th>강의</th>
+				<th>결제일</th>
+				<th>결제금액</th>
+				<th>수강기간</th>
+				<th>화상채팅</th>
 			</tr>
-			<tr>
-				<td>2020-09-10</td>
-				<td>준범강의</td>
-				<td>290,000</td>
-				<td>2020-09-11</td>
-				<td>O</td>
-				<td><input type="button" value="강의"></td>
-			</tr>
+			<%
+					if (receiptList == null) {
+				%>
+				<tr>
+					
+					<td colspan="5">------작성된 글이 존재하지 않습니다.------</td>
+				</tr>
+								
+				<%				
+					}else{			
+						
+				%>
+									
+				<% 		
+					for( int i = 0; i <= receiptList.size()-1; i++){
+						
+				%>
+					<tr>
+						<td><%=lessonList.get(i).getClasscontent() %></td>
+						<td><%=receiptList.get(i).getBuydate() %></td>																		
+						<td><%=receiptList.get(i).getPrice() %>원</td>			
+						<td><%=receiptList.get(i).getDuration() %>개월</td>
+						<td><input type="button" value="강의" onclick=""></td>
+					</tr>
+									
+									
+				<%
+							}
+						}
+				%>
+			
+			
+
 		</table>
 
 		<%@include file="./form/pstm_footer.jsp" %>

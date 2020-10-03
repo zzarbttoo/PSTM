@@ -1,3 +1,6 @@
+<%@page import="java.util.ArrayList"%>
+<%@page import="com.codachaya.dto.DietinfoDto"%>
+<%@page import="com.codachaya.dto.DailyinfoDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,6 +10,12 @@
 <title>Insert title here</title>
 </head>
 <body>
+<%
+	List<DailyinfoDto> dailyList = (ArrayList<DailyinfoDto>)request.getAttribute("list");
+	List<List<DietinfoDto>> dietList = (ArrayList<List<DietinfoDto>>)request.getAttribute("dietList");
+%>
+
+
 
 <%
 	if(session.getAttribute("login") ==null){
@@ -14,6 +23,7 @@
 		response.getWriter().append(result);
 	}
 %>
+
 
 <%@ include file="./form/pstm_header.jsp"%>
 
@@ -24,29 +34,26 @@
 
 
 
-	<form action="">
-
+<form action="trainer.do" method="post">
+	<input type="hidden" name="command" value="fbinsert">
+<%
+for(int i = 0; i < dailyList.size(); i++){
+	for(int j = 0; j < dietList.get(i).size(); j++){
+%>
 		<table border="1">
 			<tr>
 				<th>칼로리</th>
-				<td></td>
-			</tr>
-
-			<tr>
-				<th>운동기록</th>
-				<td></td>
-
+				<td><%=dietList.get(i).get(j).getKcal() %></td>
 			</tr>
 
 			<tr>
 				<th>음식정보</th>
-				<td></td>
+				<td><%=dietList.get(i).get(j).getResult() %></td>
 			</tr>
-
 
 			<tr>
 				<th>피드백</th>
-				<td><textarea cols="50" rows="10"></textarea></td>
+				<td><textarea cols="50" rows="10" name="feedback"></textarea></td>
 			</tr>
 
 			<tr>
@@ -55,6 +62,10 @@
 			</tr>
 
 		</table>
+		<%
+		}
+	}
+		%>
 	</form>
 
 

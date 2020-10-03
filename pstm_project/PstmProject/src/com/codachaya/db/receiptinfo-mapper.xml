@@ -1,56 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
-<mapper namespace ="receiptinfomapper">
-	
-	<resultMap type  ="ReceiptinfoDto" id = "receiptinfoResultMap">
-		<result property  ="receiptid" column = "RECEIPTID"></result>
-		<result property  ="imp_uid" column = "IMP_UID"></result>
-		<result property ="userid" column = "USERID"></result>
-		<result property ="trainerid" column = "TRAINERID"></result>
-		<result property ="buydate" column = "BUYDATE"></result>
-		<result property ="startdate" column = "STARTDATE"></result>
-		<result property ="duration" column = "DURATION"></result>
-		<result property ="purchasetype" column = "PURCHASETYPE"></result>
-		<result property ="checkright" column = "CHECKRIGHT"></result>
-		<result property ="refund" column = "REFUND"></result>
-		<result property ="price" column = "PRICE"></result>
-	
+<mapper namespace="receiptinfomapper">
+
+	<resultMap type="ReceiptinfoDto" id="receiptinfoResultMap">
+		<result property="receiptid" column="RECEIPTID"></result>
+		<result property="imp_uid" column="IMP_UID"></result>
+		<result property="userid" column="USERID"></result>
+		<result property="trainerid" column="TRAINERID"></result>
+		<result property="buydate" column="BUYDATE"></result>
+		<result property="startdate" column="STARTDATE"></result>
+		<result property="duration" column="DURATION"></result>
+		<result property="purchasetype" column="PURCHASETYPE"></result>
+		<result property="checkright" column="CHECKRIGHT"></result>
+		<result property="refund" column="REFUND"></result>
+		<result property="price" column="PRICE"></result>
+
 	</resultMap>
-	
-	<select id = "selectList" resultMap = "receiptinfoResultMap">
-		SELECT RECEIPTID, IMP_UID, USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
-		PURCHASETYPE, CHECKRIGHT, REFUND, PRICE
+
+	<select id="selectList" resultMap="receiptinfoResultMap">
+		SELECT RECEIPTID, IMP_UID,
+		USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
+		PURCHASETYPE,
+		CHECKRIGHT, REFUND, PRICE
 		FROM PSTM_RECEIPTINFO
-		
+
 	</select>
-	
-	<select id = "selectOne" parameterType = "int">
-	
+
+	<select id="selectOne" parameterType="int">
+
 		SELECT RECEIPTID , IMP_UID, USERID, TRAINERID, BUYDATE, STARTDATE, DURATION,
 		PURCHASETYPE , CHECKRIGHT, REFUND, PRICE
-		FROM PSTM_RECEIPTINFO WHERE RECEIPTID = #{receiptid}
-		
+		FROM PSTM_RECEIPTINFO WHERE
+		RECEIPTID = #{receiptid}
+
 	</select>
-	
-	<insert id = "insert">
-		INSERT INTO PSTM_RECEIPTINFO VALUES(PSTM_RECEIPTIDSEQ.NEXTVAL, #{imp_uid} ,#{userid}, #{trainerid},SYSDATE , #{startdate},#{duration}, #{purchasetype}, #{checkright}, 'N', #{price})
+
+	<insert id="insert">
+		INSERT INTO PSTM_RECEIPTINFO
+		VALUES(PSTM_RECEIPTIDSEQ.NEXTVAL, #{imp_uid} ,#{userid},
+		#{trainerid},SYSDATE , #{startdate},#{duration}, #{purchasetype},
+		#{checkright}, 'N', #{price})
 	</insert>
-	
-	<delete id = "delete" parameterType = "int">
-		DELETE FROM PSTM_RECEIPTINFO WHERE RECEIPTID = #{receiptid}
+
+	<delete id="delete" parameterType="int">
+		DELETE FROM PSTM_RECEIPTINFO
+		WHERE RECEIPTID = #{receiptid}
 	</delete>
-	
-	<update id = "updaterefund" parameterType = "int">
-		UPDATE PSTM_RECEIPTINFO SET REFUND = 'N' WHERE RECEIPTID = #{receiptid}
-	
+
+	<update id="updaterefund" parameterType="int">
+		UPDATE PSTM_RECEIPTINFO
+		SET REFUND = 'N' WHERE RECEIPTID = #{receiptid}
+
 	</update>
-	
-	<select id = "selectId" parameterType = "String" resultMap = "receiptinfoResultMap" >
-	
-		SELECT RECEIPTID FROM PSTM_RECEIPTINFO WHERE IMP_UID = #{imp_uid} AND ROWNUM = 1
-		
+
+	<select id="selectId" parameterType="String"
+		resultMap="receiptinfoResultMap">
+
+		SELECT RECEIPTID FROM PSTM_RECEIPTINFO WHERE IMP_UID = #{imp_uid} AND ROWNUM
+		= 1
+
+	</select>
+
+	<select id="userReceiptList" parameterType="int"
+		resultMap="receiptinfoResultMap">
+		SELECT RECEIPTID, USERID, TRAINERID, BUYDATE,
+		DURATION,PRICE
+		FROM PSTM_RECEIPTINFO WHERE USERID = #{userid}
+
 	</select>
 	
+	<select id="selectTrainid" parameterType="int" resultMap="receiptinfoResultMap">
+
+		SELECT USERID, TRAINERID
+		FROM PSTM_RECEIPTINFO 
+		WHERE USERID = #{userid}
+
+	</select>
+	
+
 
 </mapper>
 

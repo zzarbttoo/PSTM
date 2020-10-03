@@ -70,21 +70,15 @@
 					for( UserDto user : userlist){
 				%>
 					<tr>
-<<<<<<< HEAD
+
 						<td><img alt="profile_image" src="<%=user.getUploadimg() %>" style="width:150px; height:100px;"></td>
 						<td>이름:<%=user.getName() %> 
 							<p>성별:<%=user.getGender() %></p>
-							<p>키:<%=user.getHeight() %></p></td>
-						<td><input type="button" value="회원관리" onclick="location.href='pstm_normalUserManagement.jsp'"/>
-							<input type="button" value="webRTC" onclick=""/></td>						
-=======
-						<td><%=user.getUploadimg() %></td>
-						<td><%=user.getName() %></td>
-						<td align="center">
-							<input type="button" value="회원관리" onclick="location.href='trainer.do?command=userlist&userid=<%=user.getUserid()%>''"/>
-							<input type="button" value="webRTC" onclick=""/>
+							<p>키:<%=user.getHeight() %></p>
 						</td>
->>>>>>> 37c5dde065256b676dac8fa76489600feccd216e
+						<td><input type="button" value="회원관리" onclick="trainer.do?command=studentlist<%=user.getUserid()%>"/>
+							<input type="button" value="webRTC" onclick=""/></td>					
+
 					</tr>				
 				<%
 						}
