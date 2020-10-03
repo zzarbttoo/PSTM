@@ -34,7 +34,7 @@
 배유진(팀장)  &nbsp;: &nbsp; 결제 페이지(import/iamporter), 챗봇(dialogFlow), 채팅(node.js socket.io 등), 페이징  
 김선아 &nbsp;: &nbsp;후기 게시판(mybatis 이용), 후기 검색 기능, 글쓰기 api(썸머노트), 페이징   
 김지훈 &nbsp;: &nbsp;식단/운동 확인 페이지(스크롤 페이징, Vision API/객체 감지)  
-박민석 &nbsp;: &nbsp;비밀번호 암호화(해시 알고리즘), 화상 채팅(node.js socket.io, React Redux, https 등)
+박민석 &nbsp;: &nbsp;비밀번호 암호화(해시 알고리즘), 화상 채팅(node.js socket.io, React Redux, https 등)  
 박준범 &nbsp;: &nbsp;지도 api(카카오 지도), 영양 성분 API(국가 표준 식품 성분 DB)  
 조용승 &nbsp;: &nbsp;로그인 api(네이버/페이스북 로그인 API), 마이페이지(pt 강사용)
 
