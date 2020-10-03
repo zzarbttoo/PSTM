@@ -40,16 +40,7 @@ body {
 
 }
 
-.snsBtn {
-	
-	width : 250px;
-	height : 50px;
-	font-size : 26px;
-	color : white;
-	background-color : skyblue;
-	border : none;
 
-}
 
 .inputSize:focus {
 

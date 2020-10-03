@@ -2,10 +2,6 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
 <mapper namespace="dailyinfomapper">
   
-  
-  
-  
-  
   <resultMap type="DailyinfoDto" id="DailyinfoDto">
   
     <result property="dailyinfoid" column="DAILYINFOID"/>
@@ -17,10 +13,6 @@
   	
   </resultMap>
   
-  
-	
-	
-
    
   <select id="selectList" resultMap="DailyinfoDto">
   	SELECT DAILYINFOID, USERID, REGDATE, EXERCISE, CONSUMEKCAL, FEEDBACK
@@ -39,6 +31,11 @@
   	VALUES(DAILYINFOIDSEQ.NEXTVAL,1, SYSDATE, '스쿼트', 150, 'ㅎㅎ')
   </insert>
   
+  <insert id="feedbackinsert" parameterType="DailyinfoDto">
+  	INSERT INTO PSTM_DAILYINFO
+  	VALUES(DAILYINFOIDSEQ.NEXTVAL, 1, SYSDATE, 'TEST',150,#{feedback})
+  </insert>
+  
   <update id="update" parameterType="DailyinfoDto">
   	UPDATE PSTM_DAILYINFO SET
   	EXERCISE = #{exercise}, CONSUMEKCAL = #{consumekcal}, FEEDBACK = #{feedback}
@@ -48,5 +45,7 @@
   	DELETE FROM PSTM_DAILYINFO WHERE DAILYINFOID = #{dailyinfoid}
   </delete>
   
-
+  
+  
+  
 </mapper>

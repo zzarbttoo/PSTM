@@ -122,7 +122,7 @@ color:black;
 				<%
 						if(userdto.getUsertype().equals("N") || userdto.getUsertype().equals("F") || userdto.getUsertype().equals("S")){
 				%>
-							<li id="headerMemberPage"><a class="menubarcss" href="pstm_studentmypage.jsp">마이페이지</a></li>	
+							<li id="headerMemberPage"><a class="menubarcss" href="yana.do?command=userlist&userid=<%=userdto.getUserid()%>">마이페이지</a></li>	
 				<% 			
 						}else if(userdto.getUsertype().equals("T")){
 							

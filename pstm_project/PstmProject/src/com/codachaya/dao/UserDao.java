@@ -39,7 +39,7 @@ public class UserDao extends SqlMapConfig {
 			e.printStackTrace();
 		} finally {
 			session.close();
-			System.out.println("5. DB 종료");
+			System.out.println("5.로그인 DB 종료");
 		}
 
 		return dto;
@@ -115,6 +115,9 @@ public class UserDao extends SqlMapConfig {
 		return dto;
 	}
 
+
+	
+
 	public List<UserDto> selectPayingUserList(int trainerid) {
 
 		SqlSession session = null;
@@ -135,7 +138,7 @@ public class UserDao extends SqlMapConfig {
 		} catch (Exception e) {
 			System.out.println("ERROR");
 			e.printStackTrace();
-		} 
+		}
 
 		// biz단에서 실행해야 하나 biz가 없으므로 여기에 작성
 		// jsonObject 생성
@@ -150,7 +153,7 @@ public class UserDao extends SqlMapConfig {
 			String key = useridkeyiter.next().toString();
 			System.out.println("key:" + key);
 			keyIntList.add(Integer.parseInt(key));
-			System.out.println("keyIntList"+keyIntList);
+			System.out.println("keyIntList" + keyIntList);
 		}
 		System.out.println("리스트 사이즈:" + keyIntList.size());
 
@@ -158,7 +161,7 @@ public class UserDao extends SqlMapConfig {
 			// Usermapper에서 해당 usernum을 가진 userdto만 꺼내온다
 			// System.out.println("param1:" +param);
 			param.put("keyIntList", keyIntList);
-			 System.out.println("param2:" +param);
+			System.out.println("param2:" + param);
 			payingUserList = session.selectList(namespace + "keylistuser", param);
 		} catch (Exception e) {
 			e.printStackTrace();

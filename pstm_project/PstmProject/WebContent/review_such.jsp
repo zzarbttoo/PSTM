@@ -75,7 +75,7 @@
 										src="http://localhost:8787/PstmProject/imgfolder/<%=reviewsuch.get(i).getUploadimg()%>"
 										style="height: 220px;
    												 background-position: 50%;
-   												 background-size: cover;">
+   												 background-size: cover;">s
 									<!-- 					이미지주소&이미지 이름				 -->
 								</div>
 								<div class="review_text">

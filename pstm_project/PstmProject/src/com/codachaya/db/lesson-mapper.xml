@@ -6,17 +6,19 @@
 		<result property="classcontent" column="CLASSCONTENT" />
 		<result property="priceinfo" column="PRICEINFO" />
 		<result property="studentid" column="STUDENTID" />
-		<result property = "studentcount" column = "STUDENTCOUNT"/>
+		<result property="studentcount" column="STUDENTCOUNT" />
 	</resultMap>
-	
+
 	<select id="selectList" resultMap="LessonResultMap">
 		SELECT USERID , CLASSCONTENT ,
 		PRICEINFO , STUDENTID, STUDENTCOUNT
 		FROM PSTM_LESSON
 	</select>
 
-	<select id="selectOne" resultType="LessonDto" parameterType="int">
-		SELECT USERID , CLASSCONTENT , PRICEINFO , STUDENTID, STUDENTCOUNT
+	<select id="selectOne" resultType="LessonDto"
+		parameterType="int">
+		SELECT USERID , CLASSCONTENT , PRICEINFO , STUDENTID,
+		STUDENTCOUNT
 		FROM PSTM_LESSON WHERE USERID = #{userid}
 
 	</select>
@@ -33,13 +35,29 @@
 
 	<update id="update" parameterType="int">
 		UPDATE PSTM_LESSON SET
-		CLASSCONTENT = #{classcontent} , PRICEINFO = #{priceinfo} , STUDENTID = #{studentid} 
+		CLASSCONTENT = #{classcontent} , PRICEINFO = #{priceinfo} , STUDENTID
+		= #{studentid}
 		WHERE USERID = #{userid}
 	</update>
 
 	<update id="updatestudent" parameterType="LessonDto">
 		UPDATE PSTM_LESSON SET
-		STUDENTID = #{studentid} , STUDENTCOUNT = #{studentcount} WHERE USERID = #{userid}
+		STUDENTID = #{studentid} , STUDENTCOUNT = #{studentcount} WHERE USERID
+		= #{userid}
 	</update>
-	
+
+	<select id="selectClass" parameterType="java.util.List"
+		resultType="LessonDto">
+		SELECT USERID , CLASSCONTENT ,
+		PRICEINFO , STUDENTID, STUDENTCOUNT
+		FROM PSTM_LESSON
+		WHERE USERID IN
+			<if test="list != null">
+				<foreach collection="list" item="item" open="(" separator="," close=")">
+					#{item}
+				</foreach>
+			</if>
+		ORDER BY USERID DESC
+	</select>
+
 </mapper>

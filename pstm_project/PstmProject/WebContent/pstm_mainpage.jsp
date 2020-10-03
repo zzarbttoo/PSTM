@@ -1,5 +1,10 @@
+<%@page import="com.codachaya.dao.ReviewDao"%>
+<%@page import="com.codachaya.dto.ReviewDto"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<% request.setCharacterEncoding("UTF-8"); %>
+<% response.setContentType("text/html; charset=UTF-8"); %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,8 +15,7 @@
 <script type="text/javascript"
 	src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
-	$(function() {
-
+	$(function() {	
 		var slideIndex = 0;
 		var trainerIndex = 0;
 		showSlides();
@@ -124,10 +128,31 @@
 	<div>
 		<h1>후기 게시판</h1>
 	</div>
-	<div>
-		<img src="" /> <img src="" /> <img src="" />
-	</div>
+ 	
+ 	<div>
+	<%
+	ReviewDao dao = new ReviewDao();
+	ReviewDto dto = dao.selectOne(18);
+	 String firstimg = dto.getUploadimg();
+	 String firsttitle = dto.getReviewtitle();
+	 System.out.println(firstimg);
+	 System.out.println(firsttitle);
+	 ReviewDto dtto = dao.selectOne(2);
+	 String twoimg = dtto.getUploadimg();
+	 String twotitle = dtto.getReviewtitle();
+	 ReviewDto ddto = dao.selectOne(1);
+	 String threeimg = ddto.getUploadimg();
+	 String threetitle = ddto.getReviewtitle();
+	%>
 
+		<img src =""/>
+		<img src="<%= firstimg%>">
+		<p><%= firsttitle %></p>
+		<img src="<%= twoimg%>">
+		<p><%= twotitle%></p>
+		<img src="<%= threeimg%>">
+		<p><%= threetitle %></p>
+	</div>
 
 
 	<%@ include file="./form/pstm_footer.jsp"%>

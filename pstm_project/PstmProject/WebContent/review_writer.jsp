@@ -97,6 +97,7 @@
 
 			<div class="right-container">
 				<form action="review.do" method="post" enctype="multipart/form-data">
+				<input type="hidden" name="command" value="reinsert">
 				<input type="hidden" name="command" value="insertres">
 					<table border="1">
 					
@@ -113,9 +114,17 @@
 						</tr>
 						
 						</table>
-						<textarea name="reviewcontent" id="summernote" class="summernote" style="margin: 0;"></textarea>
+						<textarea name="reviewcontent" id="summernote" class="summernote"
+							style="margin: 0;"></textarea>
+					<table>
+					<tr>
+						<td>
+						파일 : <input type="file" name="uploadimg">
+						</td>
+					</tr>
+					</table>
+					
 						
-						<input type="file" name="uploadimg" id="imput_img" class="excelfile">
 						
 						<table style="float: right;">
 						<tr>
@@ -124,6 +133,8 @@
 							<input type="submit" value="작성" /></td>
 						</tr>
 					</table>
+					
+					
 				</form>
 			</div>
 
