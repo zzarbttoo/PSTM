@@ -27,6 +27,7 @@ import org.json.simple.parser.JSONParser;
 
 import com.codachaya.dao.UserDao;
 import com.codachaya.dto.UserDto;
+import com.codachaya.util.PasswordUtil;
 
 @WebServlet("/LoginServlet")
 public class LoginServlet extends HttpServlet {
@@ -53,21 +54,21 @@ public class LoginServlet extends HttpServlet {
 			UserDto dto = dao.login(id);
 
 			if (dto != null) {
-				if((dto.getUsertype().equals("S") || dto.getUsertype().equals("T")) && dto.getPassword().equals(password)) {
-					HttpSession session = request.getSession();
-					session.setAttribute("login", dto);
+				if(dto.getUsertype().equals("S") || dto.getUsertype().equals("T")) {
+					if(PasswordUtil.checkPassword(password, dto.getPassword_key(), dto.getPassword())) {
+						HttpSession session = request.getSession();
+						session.setAttribute("login", dto);
 
-					session.setMaxInactiveInterval(-1);
-					
-					login = true;
+						session.setMaxInactiveInterval(-1);
+						
+						login = true;
 
-					response.sendRedirect("pstm_mainpage.jsp");
+						response.sendRedirect("pstm_mainpage.jsp");
+					}
 				}
-
 			} 
 
 			if(!login) {
-
 				jsResponse("로그인 실패", "pstm_login.jsp", response);
 
 			}

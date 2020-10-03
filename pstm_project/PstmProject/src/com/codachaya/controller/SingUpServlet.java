@@ -15,6 +15,7 @@ import com.codachaya.dao.PayingDao;
 import com.codachaya.dao.UserDao;
 import com.codachaya.dto.LessonDto;
 import com.codachaya.dto.UserDto;
+import com.codachaya.util.PasswordUtil;
 
 @WebServlet("/SingUpServlet")
 public class SingUpServlet extends HttpServlet {
@@ -35,7 +36,6 @@ public class SingUpServlet extends HttpServlet {
 			
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
-			String password_key = request.getParameter("password_key");
 			String name = request.getParameter("name");
 			String gender = request.getParameter("gender");
 			String phone = request.getParameter("phone");
@@ -46,34 +46,49 @@ public class SingUpServlet extends HttpServlet {
 			String mycomment = request.getParameter("mycomment");
 			String signout = request.getParameter("signout");
 			
-			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, 0, null,
-					career, mycomment, null, signout);
+			String[] encryptedPassword = PasswordUtil.encrypt(password);
+			
+			UserDto dto = new UserDto(0, id, encryptedPassword[0], encryptedPassword[1], name, phone, addr, detailaddr, usertype, gender, 0, null,
+			 career, mycomment, null, signout);
+			
+			boolean register = false;
 			
 			int res = dao.insertTrainer(dto);
 			
 			if(res > 0) {
-				
 				dto = dao.login(id);
-				if(dto.getUsertype().equals("T") && dto.getPassword().equals(password)) {
-					
-					LessonDto lessonDto = new LessonDto();
+				if(dto.getUsertype().equals("T")) {
+					if(PasswordUtil.checkPassword(password, dto.getPassword_key(), dto.getPassword())) {
+						
+						LessonDto lessonDto = new LessonDto();
 
-					lessonDto.setUserid(dto.getUserid());
-					lessonDto.setClasscontent(dto.getName() + "의 강의");
-					lessonDto.setPriceinfo("dummy");
-					
-					payingDao.insertLesson(lessonDto);
-					
-					jsResponse("회원가입 성공", "pstm_login.jsp", response);
+						lessonDto.setUserid(dto.getUserid());
+						lessonDto.setClasscontent(dto.getName() + "의 강의");
+						lessonDto.setPriceinfo("dummy");
+							
+						res = payingDao.insertLesson(lessonDto);
+
+						if(res > 0) {
+							HttpSession session = request.getSession();
+							session.setAttribute("login", dto);
+	
+							session.setMaxInactiveInterval(-1);
+								
+							register = true;
+								
+							jsResponse("회원가입 성공", "pstm_login.jsp", response);
+						}
+					}
 				}
-			}else {
+			}
+
+			if(!register) {
 				jsResponse("회원가입 실패", "pstm_trainerSignUp.jsp", response);
 			}
 		}else if(command.equals("signup")) {
 			
 			String id = request.getParameter("id");
 			String password = request.getParameter("password");
-			String password_key = request.getParameter("password_key");
 			String name = request.getParameter("name");
 			String phone = request.getParameter("phone");
 			String addr = request.getParameter("addr");
@@ -82,9 +97,11 @@ public class SingUpServlet extends HttpServlet {
 			String gender = request.getParameter("gender");
 			int height = Integer.parseInt(request.getParameter("height"));
 			String signout = "N";
+
+			String[] encryptedPassword = PasswordUtil.encrypt(password);
 			
-			UserDto dto = new UserDto(0, id, password, password_key, name, phone, addr, detailaddr, usertype, gender, height, 
-					null, null, null, null, signout);
+			UserDto dto = new UserDto(0, id, encryptedPassword[0], encryptedPassword[1], name, phone, addr, detailaddr, usertype, gender, height, 
+			null, null, null, null, signout);
 					
 			int res = dao.insertNormalUser(dto);
 			
@@ -93,15 +110,17 @@ public class SingUpServlet extends HttpServlet {
 			if (res > 0) {
 				dto = dao.login(id);
 				
-				if(dto.getUsertype().equals("S") && dto.getPassword().equals(password)) {
-					HttpSession session = request.getSession();
-					session.setAttribute("login", dto);
+				if(dto.getUsertype().equals("S")) {
+					if(PasswordUtil.checkPassword(password, dto.getPassword_key(), dto.getPassword())) {
+						HttpSession session = request.getSession();
+						session.setAttribute("login", dto);
 
-					session.setMaxInactiveInterval(-1);
-					
-					register = true;
-					
-					jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
+						session.setMaxInactiveInterval(-1);
+						
+						register = true;
+						
+						jsResponse("회원가입 성공!", "pstm_mainpage.jsp", response);
+					}
 				}
 				
 			} 

@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import org.apache.ibatis.session.SqlSession;
-import org.json.simple.JSONObject;
 
 import com.codachaya.dto.LessonDto;
 import com.codachaya.dto.UserDto;

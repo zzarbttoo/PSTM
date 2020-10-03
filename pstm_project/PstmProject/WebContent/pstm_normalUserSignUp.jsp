@@ -119,7 +119,8 @@ th {
 				
 				<tr>
 					<th>주소</th>
-					<td><input type="text" name="addr" class="inputSize" /></td>
+					<td><input type="text" name="addr" class="inputSize" readonly="readonly"/>
+					<input type="button" value="주소찾기" onclick="openAddressSearch()"/></td>
 				</tr>
 				
 				<tr>
@@ -136,7 +137,8 @@ th {
 
 </form>
 <%@ include file="./form/pstm_footer.jsp"%>
-
+<!--카카오 지도 위치검색 API -->
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 <script type="text/javascript" src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
 <script type="text/javascript">
 
@@ -160,6 +162,15 @@ $(".inputPw").focusout(function () {
         }
     }
 });
+
+function openAddressSearch() {
+    new daum.Postcode({
+        oncomplete: function(data) {
+	    	console.log(data);
+	    	$("input[name=addr]").val(data.address + " " + data.buildingName);
+        }
+    }).open();
+}
 
 </script>
 

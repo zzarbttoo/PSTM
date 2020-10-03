@@ -177,7 +177,14 @@
 						<td><%=receiptList.get(i).getBuydate() %></td>																		
 						<td><%=receiptList.get(i).getPrice() %>원</td>			
 						<td><%=receiptList.get(i).getDuration() %>개월</td>
-						<td><input type="button" value="강의" onclick=""></td>
+						<td>
+							<form action="https://pstm-webrtc.ml:3290" method="get">
+								<input type="hidden" name="id" value="<%=userdto.getUserid() %>" />
+								<input type="hidden" name="opid" value="<%=lessonList.get(i).getUserid() %>" />
+								<input type="hidden" name="name" value="<%=userdto.getName() %>" />
+								<input type="submit" value="강의">
+							</form>
+						</td>
 					</tr>
 									
 									
