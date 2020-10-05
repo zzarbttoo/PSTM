@@ -38,3 +38,19 @@
 박준범 &nbsp;: &nbsp;지도 api(카카오 지도), 영양 성분 API(국가 표준 식품 성분 DB)  
 조용승 &nbsp;: &nbsp;로그인 api(네이버/페이스북 로그인 API), 마이페이지(pt 강사용)
 
+</br>
+
+#### <b>프로젝트 개발 환경</b>
+
+개발툴  
+	- Eclipse JAVA EE IDE 2019-6 Version을 기본 개발툴로 사용한다.   
+	- Oracle Database11gExpress Edition을 Database 관리툴로 사용한다.
+    - WAS로는 tomcat 9를 메인 서버로 사용하며, 기능에 따라 node.js, react를 이용한 서버를 따로 구축하여 연결한다 
+
+</br>
+
+#### <b>프로젝트 소개 링크</b>
+https://github.com/zzarbttoo/PSTM/blob/master/%EC%84%B8%EB%AF%B8%ED%94%84%EB%A1%9C%EC%A0%9D%ED%8A%B8_PSTM_%EC%BD%94%EB%8D%94%EC%B0%A8%EC%95%BC_2%EC%A1%B0.pdf
+
+#### <b>프로젝트 시연 영상</b>
+https://www.youtube.com/watch?v=TFLQwBOJcLE
