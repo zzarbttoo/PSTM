@@ -44,8 +44,8 @@
 
 개발툴  
 	- Eclipse JAVA EE IDE 2019-6 Version을 기본 개발툴로 사용한다.   
-	- Oracle Database11gExpress Edition을 Database 관리툴로 사용한다.
-    - WAS로는 tomcat 9를 메인 서버로 사용하며, 기능에 따라 node.js, react를 이용한 서버를 따로 구축하여 연결한다 
+	- Oracle Database11gExpress Edition을 Database 관리툴로 사용한다.  
+	- WAS로는 tomcat 9를 메인 서버로 사용하며, 기능에 따라 node.js, react를 이용한 서버를 따로 구축하여 연결한다 
 
 </br>
 
