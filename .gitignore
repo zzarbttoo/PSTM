@@ -5,3 +5,6 @@ pstm_project/PstmProject/.classpath
 pstm_project/PstmProject/.settings/
 PSTMWebRTC/node_modules
 PSTMWebRTC/webrtc_client/node_modules
+PSTMWebRTC/webrtc_client/ca_bundle.crt
+PSTMWebRTC/webrtc_client/certificate.crt
+PSTMWebRTC/webrtc_client/private.key
