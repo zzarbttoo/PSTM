@@ -8,3 +8,6 @@ PSTMWebRTC/webrtc_client/node_modules
 PSTMWebRTC/webrtc_client/ca_bundle.crt
 PSTMWebRTC/webrtc_client/certificate.crt
 PSTMWebRTC/webrtc_client/private.key
+PSTMWebRTC/webrtc_server/ca_bundle.crt
+PSTMWebRTC/webrtc_server/certificate.crt
+PSTMWebRTC/webrtc_server/private.key
